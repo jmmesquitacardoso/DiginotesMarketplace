@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
 
-namespace Shared
+namespace Server
 {
 	[Serializable]
-	public class MarketplaceDatabase
+	public class Database
 	{
 		private Hashtable RegisteredUsers = new Hashtable();
 
-		public MarketplaceDatabase ()
+		public Database ()
 		{
 		}
 	}
