@@ -1,6 +1,13 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Server/ServerApp.exe.config">
+    <Files>
+      <File FileName="Client/ClientApp.cs" Line="4" Column="1" />
+      <File FileName="Server/ServerApp.cs" Line="13" Column="1" />
+      <File FileName="Server/Marketplace.cs" Line="6" Column="3" />
+      <File FileName="Server/ServerApp.exe.config" Line="9" Column="61" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
