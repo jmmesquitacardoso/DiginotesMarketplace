@@ -1,0 +1,8 @@
+/home/dpinto/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/dpinto/workspace-cs/DiginotesExchange/Client/bin/Debug/ClientApp.exe.config
+/home/dpinto/workspace-cs/DiginotesExchange/Client/bin/Debug/Client.exe.mdb
+/home/dpinto/workspace-cs/DiginotesExchange/Client/bin/Debug/Client.exe
+/home/dpinto/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/Client.exe
+/home/dpinto/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/Client.exe.mdb
+/home/dpinto/workspace-cs/DiginotesExchange/Client/bin/Debug/Shared.dll
+/home/dpinto/workspace-cs/DiginotesExchange/Client/bin/Debug/Shared.dll.mdb
