@@ -2,11 +2,9 @@
 
 namespace Shared
 {
-	public class UsersManager
+    public class UsersManager : MarshalByRefObject
 	{
-		public UsersManager ()
-		{
-		}
+        
 	}
 }
 
