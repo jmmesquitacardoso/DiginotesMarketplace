@@ -22,6 +22,11 @@ namespace Client
         {
             return sharedMarketplace.Login(username, password);
         }
+
+        public int Logout(string username)
+        {
+            return sharedMarketplace.Logout(username);
+        }
 	}
 }
 

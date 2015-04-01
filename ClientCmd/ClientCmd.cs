@@ -28,6 +28,18 @@ namespace ClientCmd
             {
                 Console.WriteLine("Erro ao fazer login");
             }
+
+            if (cap.Logout(username) == 1)
+            {
+                Console.WriteLine("Logout feito com sucesso");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Erro ao fazer logout");
+                Console.ReadLine();
+            }
+
         }
 	}
 }

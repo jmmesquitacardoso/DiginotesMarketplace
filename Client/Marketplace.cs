@@ -15,12 +15,12 @@ namespace Server
 
 		public int Login(string username, string password)
 		{
-			return 0;
+			return -1;
 		}
 
-		public void Logout(string username)
+		public int Logout(string username)
 		{
-
+            return -1;
 		}
 	}
 }
