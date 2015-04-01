@@ -9,15 +9,8 @@ namespace Client
         Marketplace sharedMarketplace;
 		public ClientApp ()
         {
-		}
-
-		static void Main (string[] args)
-        {
             RemotingConfiguration.Configure("ClientApp.exe.config", false);
-            Marketplace sharedMarketplace = new Marketplace();
-            sharedMarketplace.Register("1", "2");
-			Console.WriteLine ("Press Enter to exit");
-			Console.ReadLine ();
+            sharedMarketplace = new Marketplace();
 		}
 
         public void Register(string username, string password)
