@@ -6,11 +6,16 @@ namespace Client
 {
 	public class ClientApp
 	{
+		// Attributes
+		private float cot;
+		private ClientInterface parent;
+
         Marketplace sharedMarketplace;
-		public ClientApp ()
+		public ClientApp (ClientInterface parent)
         {
             RemotingConfiguration.Configure("ClientApp.exe.config", false);
             sharedMarketplace = new Marketplace();
+			this.parent = parent;
 		}
 
         public void Register(string username, string password)
@@ -20,13 +25,29 @@ namespace Client
 
         public int Login(string username, string password)
         {
-            return sharedMarketplace.Login(username, password);
+            int result = sharedMarketplace.Login(username, password);
+
+			if (result == 1) {
+				cot = sharedMarketplace.Cotation;
+				sharedMarketplace.notifyClients += this.UpdateCotation;
+			}
+
+			return result;
         }
 
-        public int Logout(string username)
-        {
-            return sharedMarketplace.Logout(username);
+        public int Logout (string username)
+		{
+			int result = sharedMarketplace.Logout (username);
+
+			if (result == 1) {
+				sharedMarketplace.notifyClients -= this.UpdateCotation;
+			}
         }
+
+		public int UpdateCotation(float cot)
+		{
+			this.cot = cot;
+		}
 	}
 }
 
