@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Shared
 {
 	public class User
 	{
-		HashSet<Diginote> wallet;
+		private Hashtable wallet;
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -25,13 +24,13 @@ namespace Shared
 			if (!(obj is User)) {
 				throw new InvalidCastException ("The Object isn't of Type User.");
 			} else {
-				// TODO
+				return Username.Equals((obj as User).Username);
 			}
 		}
 
 		public override int GetHashCode ()
 		{
-			// TODO
+			return Username.GetHashCode();
 		}
 	}
 }

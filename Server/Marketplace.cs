@@ -6,6 +6,8 @@ namespace Server
 {
 	public class Marketplace : MarshalByRefObject
 	{
+		public enum Status { Valid, Invalid, SharedObjError };
+
 		// Members
         private Hashtable usersLoggedIn;
 		private float quot;
@@ -35,11 +37,12 @@ namespace Server
 		}
 
 		// Methods
-        public void Register(string username, string password)
+        public int Register(string username, string password)
         {
             Console.WriteLine("Register Server side");
+			if (Database.Instance.getUsers().
             User user = new User(username, password);
-            Database.Instance.AddUser(username, user);
+            return Database.Instance.AddUser(username, user);
         }
 
         public int Login(string username, string password)
@@ -49,10 +52,10 @@ namespace Server
             {
                 User user = new User(username, password);
                 usersLoggedIn.Add(username, user);
-                return Status.Instance.UserAcess.Valid;
+				return Status.Valid;
             }
 
-            return Status.Instance.UserAcess.Invalid;
+            return Status.Invalid;
         }
 
         public int Logout(string username)
@@ -61,9 +64,9 @@ namespace Server
             if (usersLoggedIn.Contains(username))
             {
                 usersLoggedIn.Remove(username);
-                return Status.Instance.UserAcess.Valid;
+                return Status.Valid;
             }
-            return Status.Instance.UserAcess.Invalid;
+            return Status.Invalid;
         }
 	}
 }

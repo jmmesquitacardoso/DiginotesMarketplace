@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using Shared;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO;
 
 namespace Server
 {
@@ -11,8 +14,30 @@ namespace Server
 
 		private Hashtable registeredUsers = new Hashtable();
 
+		public Hashtable Users {
+			get {
+				return registeredUsers;
+			}
+		}
+
 		public Database ()
 		{
+			IFormatter formatter = new BinaryFormatter();
+			Stream stream = new FileStream("MyFile.bin", 
+				FileMode.Open, 
+				FileAccess.Read, 
+				FileShare.Read);
+			// Database obj = (Database) formatter.Deserialize(fromStream);
+			stream.Close();
+		}
+
+		private void SaveDatabase() {
+			IFormatter formatter = new BinaryFormatter();
+			Stream stream = new FileStream("diginotes_database.bin", 
+				FileMode.Create, 
+				FileAccess.Write, FileShare.None);
+			formatter.Serialize(stream, this);
+			stream.Close();
 		}
 
         public static Database Instance
@@ -29,11 +54,6 @@ namespace Server
 
         public void AddUser(string key, User value) {
             registeredUsers.Add(key, value);
-        }
-
-        public Hashtable getUsers()
-        {
-            return registeredUsers;
         }
 
         public User getUserByUsername(string username)

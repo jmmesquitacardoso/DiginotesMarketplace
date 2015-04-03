@@ -1,5 +1,5 @@
-/home/dpinto/workspace-cs/DiginotesExchange/Shared/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
-/home/dpinto/workspace-cs/DiginotesExchange/Shared/bin/Debug/Shared.dll.mdb
-/home/dpinto/workspace-cs/DiginotesExchange/Shared/bin/Debug/Shared.dll
-/home/dpinto/workspace-cs/DiginotesExchange/Shared/obj/x86/Debug/Shared.dll
-/home/dpinto/workspace-cs/DiginotesExchange/Shared/obj/x86/Debug/Shared.dll.mdb
+/home/diogo/workspace-cs/DiginotesExchange/Shared/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/diogo/workspace-cs/DiginotesExchange/Shared/bin/Debug/Shared.dll.mdb
+/home/diogo/workspace-cs/DiginotesExchange/Shared/bin/Debug/Shared.dll
+/home/diogo/workspace-cs/DiginotesExchange/Shared/obj/x86/Debug/Shared.dll
+/home/diogo/workspace-cs/DiginotesExchange/Shared/obj/x86/Debug/Shared.dll.mdb

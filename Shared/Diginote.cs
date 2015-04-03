@@ -28,7 +28,7 @@ namespace Shared
 			if (!(obj is User)) {
 				throw new InvalidCastException ("The Object isn't of Type Diginote.");
 			} else {
-				return this.Id = (obj as Diginote).Id;
+				return this.Id.Equals((obj as Diginote).Id);
 			}
 		}
 		

@@ -3,10 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Shared</RootNamespace>
-    <AssemblyName>Shared</AssemblyName>
+    <ProjectGuid>{05290FC6-154B-42AB-A1EA-0BD8B1AF1C99}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Server</RootNamespace>
+    <AssemblyName>Server</AssemblyName>
+    <StartupObject>Server.ServerApp</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
@@ -30,7 +31,21 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="User.cs" />
-    <Compile Include="Diginote.cs" />
+    <Compile Include="Marketplace.cs" />
+    <Compile Include="ServerApp.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Database.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ServerApp.exe.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
