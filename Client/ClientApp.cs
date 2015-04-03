@@ -17,9 +17,9 @@ namespace Client
 			this.parent = parent;
 		}
 
-        public void Register(string username, string password)
+		public void Register(string username, string password, int diginotes)
         {
-            sharedMarketplace.Register(username, password);
+			sharedMarketplace.Register(username, password, diginotes);
         }
 
 		public Marketplace.Status Login(string username, string password)

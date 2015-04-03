@@ -6,17 +6,15 @@ namespace Shared
 	{
 		private static int counter = 0;
 
-		private int id;
+		public int Id { get; }
+		public int Value {get;}
+		public User Owner { get; set; }
 
-		public int Id {
-			get {
-				return id;
-			}
-		}
-
-		public Diginote ()
+		public Diginote (User owner)
 		{
-			this.id = ++counter;
+			Id = ++counter;
+			Value = 1;
+			Owner = owner;
 		}
 
 		public override bool Equals (object obj)

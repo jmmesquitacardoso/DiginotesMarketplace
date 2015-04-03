@@ -37,14 +37,14 @@ namespace Server
 		}
 
 		// Methods
-		public Status Register(string username, string password)
+		public Status Register(string username, string password, int diginotes)
         {
             Console.WriteLine("Register Server side");
 			if (Database.Instance.Users.Contains(username)) {
 				return Status.Invalid;
 			}
-            User user = new User(username, password);
-            Database.Instance.AddUser(username, user);
+			User user = new User(username, password, diginotes);
+            Database.Instance.AddUser(username, user, diginotes);
 			return Status.Valid;
 		}
 
