@@ -7,7 +7,7 @@ namespace Client
 	public class ClientApp
 	{
 		// Attributes
-		private float cot;
+		private float quot;
 		private ClientInterface parent;
 
         Marketplace sharedMarketplace;
@@ -28,7 +28,7 @@ namespace Client
             int result = sharedMarketplace.Login(username, password);
 
 			if (result == 1) {
-				cot = sharedMarketplace.Cotation;
+				quot = sharedMarketplace.Cotation;
 				sharedMarketplace.notifyClients += this.UpdateCotation;
 			}
 
@@ -44,10 +44,9 @@ namespace Client
 			}
         }
 
-		public int UpdateCotation(float cot)
+		public int UpdateCotation(float quot)
 		{
-			this.cot = cot;
+			this.quot = quot;
 		}
 	}
 }
-

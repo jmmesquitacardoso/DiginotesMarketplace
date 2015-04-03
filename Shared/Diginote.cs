@@ -18,6 +18,24 @@ namespace Shared
 		{
 			this.id = ++counter;
 		}
+
+		public override bool Equals (object obj)
+		{
+			if (obj == null) {
+				return base.Equals (obj);
+			}
+			
+			if (!(obj is User)) {
+				throw new InvalidCastException ("The Object isn't of Type Diginote.");
+			} else {
+				return this.Id = (obj as Diginote).Id;
+			}
+		}
+		
+		public override int GetHashCode ()
+		{
+			return Id.GetHashCode();
+		}
 	}
 }
 

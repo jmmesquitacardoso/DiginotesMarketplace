@@ -7,23 +7,23 @@ namespace Server
 	{
 		// Members
         private ArrayList usersLoggedIn;
-		private float cot;
+		private float quot;
 
 		// Delegate types
-		delegate float CotationNotifier();
+		delegate float QuotationNotifier();
 
 		// Events
-		public event CotationNotifier notifyClients;
-		private void UpdateCotation (float cot)
+		public event QuotationNotifier notifyClients;
+		private void UpdateCotation (float quot)
 		{
-			this.cot = cot;
-			notifyClients(cot);
+			this.quot = quot;
+			notifyClients(quot);
 		}
 
 		// Properties
-		public float Cotation {
+		public float Quotation {
 			get{
-				return cot;
+				return quot;
 			}
 		}
         
