@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Shared;
 
 namespace Server
 {
 	public class Marketplace : MarshalByRefObject
 	{
 		// Members
-        private ArrayList usersLoggedIn;
+        private Hashtable usersLoggedIn;
 		private float cot;
 
 		// Delegate types
@@ -30,26 +31,28 @@ namespace Server
 		// Constructor
 		public Marketplace ()
         {
-            usersLoggedIn = new ArrayList();
+            usersLoggedIn = new Hashtable();
 		}
 
 		// Methods
         public void Register(string username, string password)
         {
             Console.WriteLine("Register Server side");
-            Database.Instance.AddUser(username, password);
+            User user = new User(username, password);
+            Database.Instance.AddUser(username, user);
         }
 
         public int Login(string username, string password)
         {
             Console.WriteLine("Login Server side");
-            if (Database.Instance.getUsers().Contains(username) && String.Equals(Database.Instance.getUsers()[username], password))
+            if (Database.Instance.getUsers().Contains(username) && String.Equals(Database.Instance.getUserByUsername(username).Password, password))
             {
-                usersLoggedIn.Add(username);
-                return 1;
+                User user = new User(username, password);
+                usersLoggedIn.Add(username, user);
+                return Status.Instance.UserAcess.Valid;
             }
 
-            return 0;
+            return Status.Instance.UserAcess.Invalid;
         }
 
         public int Logout(string username)
@@ -58,9 +61,9 @@ namespace Server
             if (usersLoggedIn.Contains(username))
             {
                 usersLoggedIn.Remove(username);
-                return 1;
+                return Status.Instance.UserAcess.Valid;
             }
-            return 0;
+            return Status.Instance.UserAcess.Invalid;
         }
 	}
 }

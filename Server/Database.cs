@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Shared;
 
 namespace Server
 {
@@ -26,13 +27,18 @@ namespace Server
             }
         }
 
-        public void AddUser(string key, string value) {
+        public void AddUser(string key, User value) {
             registeredUsers.Add(key, value);
         }
 
         public Hashtable getUsers()
         {
             return registeredUsers;
+        }
+
+        public User getUserByUsername(string username)
+        {
+            return (User) registeredUsers[username];
         }
 	}
 }
