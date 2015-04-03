@@ -7,9 +7,13 @@ namespace Shared
 	public class User
 	{
 		HashSet<Diginote> wallet;
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-		public User ()
+		public User (string username, string password)
 		{
+            Username = username;
+            Password = password;
 		}
 
 		public override bool Equals (object obj)
