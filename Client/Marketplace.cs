@@ -1,33 +1,36 @@
 ﻿using System;
 using System.Collections;
+using Shared;
 
 namespace Server
 {
 	public class Marketplace : MarshalByRefObject
 	{
-		delegate float CotationNotifier();
-		public event CotationNotifier notifyClients;
+		public enum Status { Valid, Invalid, SharedObjError };
 
-		public float Cotation {
-			get;
-		}
+		public delegate void QuotationNotifier(float quot);
+
+		public event QuotationNotifier notifyClients;
+
+		public float Quotation;
 
 		public Marketplace ()
 		{
 		}
 
-		public void Register(string username, string password)
+		public Status Register(string username, string password)
 		{
+			return Status.Valid;
 		}
-		
-		public int Login(string username, string password)
+
+		public Status Login(string username, string password)
 		{
-			return 0;
+			return Status.Valid;
 		}
-		
-		public int Logout(string username)
+
+		public Status Logout(string username)
 		{
-			return 0;
+			return Status.Valid;
 		}
 	}
 }

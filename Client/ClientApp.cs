@@ -7,7 +7,6 @@ namespace Client
 	public class ClientApp
 	{
 		// Attributes
-		private float quot;
 		private ClientInterface parent;
 
         Marketplace sharedMarketplace;
@@ -23,30 +22,32 @@ namespace Client
             sharedMarketplace.Register(username, password);
         }
 
-        public int Login(string username, string password)
+		public Marketplace.Status Login(string username, string password)
         {
-            int result = sharedMarketplace.Login(username, password);
+			Marketplace.Status result = sharedMarketplace.Login(username, password);
 
-			if (result == 1) {
-				quot = sharedMarketplace.Cotation;
+			if (result == Marketplace.Status.Valid) {
+				parent.UpdateQuotation (sharedMarketplace.Quotation);
 				sharedMarketplace.notifyClients += this.UpdateCotation;
 			}
 
 			return result;
         }
 
-        public int Logout (string username)
+		public Marketplace.Status Logout (string username)
 		{
-			int result = sharedMarketplace.Logout (username);
+			Marketplace.Status result = sharedMarketplace.Logout (username);
 
-			if (result == 1) {
+			if (result == Marketplace.Status.Valid) {
 				sharedMarketplace.notifyClients -= this.UpdateCotation;
 			}
+
+			return result;
         }
 
-		public int UpdateCotation(float quot)
+		public void UpdateCotation(float quot)
 		{
-			this.quot = quot;
+			parent.UpdateQuotation (quot);
 		}
 	}
 }

@@ -4,7 +4,7 @@ namespace Client
 {
 	public interface ClientInterface
 	{
-		void UpdateCotation(float cot);
+		void UpdateQuotation(float quot);
 	}
 }
 

@@ -13,7 +13,7 @@ namespace Server
 		private float quot;
 
 		// Delegate types
-		delegate float QuotationNotifier();
+		public delegate void QuotationNotifier(float quot);
 
 		// Events
 		public event QuotationNotifier notifyClients;
@@ -37,18 +37,21 @@ namespace Server
 		}
 
 		// Methods
-        public int Register(string username, string password)
+		public Status Register(string username, string password)
         {
             Console.WriteLine("Register Server side");
-			if (Database.Instance.getUsers().
+			if (Database.Instance.Users.Contains(username)) {
+				return Status.Invalid;
+			}
             User user = new User(username, password);
-            return Database.Instance.AddUser(username, user);
-        }
+            Database.Instance.AddUser(username, user);
+			return Status.Valid;
+		}
 
-        public int Login(string username, string password)
+		public Status Login(string username, string password)
         {
             Console.WriteLine("Login Server side");
-            if (Database.Instance.getUsers().Contains(username) && String.Equals(Database.Instance.getUserByUsername(username).Password, password))
+			if (Database.Instance.Users.Contains(username) && String.Equals(Database.Instance.getUserByUsername(username).Password, password))
             {
                 User user = new User(username, password);
                 usersLoggedIn.Add(username, user);
@@ -58,7 +61,7 @@ namespace Server
             return Status.Invalid;
         }
 
-        public int Logout(string username)
+		public Status Logout(string username)
         {
             Console.WriteLine("Logout Server side");
             if (usersLoggedIn.Contains(username))
