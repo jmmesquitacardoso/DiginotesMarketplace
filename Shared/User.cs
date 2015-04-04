@@ -5,13 +5,14 @@ namespace Shared
 {
 	public class User
 	{
-		private Hashtable wallet;
-
+        private Hashtable wallet;
+        public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
-		public User (string username, string password)
+		public User (string name, string username, string password)
 		{
+            Name = name;
             Username = username;
             Password = password;
             wallet = new Hashtable();

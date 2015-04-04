@@ -40,13 +40,13 @@ namespace Server
 		}
 
 		// Methods
-		public Status Register(string username, string password, int diginotes)
+		public Status Register(string name, string username, string password, int diginotes)
         {
             Console.WriteLine("Register Server side");
 			if (Database.Instance.Users.Contains(username)) {
 				return Status.Invalid;
 			}
-			User user = new User(username, password);
+			User user = new User(name, username, password);
             Console.WriteLine("New User");
             user.AddDiginotes(diginotes);
             Console.WriteLine("Added Diginotes");
@@ -55,12 +55,12 @@ namespace Server
 			return Status.Valid;
 		}
 
-		public Status Login(string username, string password)
+		public Status Login(string name, string username, string password)
         {
             Console.WriteLine("Login Server side");
 			if (Database.Instance.Users.Contains(username) && String.Equals(Database.Instance.getUserByUsername(username).Password, password))
             {
-                User user = new User(username, password);
+                User user = new User(name, username, password);
                 usersLoggedIn.Add(username, user);
 				return Status.Valid;
             }

@@ -18,12 +18,12 @@ namespace Server
 		{
 		}
 
-		public Status Register(string username, string password, int diginotes)
+		public Status Register(string name, string username, string password, int diginotes)
 		{
 			return Status.Valid;
 		}
 
-		public Status Login(string username, string password)
+		public Status Login(string name, string username, string password)
 		{
 			return Status.Valid;
 		}

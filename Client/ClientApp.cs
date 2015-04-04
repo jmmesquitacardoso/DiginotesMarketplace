@@ -17,16 +17,17 @@ namespace Client
 			this.parent = parent;
 		}
 
-		public void Register(string username, string password, int diginotes)
+		public void Register(string name, string username, string password, int diginotes)
         {
             Console.WriteLine("About to call Register");
-            SharedMarketplace.Register(username, password, diginotes);
+            SharedMarketplace.Register(name, username, password, diginotes);
             Console.WriteLine("Ended Register call");
         }
 
-		public Marketplace.Status Login(string username, string password)
+		public Marketplace.Status Login(string name, string username, string password)
         {
-            Marketplace.Status result = SharedMarketplace.Login(username, password);
+            Marketplace.Status result = SharedMarketplace.Login(name, username, password);
+            Console.WriteLine("Will subscribe event");
 
 			if (result == Marketplace.Status.Valid) {
                 parent.UpdateQuotation(SharedMarketplace.Quotation);

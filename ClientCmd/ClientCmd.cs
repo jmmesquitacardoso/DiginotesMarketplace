@@ -19,19 +19,20 @@ namespace ClientCmd
 
         public static void Main(string[] args)
         {
-            string username, password;
+            string name, username, password;
             ClientCmd cmd = new ClientCmd();
 
-
-            Console.WriteLine("Introduza o seu username: ");
+            Console.Write("Introduza o seu nome: ");
+            name = Console.ReadLine();
+            Console.Write("\nIntroduza o seu username: ");
             username = Console.ReadLine();
-            Console.WriteLine("Introduza a sua password: ");
+            Console.Write("\nIntroduza a sua password: ");
             password = Console.ReadLine();
 
-            cmd.InitialMenu(username,password);
+            cmd.InitialMenu(name, username,password);
         }
 
-        private void InitialMenu(string username, string password)
+        private void InitialMenu(string name, string username, string password)
         {
             int op = -1, diginotes;
             string dummy;
@@ -52,7 +53,7 @@ namespace ClientCmd
                     case 1: Console.WriteLine("Quantas Diginotes deseja? ");
                         dummy = Console.ReadLine();
                         diginotes = Int32.Parse(dummy);
-                        cap.Register(username, password, diginotes);
+                        cap.Register(name, username, password, diginotes);
                         Console.WriteLine("Registado, prima Enter para continuar");
                         Console.ReadLine();
                         break;
@@ -66,7 +67,7 @@ namespace ClientCmd
                             {
                                 Console.WriteLine("Erro ao fazer login");
                             }*/
-                        cap.Login(username, password);
+                        cap.Login(name, username, password);
                         InnerMenu(username);
                         break;
                     default: break;
