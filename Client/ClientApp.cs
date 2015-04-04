@@ -8,8 +8,8 @@ namespace Client
 	{
 		// Attributes
 		private ClientInterface parent;
+        private Marketplace SharedMarketplace { get; set; }
 
-        public Marketplace SharedMarketplace { get; set; }
 		public ClientApp (ClientInterface parent)
         {
             RemotingConfiguration.Configure("ClientApp.exe.config", false);
