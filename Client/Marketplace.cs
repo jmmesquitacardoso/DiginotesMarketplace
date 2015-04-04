@@ -18,7 +18,7 @@ namespace Server
 		{
 		}
 
-		public Status Register(string username, string password)
+		public Status Register(string username, string password, int diginotes)
 		{
 			return Status.Valid;
 		}

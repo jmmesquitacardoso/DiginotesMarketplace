@@ -6,8 +6,8 @@ namespace Shared
 	{
 		private static int counter = 0;
 
-		public int Id { get; }
-		public int Value {get;}
+        public int Id { get; set; }
+        public int Value { get; set; }
 		public User Owner { get; set; }
 
 		public Diginote (User owner)

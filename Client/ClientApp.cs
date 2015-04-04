@@ -9,26 +9,28 @@ namespace Client
 		// Attributes
 		private ClientInterface parent;
 
-        Marketplace sharedMarketplace;
+        public Marketplace SharedMarketplace { get; set; }
 		public ClientApp (ClientInterface parent)
         {
             RemotingConfiguration.Configure("ClientApp.exe.config", false);
-            sharedMarketplace = new Marketplace();
+            SharedMarketplace = new Marketplace();
 			this.parent = parent;
 		}
 
 		public void Register(string username, string password, int diginotes)
         {
-			sharedMarketplace.Register(username, password, diginotes);
+            Console.WriteLine("About to call Register");
+            SharedMarketplace.Register(username, password, diginotes);
+            Console.WriteLine("Ended Register call");
         }
 
 		public Marketplace.Status Login(string username, string password)
         {
-			Marketplace.Status result = sharedMarketplace.Login(username, password);
+            Marketplace.Status result = SharedMarketplace.Login(username, password);
 
 			if (result == Marketplace.Status.Valid) {
-				parent.UpdateQuotation (sharedMarketplace.Quotation);
-				sharedMarketplace.notifyClients += this.UpdateCotation;
+                parent.UpdateQuotation(SharedMarketplace.Quotation);
+                SharedMarketplace.notifyClients += this.UpdateCotation;
 			}
 
 			return result;
@@ -36,10 +38,10 @@ namespace Client
 
 		public Marketplace.Status Logout (string username)
 		{
-			Marketplace.Status result = sharedMarketplace.Logout (username);
+            Marketplace.Status result = SharedMarketplace.Logout(username);
 
 			if (result == Marketplace.Status.Valid) {
-				sharedMarketplace.notifyClients -= this.UpdateCotation;
+                SharedMarketplace.notifyClients -= this.UpdateCotation;
 			}
 
 			return result;

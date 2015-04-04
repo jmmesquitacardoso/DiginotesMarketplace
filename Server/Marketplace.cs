@@ -20,7 +20,10 @@ namespace Server
 		private void UpdateCotation (float quot)
 		{
 			this.quot = quot;
-			notifyClients(quot);
+            if (notifyClients != null)
+            {
+                notifyClients(quot);
+            }
 		}
 
 		// Properties
@@ -43,8 +46,12 @@ namespace Server
 			if (Database.Instance.Users.Contains(username)) {
 				return Status.Invalid;
 			}
-			User user = new User(username, password, diginotes);
-            Database.Instance.AddUser(username, user, diginotes);
+			User user = new User(username, password);
+            Console.WriteLine("New User");
+            user.AddDiginotes(diginotes);
+            Console.WriteLine("Added Diginotes");
+            Database.Instance.AddUser(username, user);
+            Console.WriteLine("Added to DB");
 			return Status.Valid;
 		}
 
@@ -71,5 +78,6 @@ namespace Server
             }
             return Status.Invalid;
         }
+
 	}
 }

@@ -7,18 +7,14 @@ namespace Shared
 	{
 		private Hashtable wallet;
 
-        public string Username { get; }
-		public string Password { get; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-		public User (string username, string password, int diginotes)
+		public User (string username, string password)
 		{
             Username = username;
             Password = password;
-
-			for (int i = 0; i < diginotes; i++) {
-				Diginote diginote = new Diginote ();
-				wallet.Add (diginote.Id, diginote);
-			}
+            wallet = new Hashtable();
 		}
 
 		public override bool Equals (object obj)
@@ -38,6 +34,14 @@ namespace Shared
 		{
 			return Username.GetHashCode();
 		}
+
+        public void AddDiginotes(int diginotes) {
+            for (int i = 0; i < diginotes; i++)
+            {
+				Diginote diginote = new Diginote (this);
+				wallet.Add (diginote.Id, diginote);
+			}
+        }
 	}
 }
 

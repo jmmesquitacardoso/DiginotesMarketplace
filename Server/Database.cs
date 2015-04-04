@@ -23,12 +23,15 @@ namespace Server
 		public Database ()
 		{
 			IFormatter formatter = new BinaryFormatter();
-			Stream stream = new FileStream("MyFile.bin", 
-				FileMode.Open, 
-				FileAccess.Read, 
-				FileShare.Read);
-			// Database obj = (Database) formatter.Deserialize(fromStream);
-			stream.Close();
+            if (File.Exists("diginotes_database.bin"))
+            {
+                Stream stream = new FileStream("diginotes_database.bin",
+                    FileMode.Open,
+                    FileAccess.Read,
+                    FileShare.Read);
+                // Database obj = (Database) formatter.Deserialize(fromStream);
+                stream.Close();
+            }
 		}
 
 		private void SaveDatabase() {
