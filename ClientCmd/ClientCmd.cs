@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Remoting;
 using Client;
+using Server;
 
 namespace ClientCmd
 {
@@ -57,7 +58,7 @@ namespace ClientCmd
                         Console.WriteLine("Registado, prima Enter para continuar");
                         Console.ReadLine();
                         break;
-                    case 2: /*if (cap.Login(username, password) == cap.SharedMarketplace.Status.Valid)
+                    case 2: if (cap.Login(name, username, password) == Marketplace.Status.Valid)
                             {
                                 Console.WriteLine("Login feito com sucesso, prima Enter para continuar");
                                 Console.ReadLine();
@@ -66,9 +67,7 @@ namespace ClientCmd
                             else
                             {
                                 Console.WriteLine("Erro ao fazer login");
-                            }*/
-                        cap.Login(name, username, password);
-                        InnerMenu(username);
+                            }
                         break;
                     default: break;
                 }
@@ -92,7 +91,7 @@ namespace ClientCmd
 
                 switch (op)
                 {
-                    case 0: /*if (cap.Logout(username) == 1)
+                    case 0: if (cap.Logout(username) == Marketplace.Status.Valid)
                             {
                                 Console.WriteLine("Logout feito com sucesso");
                                 Console.ReadLine();
@@ -101,7 +100,7 @@ namespace ClientCmd
                             {
                                 Console.WriteLine("Erro ao fazer logout");
                                 Console.ReadLine();
-                            }*/
+                            }
                         cap.Logout(username);
                         break;
                     default: break;
