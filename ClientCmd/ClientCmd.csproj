@@ -36,9 +36,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Client\Client.csproj">
+    <ProjectReference Include="..\Client\ClientApp.csproj">
       <Project>{C87ADA7B-AF50-4597-9B54-DADF486C5A71}</Project>
-      <Name>Client</Name>
+      <Name>ClientApp</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

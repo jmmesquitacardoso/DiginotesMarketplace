@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{05290FC6-154B-42AB-A1EA-0BD8B1AF1C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{C87ADA7B-AF50-4597-9B54-DADF486C5A71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "Client\ClientApp.csproj", "{C87ADA7B-AF50-4597-9B54-DADF486C5A71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}"
 EndProject
@@ -37,8 +37,5 @@ Global
 		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Debug|x86.Build.0 = Debug|x86
 		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Release|x86.ActiveCfg = Release|x86
 		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Release|x86.Build.0 = Release|x86
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Server\Server.csproj
 	EndGlobalSection
 EndGlobal

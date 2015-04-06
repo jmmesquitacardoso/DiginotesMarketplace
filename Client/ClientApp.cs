@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Remoting;
-using Server;
 
 namespace Client
 {
