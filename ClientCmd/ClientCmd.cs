@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Remoting;
 using Client;
+using Common;
 
 namespace ClientCmd
 {
@@ -60,6 +61,7 @@ namespace ClientCmd
 					} else {
 						Console.WriteLine ("Erro ao fazer login");
 					}
+
 					break;
 				default:
 					break;

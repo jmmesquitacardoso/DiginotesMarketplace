@@ -3,11 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{05290FC6-154B-42AB-A1EA-0BD8B1AF1C99}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Server</RootNamespace>
-    <AssemblyName>Server</AssemblyName>
-    <StartupObject>Server.ServerApp</StartupObject>
+    <ProjectGuid>{C87ADA7B-AF50-4597-9B54-DADF486C5A71}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -20,6 +19,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <PlatformTarget>x86</PlatformTarget>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="BeforeBuild" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
@@ -32,23 +36,21 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="ServerApp.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="ClientInterface.cs" />
+    <Compile Include="Client.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ServerApp.exe.config">
-      <SubType>Designer</SubType>
+    <Content Include="Client.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{6231DE59-7C72-4AEC-BC1D-C56752E664E4}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Remotes\Remotes.csproj">
-      <Project>{DBF27FED-0F66-4DFC-8AB9-0450797E8112}</Project>
-      <Name>Remotes</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

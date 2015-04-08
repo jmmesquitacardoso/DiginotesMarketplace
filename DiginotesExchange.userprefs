@@ -1,11 +1,8 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupItem="Server/Server.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Shared/User.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ClientCmd/ClientCmd.cs">
     <Files>
-      <File FileName="Server/Marketplace.cs" Line="64" Column="64" />
-      <File FileName="Shared/User.cs" Line="40" Column="40" />
-      <File FileName="Client/ClientApp.cs" Line="24" Column="24" />
-      <File FileName="Shared/Diginote.cs" Line="4" Column="4" />
+      <File FileName="ClientCmd/ClientCmd.cs" Line="14" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{05290FC6-154B-42AB-A1EA-0BD8B1AF1C99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "Client\ClientApp.csproj", "{C87ADA7B-AF50-4597-9B54-DADF486C5A71}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientGUI", "ClientGUI\ClientGUI.csproj", "{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{C87ADA7B-AF50-4597-9B54-DADF486C5A71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientCmd", "ClientCmd\ClientCmd.csproj", "{4AEF419F-1290-4D00-9A7F-237B53732D6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remotes", "Remotes\Remotes.csproj", "{DBF27FED-0F66-4DFC-8AB9-0450797E8112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{6231DE59-7C72-4AEC-BC1D-C56752E664E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,17 +25,17 @@ Global
 		{4AEF419F-1290-4D00-9A7F-237B53732D6B}.Debug|x86.Build.0 = Debug|x86
 		{4AEF419F-1290-4D00-9A7F-237B53732D6B}.Release|x86.ActiveCfg = Release|x86
 		{4AEF419F-1290-4D00-9A7F-237B53732D6B}.Release|x86.Build.0 = Release|x86
-		{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}.Debug|x86.ActiveCfg = Debug|x86
-		{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}.Debug|x86.Build.0 = Debug|x86
-		{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}.Release|x86.ActiveCfg = Release|x86
-		{6EFF6052-0CC7-4318-8096-1CCD2A2E691A}.Release|x86.Build.0 = Release|x86
+		{6231DE59-7C72-4AEC-BC1D-C56752E664E4}.Debug|x86.ActiveCfg = Debug|x86
+		{6231DE59-7C72-4AEC-BC1D-C56752E664E4}.Debug|x86.Build.0 = Debug|x86
+		{6231DE59-7C72-4AEC-BC1D-C56752E664E4}.Release|x86.ActiveCfg = Release|x86
+		{6231DE59-7C72-4AEC-BC1D-C56752E664E4}.Release|x86.Build.0 = Release|x86
 		{C87ADA7B-AF50-4597-9B54-DADF486C5A71}.Debug|x86.ActiveCfg = Debug|x86
 		{C87ADA7B-AF50-4597-9B54-DADF486C5A71}.Debug|x86.Build.0 = Debug|x86
 		{C87ADA7B-AF50-4597-9B54-DADF486C5A71}.Release|x86.ActiveCfg = Release|x86
 		{C87ADA7B-AF50-4597-9B54-DADF486C5A71}.Release|x86.Build.0 = Release|x86
-		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Debug|x86.ActiveCfg = Debug|x86
-		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Debug|x86.Build.0 = Debug|x86
-		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Release|x86.ActiveCfg = Release|x86
-		{CA506A7C-4B39-4DF0-8F16-AB5058EDA0ED}.Release|x86.Build.0 = Release|x86
+		{DBF27FED-0F66-4DFC-8AB9-0450797E8112}.Debug|x86.ActiveCfg = Debug|x86
+		{DBF27FED-0F66-4DFC-8AB9-0450797E8112}.Debug|x86.Build.0 = Debug|x86
+		{DBF27FED-0F66-4DFC-8AB9-0450797E8112}.Release|x86.ActiveCfg = Release|x86
+		{DBF27FED-0F66-4DFC-8AB9-0450797E8112}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

@@ -1,13 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{4AEF419F-1290-4D00-9A7F-237B53732D6B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ClientCmd</RootNamespace>
-    <AssemblyName>ClientCmd</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <ProjectGuid>{6231DE59-7C72-4AEC-BC1D-C56752E664E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,19 +31,9 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="ClientCmd.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Client\Client.csproj">
-      <Project>{C87ADA7B-AF50-4597-9B54-DADF486C5A71}</Project>
-      <Name>Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{6231DE59-7C72-4AEC-BC1D-C56752E664E4}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Compile Include="Diginote.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Marketplace.cs" />
   </ItemGroup>
 </Project>
