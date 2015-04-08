@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Remoting;
+using Common;
 
 namespace Client
 {
@@ -7,12 +8,13 @@ namespace Client
 	{
 		// Attributes
 		private ClientInterface parent;
-        private Marketplace SharedMarketplace { get; set; }
+        private IMarketplace SharedMarketplace { get; set; }
+		private Intermediate Inter { get; set; }
 
 		public ClientApp (ClientInterface parent)
         {
-            RemotingConfiguration.Configure("ClientApp.exe.config", false);
-            SharedMarketplace = new Marketplace();
+            RemotingConfiguration.Configure("Client.exe.config", false);
+			SharedMarketplace = (IMarketplace) RemoteNew.New(typeof(IMarketplace));
 			this.parent = parent;
 		}
 
@@ -23,25 +25,25 @@ namespace Client
             Console.WriteLine("Ended Register call");
         }
 
-		public Marketplace.Status Login(string name, string username, string password)
+		public Status Login(string name, string username, string password)
         {
-            Marketplace.Status result = SharedMarketplace.Login(name, username, password);
-            /*Console.WriteLine("Will subscribe event");
+            Status result = SharedMarketplace.Login(name, username, password);
+            Console.WriteLine("Will subscribe event");
 
-			if (result == Marketplace.Status.Valid) {
-                parent.UpdateQuotation(SharedMarketplace.Quotation);
-                SharedMarketplace.notifyClients += this.UpdateCotation;
-			}*/
+			if (result == Status.Valid) {
+				Inter = new Intermediate (SharedMarketplace);
+				Inter.notifyClients += UpdateCotation;
+			}
 
 			return result;
         }
 
-		public Marketplace.Status Logout (string username)
+		public Status Logout (string username)
 		{
-            Marketplace.Status result = SharedMarketplace.Logout(username);
+            Status result = SharedMarketplace.Logout(username);
 
-			if (result == Marketplace.Status.Valid) {
-                SharedMarketplace.notifyClients -= this.UpdateCotation;
+			if (result == Status.Valid) {
+				Inter.notifyClients -= UpdateCotation;
 			}
 
 			return result;

@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections;
 using Common;
+using System.Threading;
 
-public class Marketplace : MarshalByRefObject
+public class Marketplace : MarshalByRefObject, IMarketplace
 {
-	public enum Status
-	{
-		Valid,
-		Invalid,
-		SharedObjError}
-
-	;
-
 	// Members
 	private Hashtable usersLoggedIn;
 	private float quot;
-
-	// Delegate types
-	public delegate void QuotationNotifier (float quot);
 
 	// Events
 	public event QuotationNotifier notifyClients;
@@ -26,7 +16,25 @@ public class Marketplace : MarshalByRefObject
 	{
 		this.quot = quot;
 		if (notifyClients != null) {
-			notifyClients (quot);
+			Delegate[] invkList = notifyClients.GetInvocationList ();
+
+			foreach (QuotationNotifier handler in invkList) {
+				Console.WriteLine ("[Entities]: Event triggered: invoking handler");
+				object[] pars = { handler, quot };
+				new Thread (TriggerQuotEvent).Start (pars);
+			}
+		}
+	}
+
+	void TriggerQuotEvent(object pars) {
+		QuotationNotifier handler = (QuotationNotifier)((object[])pars)[0];
+		float quot = (float)((object[])pars)[1];
+		try {
+			handler(quot);
+		}
+		catch (Exception) {
+			Console.WriteLine("[TriggerEvent]: Exception");
+			notifyClients -= handler;
 		}
 	}
 

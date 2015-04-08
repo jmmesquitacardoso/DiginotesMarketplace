@@ -54,7 +54,7 @@ namespace ClientCmd
 					Console.ReadLine ();
 					break;
 				case 2:
-					if (app.Login (name, username, password) == Marketplace.Status.Valid) {
+					if (app.Login (name, username, password) == Status.Valid) {
 						Console.WriteLine ("Login feito com sucesso, prima Enter para continuar");
 						Console.ReadLine ();
 						InnerMenu (username);
@@ -84,7 +84,7 @@ namespace ClientCmd
 
 				switch (op) {
 				case 0:
-					if (app.Logout (username) == Marketplace.Status.Valid) {
+					if (app.Logout (username) == Status.Valid) {
 						Console.WriteLine ("Logout feito com sucesso");
 						Console.ReadLine ();
 					} else {

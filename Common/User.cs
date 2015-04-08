@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Common
 {
+	[Serializable]
 	public class User
 	{
         private Hashtable wallet;

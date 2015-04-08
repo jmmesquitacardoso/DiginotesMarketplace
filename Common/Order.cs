@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Common
 {
+	[Serializable]
     class Order
     {
         public enum Type { Buy, Sell };

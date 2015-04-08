@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="ClientInterface.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="RemoteNew.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client.exe.config">
