@@ -1,8 +1,10 @@
-/home/diogo/workspace-cs/DiginotesExchange/Server/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/diogo/workspace-cs/DiginotesExchange/Server/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
 /home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/ServerApp.exe.config
 /home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Server.exe.mdb
 /home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Server.exe
 /home/diogo/workspace-cs/DiginotesExchange/Server/obj/x86/Debug/Server.exe
 /home/diogo/workspace-cs/DiginotesExchange/Server/obj/x86/Debug/Server.exe.mdb
-/home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Shared.dll
-/home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Shared.dll.mdb
+/home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Common.dll
+/home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Common.dll.mdb
+/home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Remotes.dll
+/home/diogo/workspace-cs/DiginotesExchange/Server/bin/Debug/Remotes.dll.mdb

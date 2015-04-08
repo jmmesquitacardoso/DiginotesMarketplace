@@ -1,8 +1,8 @@
-/home/diogo/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
-/home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/ClientApp.exe.config
+/home/diogo/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Client.exe.config
 /home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Client.dll.mdb
 /home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Client.dll
 /home/diogo/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/Client.dll
 /home/diogo/workspace-cs/DiginotesExchange/Client/obj/x86/Debug/Client.dll.mdb
-/home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Shared.dll
-/home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Shared.dll.mdb
+/home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Common.dll
+/home/diogo/workspace-cs/DiginotesExchange/Client/bin/Debug/Common.dll.mdb
