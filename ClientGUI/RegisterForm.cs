@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client;
 
 namespace ClientGUI
 {
-    public partial class Form1 : Form
+    public partial class RegisterForm : Form, ClientInterface
     {
-        public Form1()
+        public static ClientApp App {get; set;}
+        public RegisterForm()
         {
+            App = new ClientApp(this);
             InitializeComponent();
         }
 
@@ -43,6 +46,29 @@ namespace ClientGUI
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegisterButtonClick(object sender, EventArgs e)
+        {
+            App.Register(nome.Text, username.Text, password.Text, Int32.Parse(diginotes.Text));
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+            this.Close();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        public void UpdateQuotation(float quot)
+        {
+            Console.WriteLine("New Diginote Quotation: {0}", quot);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }
