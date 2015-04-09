@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Client;
+using Common;
 
 namespace ClientGUI
 {
@@ -26,10 +27,12 @@ namespace ClientGUI
 
         private void Login_Click(object sender, EventArgs e)
         {
-            RegisterForm.App.Login(name.Text, username.Text, password.Text);
-            InnerMenu inner = new InnerMenu();
-            inner.ShowDialog();
-            this.Close();
+            if (RegisterForm.App.Login(name.Text, username.Text, password.Text) == Status.Valid)
+            {
+                InnerMenu inner = new InnerMenu();
+                inner.ShowDialog();
+                this.Close();
+            }
         }
 
         public void UpdateQuotation(float quot)
