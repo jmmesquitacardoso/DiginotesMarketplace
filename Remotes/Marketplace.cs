@@ -43,13 +43,28 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Sales
 	// TODO
 
-    public void addPurchaseOrders(string username, int nOrders)
+    public Status addSaleOrders(string username, int nOrders)
     {
-        Database.Instance.AddPurchaseOrder(new Order(OrderType.Purchase,Database.Instance.GetUserByUsername(username), nOrders));
+        User user = Database.Instance.GetUserByUsername(username);
+        ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
+        if (diginotes != null)
+        {
+            Order order = new Order(OrderType.Purchase, user, nOrders);
+            order.AddDiginotes(diginotes);
+            Database.Instance.AddSaleOrder(order);
+            return Status.Valid;
+        }
+        return Status.Invalid;
     }
 
 	// Purchases
 	// TODO
+
+    public void addPurchaseOrders(string username, int nOrders)
+    {
+        Order order = new Order(OrderType.Purchase, Database.Instance.GetUserByUsername(username), nOrders);
+        Database.Instance.AddPurchaseOrder(order);
+    }
 
 	// Properties
 	public float Quotation {

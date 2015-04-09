@@ -32,17 +32,15 @@ namespace ClientGUI
         {
             if (App.Login(username.Text, password.Text) == Status.Valid)
             {
-                Inner = new InnerMenu(username.Text);
+                Inner = new InnerMenu();
                 Inner.ShowDialog();
                 this.SetVisibleCore(false);
                 this.Close();
             }
             else
             {
-                Label errorLabel = new Label();
                 errorLabel.Text = "Error logging in!";
                 errorLabel.ForeColor = System.Drawing.Color.Red;
-                this.Controls.Add(errorLabel);
             }
 
         }
@@ -50,6 +48,11 @@ namespace ClientGUI
         public void UpdateQuotation(float quot)
         {
             Inner.changeQuotationValue(quot);
+        }
+
+        public float AskNewQuotation()
+        {
+            return -1f;
         }
 
         private void registerButton_Click(object sender, EventArgs e)

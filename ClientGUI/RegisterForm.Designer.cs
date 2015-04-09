@@ -137,7 +137,6 @@
             this.label4.Size = new System.Drawing.Size(103, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Number of Diginotes";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // RegisterForm
             // 

@@ -158,4 +158,9 @@ public class Database
     {
         purchases.Enqueue(order);
     }
+
+    public void AddSaleOrder(Order order)
+    {
+        sales.Enqueue(order);
+    }
 }

@@ -35,6 +35,7 @@
             this.username = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.registerButton = new System.Windows.Forms.Button();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,11 +104,21 @@
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.35F);
+            this.errorLabel.Location = new System.Drawing.Point(334, 36);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(0, 25);
+            this.errorLabel.TabIndex = 2;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 271);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.registerButton);
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
@@ -115,6 +126,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -127,5 +139,6 @@
         private System.Windows.Forms.TextBox username;
         private System.Windows.Forms.Button Login;
         private System.Windows.Forms.Button registerButton;
+        private System.Windows.Forms.Label errorLabel;
     }
 }

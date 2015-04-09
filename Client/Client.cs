@@ -15,6 +15,8 @@ namespace Client
 
 		private string Username { get; set; }
 
+        private float LastQuotation { get; set; }
+
 		public ClientApp (ClientInterface parent)
 		{
 			RemotingConfiguration.Configure ("Client.exe.config", false);
@@ -64,11 +66,17 @@ namespace Client
 		public int getAvailableDiginotes ()
 		{
 			// TODO
+            return 1;
 		}
 
-		public void makeSaleOrder (int nr)
+		public void makeSaleOrder (int nOrders)
 		{
-			// TODO
+            SharedMarketplace.addSaleOrders(Username, nOrders);
 		}
+
+        public void makePurchaseOrder (int nOrders)
+        {
+            SharedMarketplace.addPurchaseOrders(Username, nOrders);
+        }
 	}
 }

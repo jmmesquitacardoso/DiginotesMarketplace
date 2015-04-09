@@ -11,7 +11,7 @@ using Client;
 
 namespace ClientGUI
 {
-    public partial class RegisterForm : Form, ClientInterface
+    public partial class RegisterForm : Form
     {
         public RegisterForm()
         {
@@ -56,16 +56,6 @@ namespace ClientGUI
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        public void UpdateQuotation(float quot)
-        {
-            Console.WriteLine("New Diginote Quotation: {0}", quot);
-        }
-
-        private void label4_Click(object sender, EventArgs e)
         {
 
         }

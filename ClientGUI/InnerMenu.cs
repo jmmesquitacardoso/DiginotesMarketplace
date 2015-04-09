@@ -12,11 +12,9 @@ namespace ClientGUI
 {
     public partial class InnerMenu : Form
     {
-        string Username { get; set; }
 
-        public InnerMenu(string username)
+        public InnerMenu()
         {
-            Username = username;
             InitializeComponent();
         }
 
@@ -32,7 +30,7 @@ namespace ClientGUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoginForm.App.Logout(Username);
+            LoginForm.App.Logout();
             this.SetVisibleCore(false);
             this.Close();
             Application.Exit();
@@ -46,6 +44,11 @@ namespace ClientGUI
         private void buyOrdersButton_Click(object sender, EventArgs e)
         {
             float newQuotationValue = float.Parse(quot.Text);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
