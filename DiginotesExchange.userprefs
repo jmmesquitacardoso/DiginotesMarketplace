@@ -2,10 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Remotes/Marketplace.cs">
     <Files>
-      <File FileName="Client/Client.cs" Line="1" Column="1" />
-      <File FileName="Client/RemoteNew.cs" Line="1" Column="1" />
-      <File FileName="Common/IMarketplace.cs" Line="1" Column="1" />
-      <File FileName="Remotes/Marketplace.cs" Line="9" Column="9" />
+      <File FileName="Remotes/Marketplace.cs" Line="21" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -8,6 +8,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Members
 	private Hashtable usersLoggedIn;
 	private float quot;
+	private Queue orders;
+	private Queue sells;
 
 	// Events
 	public event QuotationNotifier notifyClients;
@@ -49,6 +51,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public Marketplace ()
 	{
 		usersLoggedIn = new Hashtable ();
+
 	}
 
 	// Methods
