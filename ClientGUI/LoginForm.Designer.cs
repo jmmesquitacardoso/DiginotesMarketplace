@@ -36,6 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.username = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.registerButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,11 +113,22 @@
             this.label1.Text = "Username";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // registerButton
+            // 
+            this.registerButton.Location = new System.Drawing.Point(337, 109);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Size = new System.Drawing.Size(148, 61);
+            this.registerButton.TabIndex = 1;
+            this.registerButton.Text = "Register";
+            this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 288);
+            this.ClientSize = new System.Drawing.Size(501, 361);
+            this.Controls.Add(this.registerButton);
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
             this.Text = "InnerMenu";
@@ -136,5 +148,6 @@
         private System.Windows.Forms.Button Login;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button registerButton;
     }
 }

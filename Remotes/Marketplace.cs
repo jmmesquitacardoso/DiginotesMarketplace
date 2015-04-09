@@ -70,11 +70,13 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Status.Valid;
 	}
 
-	public Status Login (string name, string username, string password)
+	public Status Login (string username, string password)
 	{
 		Console.WriteLine ("Login Server side");
 		if (Database.Instance.Users.Contains (username) && String.Equals (Database.Instance.getUserByUsername (username).Password, password)) {
-			User user = new User (name, username, password);
+			User user = new User (username, password);
+            user.Name = Database.Instance.getUserByUsername(username).Name;
+            user.Wallet = Database.Instance.getUserByUsername(username).Wallet;
 			usersLoggedIn.Add (username, user);
 			return Status.Valid;
 		}

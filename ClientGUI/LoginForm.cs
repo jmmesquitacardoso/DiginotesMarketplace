@@ -14,9 +14,11 @@ namespace ClientGUI
 {
     public partial class LoginForm : Form, ClientInterface
     {
+        public static ClientApp App { get; set; }
 
         public LoginForm()
         {
+            App = new ClientApp(this);
             InitializeComponent();
         }
 
@@ -27,7 +29,7 @@ namespace ClientGUI
 
         private void Login_Click(object sender, EventArgs e)
         {
-            if (RegisterForm.App.Login(name.Text, username.Text, password.Text) == Status.Valid)
+            if (App.Login(username.Text, password.Text) == Status.Valid)
             {
                 InnerMenu inner = new InnerMenu();
                 inner.ShowDialog();
@@ -38,6 +40,11 @@ namespace ClientGUI
         public void UpdateQuotation(float quot)
         {
             Console.WriteLine("New Diginote Quotation: {0}", quot);
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

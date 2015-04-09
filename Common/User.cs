@@ -6,7 +6,7 @@ namespace Common
 	[Serializable]
 	public class User
 	{
-        private Hashtable wallet;
+        public Hashtable Wallet {get; set;}
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -16,8 +16,14 @@ namespace Common
             Name = name;
             Username = username;
             Password = password;
-            wallet = new Hashtable();
+            Wallet = new Hashtable();
 		}
+
+        public User(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
 
 		public override bool Equals (object obj)
 		{
@@ -41,7 +47,7 @@ namespace Common
             for (int i = 0; i < diginotes; i++)
             {
 				Diginote diginote = new Diginote (this);
-				wallet.Add (diginote.Id, diginote);
+				Wallet.Add (diginote.Id, diginote);
 			}
         }
 	}

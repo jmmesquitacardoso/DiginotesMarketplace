@@ -10,7 +10,7 @@ public interface IMarketplace
 
 	Status Register (string name, string username, string password, int diginotes);
 
-	Status Login (string name, string username, string password);
+	Status Login (string username, string password);
 
 	Status Logout (string username);
 }

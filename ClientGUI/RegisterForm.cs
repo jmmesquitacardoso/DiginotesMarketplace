@@ -13,10 +13,8 @@ namespace ClientGUI
 {
     public partial class RegisterForm : Form, ClientInterface
     {
-        public static ClientApp App {get; set;}
         public RegisterForm()
         {
-            App = new ClientApp(this);
             InitializeComponent();
         }
 
@@ -52,7 +50,7 @@ namespace ClientGUI
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {
-            App.Register(nome.Text, username.Text, password.Text, Int32.Parse(diginotes.Text));
+            LoginForm.App.Register(nome.Text, username.Text, password.Text, Int32.Parse(diginotes.Text));
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
             this.Close();

@@ -25,9 +25,9 @@ namespace Client
             Console.WriteLine("Ended Register call");
         }
 
-		public Status Login(string name, string username, string password)
+		public Status Login(string username, string password)
         {
-            Status result = SharedMarketplace.Login(name, username, password);
+            Status result = SharedMarketplace.Login(username, password);
             Console.WriteLine("Will subscribe event");
 
 			if (result == Status.Valid) {
