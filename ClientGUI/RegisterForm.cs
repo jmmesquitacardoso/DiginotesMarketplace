@@ -51,8 +51,7 @@ namespace ClientGUI
         private void RegisterButtonClick(object sender, EventArgs e)
         {
             LoginForm.App.Register(nome.Text, username.Text, password.Text, Int32.Parse(diginotes.Text));
-            LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            this.SetVisibleCore(false);
             this.Close();
         }
 

@@ -48,6 +48,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Logout";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buyOrdersButton
             // 
@@ -141,7 +142,7 @@
             this.Controls.Add(this.buyOrdersButton);
             this.Controls.Add(this.button1);
             this.Name = "InnerMenu";
-            this.Text = "InnerMenu";
+            this.Text = "Diginotes Marketplace";
             this.Load += new System.EventHandler(this.InnerMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

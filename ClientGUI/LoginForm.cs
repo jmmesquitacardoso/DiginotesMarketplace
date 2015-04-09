@@ -31,10 +31,19 @@ namespace ClientGUI
         {
             if (App.Login(username.Text, password.Text) == Status.Valid)
             {
-                InnerMenu inner = new InnerMenu();
+                InnerMenu inner = new InnerMenu(username.Text);
                 inner.ShowDialog();
+                this.SetVisibleCore(false);
                 this.Close();
             }
+            else
+            {
+                Label errorLabel = new Label();
+                errorLabel.Text = "Error logging in!";
+                errorLabel.ForeColor = System.Drawing.Color.Red;
+                this.Controls.Add(errorLabel);
+            }
+
         }
 
         public void UpdateQuotation(float quot)
@@ -44,6 +53,8 @@ namespace ClientGUI
 
         private void registerButton_Click(object sender, EventArgs e)
         {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.ShowDialog();
 
         }
 
