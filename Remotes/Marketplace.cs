@@ -116,4 +116,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Status.Valid;
 	}
 
+	public int getAvailableDiginotes()
+	{
+		// TODO: reduce from the user diginotes the pending sells
+	}
 }
