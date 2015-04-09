@@ -60,11 +60,17 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Purchases
 	// TODO
 
-    public void addPurchaseOrders(string username, int nOrders)
+    public Status addPurchaseOrders(string username, int nOrders)
     {
-        User user = Database.Instance.GetUserByUsername(username);
-        PurchaseOrder order = new PurchaseOrder(user, nOrders);
-        Database.Instance.AddPurchaseOrder(order);
+        if (usersLoggedIn.Contains(username))
+        {
+            User user = Database.Instance.GetUserByUsername(username);
+            PurchaseOrder order = new PurchaseOrder(user, nOrders);
+            Database.Instance.AddPurchaseOrder(order);
+            return Status.Valid;
+        }
+
+        return Status.Invalid;
     }
 
 	// Properties

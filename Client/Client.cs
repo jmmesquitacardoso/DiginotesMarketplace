@@ -15,6 +15,8 @@ namespace Client
 
 		public string Username { get; set; }
 
+        public float PreviousQuotation { get; set; }
+
 		public ClientApp (ClientInterface parent)
 		{
 			RemotingConfiguration.Configure ("Client.exe.config", false);
@@ -36,6 +38,7 @@ namespace Client
 
 			if (result == Status.Valid) {
 				Username = username;
+                PreviousQuotation = SharedMarketplace.Quotation;
 
 				Inter = new Intermediate (SharedMarketplace);
 				Inter.notifyClients += UpdateQuotation;

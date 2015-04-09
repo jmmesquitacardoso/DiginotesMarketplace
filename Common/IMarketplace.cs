@@ -10,7 +10,7 @@ public interface IMarketplace
 
     Status addSaleOrders(string username, int nOrders);
 
-    void addPurchaseOrders(string username, int nOrders);
+    Status addPurchaseOrders(string username, int nOrders);
 
 	Status Register (string name, string username, string password, int diginotes);
 

@@ -37,9 +37,13 @@ namespace ClientGUI
             Application.Exit();
         }
 
-        public void changeQuotationValue(float quot) 
+        public void ChangeQuotationValue(float quot) 
         {
             quotation.Text = "" + quot;
+        }
+
+        public void DisplayQuotationWarning () {
+            warningLabel.Text = "New quotation is lower!";
         }
 
         private void buyOrdersButton_Click(object sender, EventArgs e)

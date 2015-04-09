@@ -42,12 +42,15 @@ namespace ClientGUI
                 errorLabel.Text = "Error logging in!";
                 errorLabel.ForeColor = System.Drawing.Color.Red;
             }
-
         }
 
         public void UpdateQuotation(float quot)
         {
-            Inner.changeQuotationValue(quot);
+            if (quot < App.PreviousQuotation)
+            {
+                Inner.DisplayQuotationWarning();
+            }
+            Inner.ChangeQuotationValue(quot);
         }
 
         public float AskNewQuotation()
