@@ -2,6 +2,7 @@
 
 namespace Common
 {
+	[Serializable]
 	public class Diginote
 	{
 		private static int counter = 0;
