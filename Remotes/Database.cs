@@ -43,7 +43,7 @@ public class Database
 						                FileMode.Open,
 						                FileAccess.Read,
 						                FileShare.Read);
-					instance = (Database) formatter.Deserialize(fromStream);
+					instance = (Database) formatter.Deserialize(stream);
 					stream.Close ();
 				} else {
 					instance = new Database ();
@@ -57,7 +57,7 @@ public class Database
 	public void AddUser (string key, User value)
 	{
 		registeredUsers.Add (key, value);
-		SaveDatabase()
+        SaveDatabase();
 	}
 
 	public User getUserByUsername (string username)
