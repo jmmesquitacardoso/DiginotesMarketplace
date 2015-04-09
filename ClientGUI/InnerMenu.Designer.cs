@@ -38,6 +38,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.quot = new System.Windows.Forms.TextBox();
             this.changeQuotationButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.quotation = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -126,11 +128,31 @@
             this.changeQuotationButton.Text = "Change Quotation";
             this.changeQuotationButton.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(471, 58);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Current Quotation:";
+            // 
+            // quotation
+            // 
+            this.quotation.AutoSize = true;
+            this.quotation.Location = new System.Drawing.Point(585, 58);
+            this.quotation.Name = "quotation";
+            this.quotation.Size = new System.Drawing.Size(35, 13);
+            this.quotation.TabIndex = 12;
+            this.quotation.Text = "label5";
+            // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 568);
+            this.Controls.Add(this.quotation);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.changeQuotationButton);
             this.Controls.Add(this.quot);
             this.Controls.Add(this.label3);
@@ -161,5 +183,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox quot;
         private System.Windows.Forms.Button changeQuotationButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label quotation;
     }
 }

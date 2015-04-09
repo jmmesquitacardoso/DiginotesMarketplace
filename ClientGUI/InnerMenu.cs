@@ -37,5 +37,10 @@ namespace ClientGUI
             this.Close();
             Application.Exit();
         }
+
+        public void changeQuotationValue(float quot) 
+        {
+            quotation.Text = "" + quot;
+        }
     }
 }
