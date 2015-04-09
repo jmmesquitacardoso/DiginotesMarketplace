@@ -130,36 +130,36 @@ public class Database
 	}
 
 	// Orders
-	public Order GetOldestPurchaseOrder() {
+	public SaleOrder GetOldestPurchaseOrder() {
 		if (purchases.Count == 0) {
 			return null;
 		}
 
-		return (Order) purchases.Peek ();
+		return (SaleOrder) purchases.Peek ();
 	}
 
-	public Order GetOldestSaleOrder() {
+	public SaleOrder GetOldestSaleOrder() {
 		if (sales.Count == 0) {
 			return null;
 		}
 
-		return (Order) sales.Peek ();
+		return (SaleOrder) sales.Peek ();
 	}
 
-	public Order RemoveOldestPurchaseOrder() {
+	public SaleOrder RemoveOldestPurchaseOrder() {
 		if (purchases.Count == 0) {
 			return null;
 		}
 
-		return (Order) purchases.Dequeue ();
+		return (SaleOrder) purchases.Dequeue ();
 	}
 
-    public void AddPurchaseOrder(Order order) 
+    public void AddPurchaseOrder(PurchaseOrder order) 
     {
         purchases.Enqueue(order);
     }
 
-    public void AddSaleOrder(Order order)
+    public void AddSaleOrder(SaleOrder order)
     {
         sales.Enqueue(order);
     }

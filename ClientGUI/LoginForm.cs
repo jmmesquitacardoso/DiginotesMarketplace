@@ -21,6 +21,7 @@ namespace ClientGUI
         {
             App = new ClientApp(this);
             InitializeComponent();
+            Inner = new InnerMenu();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -32,10 +33,9 @@ namespace ClientGUI
         {
             if (App.Login(username.Text, password.Text) == Status.Valid)
             {
-                Inner = new InnerMenu();
+                this.Hide();
+                Inner.Username = username.Text;
                 Inner.ShowDialog();
-                this.SetVisibleCore(false);
-                this.Close();
             }
             else
             {
@@ -59,7 +59,6 @@ namespace ClientGUI
         {
             RegisterForm registerForm = new RegisterForm();
             registerForm.ShowDialog();
-
         }
 
     }

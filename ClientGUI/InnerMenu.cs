@@ -12,6 +12,7 @@ namespace ClientGUI
 {
     public partial class InnerMenu : Form
     {
+        public string Username { get; set; }
 
         public InnerMenu()
         {
@@ -28,9 +29,9 @@ namespace ClientGUI
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void logoutButton_Click(object sender, EventArgs e)
         {
-            LoginForm.App.Logout();
+            LoginForm.App.Logout(Username);
             this.SetVisibleCore(false);
             this.Close();
             Application.Exit();
@@ -49,6 +50,13 @@ namespace ClientGUI
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            Application.Exit();
         }
     }
 }

@@ -13,9 +13,7 @@ namespace Client
 
 		private Intermediate Inter { get; set; }
 
-		private string Username { get; set; }
-
-        private float LastQuotation { get; set; }
+		public string Username { get; set; }
 
 		public ClientApp (ClientInterface parent)
 		{
@@ -37,7 +35,7 @@ namespace Client
 			Console.WriteLine ("Will subscribe event");
 
 			if (result == Status.Valid) {
-				Username = Username;
+				Username = username;
 
 				Inter = new Intermediate (SharedMarketplace);
 				Inter.notifyClients += UpdateQuotation;
@@ -47,9 +45,9 @@ namespace Client
 			return result;
 		}
 
-		public Status Logout ()
+		public Status Logout (string username)
 		{
-			Status result = SharedMarketplace.Logout (Username);
+			Status result = SharedMarketplace.Logout (username);
 
 			if (result == Status.Valid) {
 				Inter.notifyClients -= UpdateQuotation;

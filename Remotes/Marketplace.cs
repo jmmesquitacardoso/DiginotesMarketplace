@@ -49,7 +49,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
         ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
         if (diginotes != null)
         {
-            Order order = new Order(OrderType.Purchase, user, nOrders);
+            SaleOrder order = new SaleOrder(user, nOrders);
             order.AddDiginotes(diginotes);
             Database.Instance.AddSaleOrder(order);
             return Status.Valid;
@@ -62,7 +62,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
     public void addPurchaseOrders(string username, int nOrders)
     {
-        Order order = new Order(OrderType.Purchase, Database.Instance.GetUserByUsername(username), nOrders);
+        User user = Database.Instance.GetUserByUsername(username);
+        PurchaseOrder order = new PurchaseOrder(user, nOrders);
         Database.Instance.AddPurchaseOrder(order);
     }
 

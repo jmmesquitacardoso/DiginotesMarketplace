@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.logoutButton = new System.Windows.Forms.Button();
             this.buyOrdersButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nOrdersBuy = new System.Windows.Forms.TextBox();
@@ -44,15 +44,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // logoutButton
             // 
-            this.button1.Location = new System.Drawing.Point(516, 196);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 48);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Logout";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.logoutButton.Location = new System.Drawing.Point(516, 196);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(150, 48);
+            this.logoutButton.TabIndex = 1;
+            this.logoutButton.Text = "Logout";
+            this.logoutButton.UseVisualStyleBackColor = true;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
             // buyOrdersButton
             // 
@@ -174,7 +174,7 @@
             this.Controls.Add(this.nOrdersBuy);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buyOrdersButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.logoutButton);
             this.Name = "InnerMenu";
             this.Text = "Diginotes Marketplace";
             this.Load += new System.EventHandler(this.InnerMenu_Load);
@@ -186,7 +186,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Button buyOrdersButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox nOrdersBuy;

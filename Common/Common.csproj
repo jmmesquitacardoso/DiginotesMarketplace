@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -32,10 +32,14 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="Diginote.cs" />
-    <Compile Include="Order.cs" />
+    <Compile Include="SaleOrder.cs" />
+    <Compile Include="PurchaseOrder.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="IMarketplace.cs" />
     <Compile Include="Intermediate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
 </Project>
