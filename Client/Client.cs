@@ -8,50 +8,67 @@ namespace Client
 	{
 		// Attributes
 		private ClientInterface parent;
-        private IMarketplace SharedMarketplace { get; set; }
+
+		private IMarketplace SharedMarketplace { get; set; }
+
 		private Intermediate Inter { get; set; }
 
+		private string Username { get; set; }
+
 		public ClientApp (ClientInterface parent)
-        {
-            RemotingConfiguration.Configure("Client.exe.config", false);
-			SharedMarketplace = (IMarketplace) RemoteNew.New(typeof(IMarketplace));
+		{
+			RemotingConfiguration.Configure ("Client.exe.config", false);
+			SharedMarketplace = (IMarketplace)RemoteNew.New (typeof(IMarketplace));
 			this.parent = parent;
 		}
 
-		public void Register(string name, string username, string password, int diginotes)
-        {
-            Console.WriteLine("About to call Register");
-            SharedMarketplace.Register(name, username, password, diginotes);
-            Console.WriteLine("Ended Register call");
-        }
-
-		public Status Login(string username, string password)
-        {
-            Status result = SharedMarketplace.Login(username, password);
-            Console.WriteLine("Will subscribe event");
-
-			if (result == Status.Valid) {
-				Inter = new Intermediate (SharedMarketplace);
-				Inter.notifyClients += UpdateCotation;
-			}
-
-			return result;
-        }
-
-		public Status Logout (string username)
+		public void Register (string name, string username, string password, int diginotes)
 		{
-            Status result = SharedMarketplace.Logout(username);
+			Console.WriteLine ("About to call Register");
+			SharedMarketplace.Register (name, username, password, diginotes);
+			Console.WriteLine ("Ended Register call");
+		}
+
+		public Status Login (string username, string password)
+		{
+			Status result = SharedMarketplace.Login (username, password);
+			Console.WriteLine ("Will subscribe event");
 
 			if (result == Status.Valid) {
-				Inter.notifyClients -= UpdateCotation;
+				Username = Username;
+
+				Inter = new Intermediate (SharedMarketplace);
+				Inter.notifyClients += UpdateQuotation;
+				parent.UpdateQuotation (SharedMarketplace.Quotation);
 			}
 
 			return result;
-        }
+		}
 
-		public void UpdateCotation(float quot)
+		public Status Logout ()
+		{
+			Status result = SharedMarketplace.Logout (Username);
+
+			if (result == Status.Valid) {
+				Inter.notifyClients -= UpdateQuotation;
+			}
+
+			return result;
+		}
+
+		public void UpdateQuotation (float quot)
 		{
 			parent.UpdateQuotation (quot);
+		}
+
+		public int getAvailableDiginotes ()
+		{
+			// TODO
+		}
+
+		public void makeSaleOrder (int nr)
+		{
+			// TODO
 		}
 	}
 }
