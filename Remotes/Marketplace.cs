@@ -45,14 +45,17 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
     public Status addSaleOrders(string username, int nOrders)
     {
-        User user = Database.Instance.GetUserByUsername(username);
-        ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
-        if (diginotes != null)
+        if (usersLoggedIn.Contains(username))
         {
-            SaleOrder order = new SaleOrder(user, nOrders);
-            order.AddDiginotes(diginotes);
-            Database.Instance.AddSaleOrder(order);
-            return Status.Valid;
+            User user = Database.Instance.GetUserByUsername(username);
+            ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
+            if (diginotes != null)
+            {
+                SaleOrder order = new SaleOrder(user, nOrders);
+                order.AddDiginotes(diginotes);
+                Database.Instance.AddSaleOrder(order);
+                return Status.Valid;
+            }
         }
         return Status.Invalid;
     }
