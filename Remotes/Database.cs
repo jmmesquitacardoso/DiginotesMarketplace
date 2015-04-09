@@ -9,8 +9,10 @@ using System.IO;
 public class Database
 {
 	private static Database instance;
-
-	private Hashtable registeredUsers = new Hashtable ();
+	private Hashtable registeredUsers;
+	private Hashtable wallets;
+	private Queue purchases;
+	private Queue sales;
 
 	public Hashtable Users {
 		get {
@@ -18,8 +20,12 @@ public class Database
 		}
 	}
 
-	public Database ()
+	private Database ()
 	{
+		registeredUsers = new Hashtable ();
+		wallets = new Hashtable ();
+		purchases = new Queue ();
+		sales = new Queue ();
 	}
 
 	private void SaveDatabase ()
@@ -43,7 +49,7 @@ public class Database
 						                FileMode.Open,
 						                FileAccess.Read,
 						                FileShare.Read);
-					instance = (Database) formatter.Deserialize(stream);
+					instance = (Database)formatter.Deserialize (stream);
 					stream.Close ();
 				} else {
 					instance = new Database ();
@@ -54,14 +60,93 @@ public class Database
 		}
 	}
 
-	public void AddUser (string key, User value)
+	public Status AddUser (User user)
 	{
-		registeredUsers.Add (key, value);
-        SaveDatabase();
+		if (registeredUsers.Contains (user.Username)) {
+			return Status.Invalid;
+		}
+
+		registeredUsers.Add (user.Username, user);
+		SaveDatabase ();
+
+		return Status.Valid;
 	}
 
-	public User getUserByUsername (string username)
+	public User GetUserByUsername (string username)
 	{
 		return (User)registeredUsers [username];
+	}
+
+	// Diginotes
+	public Status AddDiginotesToUser (string username, ArrayList diginotes)
+	{
+		// Verify invariant
+		// 	the diginotes of a user have a reference to it
+		for (int i = 0, l = diginotes.Count; i < l; i++) {
+			if (((Diginote)diginotes [i]).Owner != username) {
+				return Status.Invalid;
+			}
+		}
+
+		if (wallets.Contains (username)) {
+			((ArrayList)wallets [username]).AddRange (diginotes);
+		}
+		SaveDatabase ();
+		return Status.Valid;
+	}
+
+	public ArrayList RemoveDiginotesFromUser(string username, int count) {
+		// removes up to 'count' diginotes from the user 'username', removing and returning them
+
+		if (!wallets.Contains (username)) {
+			return null;
+		}
+
+		ArrayList userDiginotes = (ArrayList)wallets [username];
+
+		ArrayList returnDiginotes;
+
+		if (userDiginotes.Count <= count) {
+			returnDiginotes = new ArrayList (userDiginotes);
+			wallets [username] = new ArrayList ();
+		} else {
+			returnDiginotes = new ArrayList(userDiginotes.GetRange (0, count));
+		}
+
+		SaveDatabase ();
+		return returnDiginotes;
+	}
+
+	public ArrayList GetUserDiginotes(string username) {
+		if (!wallets.Contains(username)) {
+			return null;
+		}
+
+		return (ArrayList)wallets [username];
+	}
+
+	// Orders
+	public Order GetOldestPurchaseOrder() {
+		if (purchases.Count == 0) {
+			return null;
+		}
+
+		return purchases.Peek ();
+	}
+
+	public Order GetOldestSaleOrder() {
+		if (sales.Count == 0) {
+			return null;
+		}
+
+		return sales.Peek ();
+	}
+
+	public Order RemoveOldestPurchaseOrder() {
+		if (purchases.Count == 0) {
+			return null;
+		}
+
+		return purchases.Dequeue ();
 	}
 }

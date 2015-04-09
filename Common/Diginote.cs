@@ -9,9 +9,9 @@ namespace Common
 
         public int Id { get; set; }
         public int Value { get; set; }
-		public User Owner { get; set; }
+		public string Owner { get; set; }
 
-		public Diginote (User owner)
+		public Diginote (string owner)
 		{
 			Id = ++counter;
 			Value = 1;

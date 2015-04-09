@@ -6,7 +6,6 @@ namespace Common
 	[Serializable]
 	public class User
 	{
-        public Hashtable Wallet {get; set;}
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -16,7 +15,6 @@ namespace Common
             Name = name;
             Username = username;
             Password = password;
-            Wallet = new Hashtable();
 		}
 
         public User(string username, string password)
@@ -42,14 +40,6 @@ namespace Common
 		{
 			return Username.GetHashCode();
 		}
-
-        public void AddDiginotes(int diginotes) {
-            for (int i = 0; i < diginotes; i++)
-            {
-				Diginote diginote = new Diginote (this);
-				Wallet.Add (diginote.Id, diginote);
-			}
-        }
 	}
 }
 
