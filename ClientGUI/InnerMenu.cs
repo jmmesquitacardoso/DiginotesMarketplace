@@ -42,5 +42,10 @@ namespace ClientGUI
         {
             quotation.Text = "" + quot;
         }
+
+        private void buyOrdersButton_Click(object sender, EventArgs e)
+        {
+            float newQuotationValue = float.Parse(quot.Text);
+        }
     }
 }

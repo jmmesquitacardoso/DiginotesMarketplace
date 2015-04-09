@@ -90,7 +90,11 @@ public class Database
 
 		if (wallets.Contains (username)) {
 			((ArrayList)wallets [username]).AddRange (diginotes);
-		}
+        }
+        else
+        {
+            wallets.Add(username, diginotes);
+        }
 		SaveDatabase ();
 		return Status.Valid;
 	}
@@ -131,7 +135,7 @@ public class Database
 			return null;
 		}
 
-		return purchases.Peek ();
+		return (Order) purchases.Peek ();
 	}
 
 	public Order GetOldestSaleOrder() {
@@ -139,7 +143,7 @@ public class Database
 			return null;
 		}
 
-		return sales.Peek ();
+		return (Order) sales.Peek ();
 	}
 
 	public Order RemoveOldestPurchaseOrder() {
@@ -147,6 +151,11 @@ public class Database
 			return null;
 		}
 
-		return purchases.Dequeue ();
+		return (Order) purchases.Dequeue ();
 	}
+
+    public void AddPurchaseOrder(Order order) 
+    {
+        purchases.Enqueue(order);
+    }
 }

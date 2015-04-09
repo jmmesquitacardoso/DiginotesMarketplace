@@ -43,6 +43,11 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Sales
 	// TODO
 
+    public void addPurchaseOrders(string username, int nOrders)
+    {
+        Database.Instance.AddPurchaseOrder(new Order(OrderType.Purchase,Database.Instance.GetUserByUsername(username), nOrders));
+    }
+
 	// Purchases
 	// TODO
 
@@ -88,7 +93,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public Status Login (string username, string password)
 	{
 		Console.WriteLine ("Login Server side: " + username);
-		if (!Database.Instance.Users.Contains (username) || !!String.Equals (Database.Instance.GetUserByUsername (username).Password, password)) {
+		if (!Database.Instance.Users.Contains (username) || !String.Equals (Database.Instance.GetUserByUsername (username).Password, password)) {
 			Console.WriteLine ("\tLogin invalid");
 			return Status.Invalid;
 		}

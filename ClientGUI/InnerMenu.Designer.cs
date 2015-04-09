@@ -60,6 +60,7 @@
             this.buyOrdersButton.TabIndex = 2;
             this.buyOrdersButton.Text = "Buy Orders";
             this.buyOrdersButton.UseVisualStyleBackColor = true;
+            this.buyOrdersButton.Click += new System.EventHandler(this.buyOrdersButton_Click);
             // 
             // label1
             // 
