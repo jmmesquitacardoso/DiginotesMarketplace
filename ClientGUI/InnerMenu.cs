@@ -12,8 +12,11 @@ namespace ClientGUI
 {
     public partial class InnerMenu : Form
     {
-        public InnerMenu()
+        string Username { get; set; }
+
+        public InnerMenu(string username)
         {
+            Username = username;
             InitializeComponent();
         }
 
@@ -25,6 +28,14 @@ namespace ClientGUI
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoginForm.App.Logout(Username);
+            this.SetVisibleCore(false);
+            this.Close();
+            Application.Exit();
         }
     }
 }
