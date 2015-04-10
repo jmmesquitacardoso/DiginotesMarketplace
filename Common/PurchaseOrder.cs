@@ -2,16 +2,10 @@
 
 namespace Common
 {
-    public class PurchaseOrder
+	public class PurchaseOrder : Order
     {
-        User User { get; set; }
-        int Amount { get; set; }
-
-        public PurchaseOrder(User user, int amount)
+		public PurchaseOrder(User user, int amount) : base(user, amount)
         {
-            User = user;
-            Amount = amount;
         }
-
     }
 }

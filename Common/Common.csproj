@@ -38,6 +38,7 @@
     <Compile Include="Status.cs" />
     <Compile Include="IMarketplace.cs" />
     <Compile Include="Intermediate.cs" />
+    <Compile Include="Order.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

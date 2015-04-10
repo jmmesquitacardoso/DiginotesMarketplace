@@ -8,22 +8,17 @@ namespace Common
 {
 
     [Serializable]
-    public class SaleOrder
+	public class SaleOrder: Order
     {
-        User User { get; set; }
-        int Amount { get; set; }
-        ArrayList Diginotes { get; set; }
+        public ArrayList Diginotes { get; }
 
-        public SaleOrder(User user, int amount)
-        {
-            User = user;
-            Amount = amount;
-        }
+		public SaleOrder(User user, int amount) : base(user, amount)
+		{
+		}
 
         public void AddDiginotes(ArrayList diginotes)
         {
             Diginotes = diginotes;
-
         }
     }
 }

@@ -130,6 +130,17 @@ public class Database
 	}
 
 	// Orders
+
+	public void AddPurchaseOrder(PurchaseOrder order) 
+	{
+		purchases.Enqueue(order);
+	}
+
+	public void AddSaleOrder(SaleOrder order)
+	{
+		sales.Enqueue(order);
+	}
+
 	public SaleOrder GetOldestPurchaseOrder() {
 		if (purchases.Count == 0) {
 			return null;
@@ -153,14 +164,4 @@ public class Database
 
 		return (SaleOrder) purchases.Dequeue ();
 	}
-
-    public void AddPurchaseOrder(PurchaseOrder order) 
-    {
-        purchases.Enqueue(order);
-    }
-
-    public void AddSaleOrder(SaleOrder order)
-    {
-        sales.Enqueue(order);
-    }
 }

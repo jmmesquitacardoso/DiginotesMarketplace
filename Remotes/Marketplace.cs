@@ -40,42 +40,6 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		}
 	}
 
-	// Sales
-	// TODO
-
-    public Status addSaleOrders(string username, int nOrders)
-    {
-        if (usersLoggedIn.Contains(username))
-        {
-            User user = Database.Instance.GetUserByUsername(username);
-            ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
-            if (diginotes != null)
-            {
-                SaleOrder order = new SaleOrder(user, nOrders);
-                order.AddDiginotes(diginotes);
-                Database.Instance.AddSaleOrder(order);
-                return Status.Valid;
-            }
-        }
-        return Status.Invalid;
-    }
-
-	// Purchases
-	// TODO
-
-    public Status addPurchaseOrders(string username, int nOrders)
-    {
-        if (usersLoggedIn.Contains(username))
-        {
-            User user = Database.Instance.GetUserByUsername(username);
-            PurchaseOrder order = new PurchaseOrder(user, nOrders);
-            Database.Instance.AddPurchaseOrder(order);
-            return Status.Valid;
-        }
-
-        return Status.Invalid;
-    }
-
 	// Properties
 	public float Quotation {
 		get {
@@ -141,9 +105,43 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Status.Valid;
 	}
 
-	public int getAvailableDiginotes()
+	public int getAvailableDiginotesByUser(string username)
 	{
-		// TODO: reduce from the user diginotes the pending sells
+
         return 0;
+	}
+
+	// Sales
+
+	public Status addSaleOrders(string username, int nOrders)
+	{
+		if (usersLoggedIn.Contains(username))
+		{
+			User user = Database.Instance.GetUserByUsername(username);
+			ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
+			if (diginotes != null)
+			{
+				SaleOrder order = new SaleOrder(user, nOrders);
+				order.AddDiginotes(diginotes);
+				Database.Instance.AddSaleOrder(order);
+				return Status.Valid;
+			}
+		}
+		return Status.Invalid;
+	}
+
+	// Purchases
+
+	public Status addPurchaseOrders(string username, int nOrders)
+	{
+		if (usersLoggedIn.Contains(username))
+		{
+			User user = Database.Instance.GetUserByUsername(username);
+			PurchaseOrder order = new PurchaseOrder(user, nOrders);
+			Database.Instance.AddPurchaseOrder(order);
+			return Status.Valid;
+		}
+
+		return Status.Invalid;
 	}
 }
