@@ -105,10 +105,9 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Status.Valid;
 	}
 
-	public int getAvailableDiginotesByUser(string username)
+	public int GetUserDiginotes(string username)
 	{
-
-        return 0;
+		return Database.Instance.GetUserDiginotes (username);
 	}
 
 	// Sales
@@ -117,11 +116,10 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	{
 		if (usersLoggedIn.Contains(username))
 		{
-			User user = Database.Instance.GetUserByUsername(username);
 			ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser(username, nOrders);
 			if (diginotes != null)
 			{
-				SaleOrder order = new SaleOrder(user, nOrders);
+				SaleOrder order = new SaleOrder(username, nOrders);
 				order.AddDiginotes(diginotes);
 				Database.Instance.AddSaleOrder(order);
 				return Status.Valid;
@@ -130,18 +128,40 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Status.Invalid;
 	}
 
+	public bool GetUserSaleOrders(string username) 
+	{
+		return Database.Instance.GetUserSaleOrders (username);
+	}
+
+	public bool UpdateSaleOrder(int id, int amount)
+	{
+		return Database.Instance.UpdateSaleOrder (id, amount);
+	}
+
 	// Purchases
 
 	public Status addPurchaseOrders(string username, int nOrders)
 	{
 		if (usersLoggedIn.Contains(username))
 		{
-			User user = Database.Instance.GetUserByUsername(username);
-			PurchaseOrder order = new PurchaseOrder(user, nOrders);
+			PurchaseOrder order = new PurchaseOrder(username, nOrders);
 			Database.Instance.AddPurchaseOrder(order);
 			return Status.Valid;
 		}
 
 		return Status.Invalid;
 	}
+
+	public bool GetUserPurchaseOrders(string username) 
+	{
+		return Database.Instance.GetUserPurchaseOrders (username);
+	}
+
+	public bool UpdatePurchaseOrder(int id, int amount)
+	{
+		return Database.Instance.UpdatePurchaseOrder (id, amount);
+	}
+
+	// Dispatch orders
+	// TODO
 }

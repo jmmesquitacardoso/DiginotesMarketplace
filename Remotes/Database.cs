@@ -129,7 +129,7 @@ public class Database
 		return (ArrayList)wallets [username];
 	}
 
-	// Orders
+	// Orders creation
 
 	public void AddPurchaseOrder(PurchaseOrder order) 
 	{
@@ -140,6 +140,73 @@ public class Database
 	{
 		sales.Enqueue(order);
 	}
+
+	// For editing orders
+
+	public ArrayList GetUserPurchaseOrders(string username) {
+		ArrayList userPurchases = new ArrayList ();
+
+		for (int i = 0, l = purchases.Count; i < l; i++) {
+			PurchaseOrder order = (PurchaseOrder)purchases[i];
+			if (order.User == username) {
+				userPurchases.Add (order);
+			}
+		}
+		return userPurchases;
+	}
+
+	public ArrayList GetUserSaleOrders(string username) {
+		ArrayList userSales = new ArrayList ();
+
+		for (int i = 0, l = purchases.Count; i < l; i++) {
+			SaleOrder order = (PurchaseOrder)purchases[i];
+			if (order.User == username) {
+				userSales.Add (order);
+			}
+		}
+		return userSales;
+	}
+
+	public bool UpdatePurchaseOrder(int id, int amount) {
+		PurchaseOrder purchase = null;
+		for (int i = 0, l = sales.Count; i < l; i++) {
+			if (((PurchaseOrder)purchases [i]).Id == id) {
+				purchase = purchases [i];
+				break;
+			}
+		}
+		if (purchase == null) {
+			return false;
+		}
+
+		purchase.Amount = amount;
+
+		return true;
+	}
+
+	public bool UpdateSaleOrder(int id, int amount) {
+		SaleOrder sale = null;
+		for (int i = 0, l = sales.Count; i < l; i++) {
+			if (((SaleOrder)sales [i]).Id == id) {
+				sale = sales [i];
+				break;
+			}
+		}
+
+		if (sale == null) {
+			return false;
+		}
+
+		ArrayList retrievedOrders = sale.RemoveDiginotes (amount);
+		ArrayList userWallet = (ArrayList)wallets [sale.User];
+
+		userWallet.AddRange (userWallet.Count - 1, retrievedOrders);
+
+		return true;
+
+	}
+
+	// Order's dispatch
 
 	public SaleOrder GetOldestPurchaseOrder() {
 		if (purchases.Count == 0) {
@@ -163,5 +230,18 @@ public class Database
 		}
 
 		return (SaleOrder) purchases.Dequeue ();
+	}
+
+	public int GetDiginotesOnSaleCount() {
+		int count = 0;
+
+		for (int i = 0, l = sales.Count; i < l; i++) {
+			count += ((SaleOrder)sales[i]).Diginotes.Count;
+		}
+		return count;
+	}
+
+	public ArrayList DispatchSaleOrders(int diginotesCount) {
+		// TODO
 	}
 }
