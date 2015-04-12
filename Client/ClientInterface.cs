@@ -1,4 +1,5 @@
 using System;
+using Common;
 
 namespace Client
 {
@@ -6,6 +7,7 @@ namespace Client
 	{
 		void UpdateQuotation(float quot);
 		float AskNewQuotation();
+		void NotifyOrderUpdate(OrderType type, int amount, float quot);
 	}
 }
 

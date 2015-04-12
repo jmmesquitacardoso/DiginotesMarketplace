@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Runtime.Remoting;
 using Common;
 
@@ -11,11 +12,13 @@ namespace Client
 
 		private IMarketplace SharedMarketplace { get; set; }
 
-		private Intermediate Inter { get; set; }
+		private QuotationIntermediate QuotInter { get; set; }
+
+		private OrdersIntermediate OrdInter { get; set; }
 
 		public string Username { get; set; }
 
-        public float PreviousQuotation { get; set; }
+		public float PreviousQuotation { get; set; }
 
 		public ClientApp (ClientInterface parent)
 		{
@@ -38,11 +41,16 @@ namespace Client
 
 			if (result == Status.Valid) {
 				Username = username;
-                PreviousQuotation = SharedMarketplace.Quotation;
+				PreviousQuotation = SharedMarketplace.Quotation;
 
-				Inter = new Intermediate (SharedMarketplace);
-				Inter.notifyClients += UpdateQuotation;
+				// Subscribe quotation's updates
+				QuotInter = new QuotationIntermediate (SharedMarketplace);
+				QuotInter.notifyClients += UpdateQuotation;
 				parent.UpdateQuotation (SharedMarketplace.Quotation);
+
+				// Subscribe order's updates
+				OrdInter = new QuotationIntermediate (SharedMarketplace);
+				OrdInter.notifyClients += UpdateQuotation;
 			}
 
 			return result;
@@ -53,7 +61,8 @@ namespace Client
 			Status result = SharedMarketplace.Logout (username);
 
 			if (result == Status.Valid) {
-				Inter.notifyClients -= UpdateQuotation;
+				QuotInter.notifyClients -= UpdateQuotation;
+				OrdInter.notifyClients -= UpdateQuotation;
 			}
 
 			return result;
@@ -64,20 +73,53 @@ namespace Client
 			parent.UpdateQuotation (quot);
 		}
 
-		public int getAvailableDiginotes ()
+		public int GetAvailableDiginotes ()
 		{
-			// TODO
-            return 1;
+			return SharedMarketplace.GetUserDiginotes (Username);
 		}
 
-		public void makeSaleOrder (int nOrders)
+		// Creating orders
+
+		public void MakeSaleOrder (int nOrders)
 		{
-            SharedMarketplace.addSaleOrders(Username, nOrders);
+			SharedMarketplace.addSaleOrders (Username, nOrders);
 		}
 
-        public void makePurchaseOrder (int nOrders)
-        {
-            SharedMarketplace.addPurchaseOrders(Username, nOrders);
-        }
+		public void MakePurchaseOrder (int nOrders)
+		{
+			SharedMarketplace.addPurchaseOrders (Username, nOrders);
+		}
+
+		// Reviewing orders
+
+		public ArrayList GetPurchaseOrders ()
+		{
+			return SharedMarketplace.GetUserPurchaseOrders (User);
+		}
+
+		public ArrayList GetSaleOrders ()
+		{
+			return SharedMarketplace.GetUserSaleOrders (User);
+		}
+
+		//Updating orders
+
+		public bool UpdatePurchaseOrder (int id, int amount)
+		{
+			return SharedMarketplace.UpdatePurchaseOrder (id, amount);
+		}
+
+		public bool UpdateSaleOrder (int id, int amount)
+		{
+			return SharedMarketplace.UpdateSaleOrder (id, amount);
+		}
+
+		// Process order's updates
+		public void NotifyOrderUpdate (string username, OrderType type, int amount, float quot)
+		{
+			if (Username == username) {
+				parent.NotifyOrderUpdate (type, amount, quot);
+			}
+		}
 	}
 }

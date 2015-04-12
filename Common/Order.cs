@@ -3,6 +3,13 @@
 namespace Common
 {
 	[Serializable]
+	public enum OrderType
+	{
+		Purchase,
+		Sale
+	}
+
+	[Serializable]
 	public abstract class Order
 	{
 		private static int counter = 0;
@@ -29,16 +36,17 @@ namespace Common
 			if (!(obj is Order)) {
 				throw new InvalidCastException ("The Object isn't of Type Order.");
 			} else {
-				return Id.Equals((obj as Order).Id);
+				return Id.Equals ((obj as Order).Id);
 			}
 		}
 
 		public override int GetHashCode ()
 		{
-			return Id.GetHashCode();
+			return Id.GetHashCode ();
 		}
 
-		public Order Clone() {
+		public Order Clone ()
+		{
 		}
 	}
 }

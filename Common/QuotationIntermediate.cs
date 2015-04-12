@@ -4,13 +4,12 @@ namespace Common
 {
 	public delegate void QuotationNotifier (float quot);
 
-	public class Intermediate : MarshalByRefObject {
+	public class QuotationIntermediate : MarshalByRefObject {
 
 		public event QuotationNotifier notifyClients;
 
-
-		public Intermediate(IMarketplace sharedMarketplace) {
-			sharedMarketplace.notifyClients += FireQuotNotify;
+		public QuotationIntermediate(IMarketplace sharedMarketplace) {
+			sharedMarketplace.notifyQuotClients += FireQuotNotify;
 		}
 
 		public void FireQuotNotify(float quot) {

@@ -134,11 +134,13 @@ public class Database
 	public void AddPurchaseOrder(PurchaseOrder order) 
 	{
 		purchases.Enqueue(order);
+		SaveDatabase ();
 	}
 
 	public void AddSaleOrder(SaleOrder order)
 	{
 		sales.Enqueue(order);
+		SaveDatabase ();
 	}
 
 	// For editing orders
@@ -181,6 +183,8 @@ public class Database
 
 		purchase.Amount = amount;
 
+		SaveDatabase ();
+
 		return true;
 	}
 
@@ -202,18 +206,20 @@ public class Database
 
 		userWallet.AddRange (userWallet.Count - 1, retrievedOrders);
 
+		SaveDatabase ();
+
 		return true;
 
 	}
 
 	// Order's dispatch
 
-	public SaleOrder GetOldestPurchaseOrder() {
+	public PurchaseOrder GetOldestPurchaseOrder() {
 		if (purchases.Count == 0) {
 			return null;
 		}
 
-		return (SaleOrder) purchases.Peek ();
+		return (PurchaseOrder) purchases.Peek ();
 	}
 
 	public SaleOrder GetOldestSaleOrder() {
@@ -224,12 +230,13 @@ public class Database
 		return (SaleOrder) sales.Peek ();
 	}
 
-	public SaleOrder RemoveOldestPurchaseOrder() {
-		if (purchases.Count == 0) {
-			return null;
+	public void UpdateOldestPurchaseOrder(int amount) {
+		if (amount == 0) {
+			purchases.Dequeue ();
+		} else {
+			((PurchaseOrder)purchases.Peek ()).Amount = amount;
 		}
-
-		return (SaleOrder) purchases.Dequeue ();
+		SaveDatabase ();
 	}
 
 	public int GetDiginotesOnSaleCount() {
@@ -241,7 +248,12 @@ public class Database
 		return count;
 	}
 
-	public ArrayList DispatchSaleOrders(int diginotesCount) {
-		// TODO
+	public ArrayList RemoveFromOldestSale(int amount) {
+		if (amount == 0) {
+			sales.Dequeue ();
+		} else {
+			((SaleOrder)sales.Peek ()).Amount -= amount;
+		}
+		SaveDatabase ();
 	}
 }
