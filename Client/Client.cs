@@ -18,7 +18,7 @@ namespace Client
 
 		public string Username { get; set; }
 
-		public float PreviousQuotation { get; set; }
+		public float Quotation { get; set; }
 
 		public ClientApp (ClientInterface parent)
 		{
@@ -41,7 +41,7 @@ namespace Client
 
 			if (result == Status.Valid) {
 				Username = username;
-				PreviousQuotation = SharedMarketplace.Quotation;
+				Quotation = SharedMarketplace.Quotation;
 
 				// Subscribe quotation's updates
 				QuotInter = new QuotationIntermediate (SharedMarketplace);
@@ -71,6 +71,7 @@ namespace Client
 		public void UpdateQuotation (float quot)
 		{
 			parent.UpdateQuotation (quot);
+			Quotation = quot;
 		}
 
 		public int GetAvailableDiginotes ()
@@ -80,14 +81,28 @@ namespace Client
 
 		// Creating orders
 
-		public void MakeSaleOrder (int nOrders)
+		public bool MakeSaleOrder (int nOrders)
 		{
-			SharedMarketplace.addSaleOrders (Username, nOrders);
+			OrderStatus status = SharedMarketplace.addSaleOrders (Username, nOrders);
+			if (status == OrderStatus.Error) {
+				return false;
+			} else if (status == OrderStatus.Pending) {
+				float newQuotation = parent.AskNewQuotation (Quotation, OrderType.Sale);
+				SharedMarketplace.UpdateQuotation (newQuotation);
+			}
+			return true;
 		}
 
 		public void MakePurchaseOrder (int nOrders)
 		{
-			SharedMarketplace.addPurchaseOrders (Username, nOrders);
+			OrderStatus status = SharedMarketplace.addPurchaseOrders (Username, nOrders);
+			if (status == OrderStatus.Error) {
+				return false;
+			} else if (status == OrderStatus.Pending) {
+				float newQuotation = parent.AskNewQuotation (Quotation, OrderType.Purchase);
+				SharedMarketplace.UpdateQuotation (newQuotation);
+			}
+			return true;
 		}
 
 		// Reviewing orders

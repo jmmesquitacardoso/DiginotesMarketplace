@@ -10,6 +10,8 @@ public interface IMarketplace
 
 	float Quotation { get; }
 
+	void UpdateQuotation (float quot);
+
 	Status Register (string name, string username, string password, int diginotes);
 
 	Status Login (string username, string password);

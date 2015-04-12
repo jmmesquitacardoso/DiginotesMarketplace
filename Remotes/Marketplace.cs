@@ -14,7 +14,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Quotation update
 	public event QuotationNotifier notifyQuotClients;
 
-	public void UpdateCotation (float quot)
+	public void UpdateQuotation (float quot)
 	{
 		if (quot < this.quot) {
 			new Thread ().Start ();

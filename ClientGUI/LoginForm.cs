@@ -46,7 +46,7 @@ namespace ClientGUI
 
         public void UpdateQuotation(float quot)
         {
-            if (quot < App.PreviousQuotation)
+            if (quot < App.Quotation)
             {
                 Inner.DisplayQuotationWarning();
             }
