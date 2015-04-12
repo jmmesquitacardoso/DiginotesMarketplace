@@ -14,8 +14,14 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Quotation update
 	public event QuotationNotifier notifyQuotClients;
 
-	private void UpdateCotation (float quot)
+	public void UpdateCotation (float quot)
 	{
+		if (quot < this.quot) {
+			new Thread ().Start ();
+		} else {
+			DispatchOrders ();
+		}
+
 		this.quot = quot;
 		if (notifyQuotClients != null) {
 			Delegate[] invkList = notifyQuotClients.GetInvocationList ();
@@ -26,6 +32,11 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 				new Thread (TriggerQuotEvent).Start (pars);
 			}
 		}
+	}
+
+	private void DelayDispatch() {
+		Thread.Sleep (60000);
+		DispatchOrders ();
 	}
 
 	private void TriggerQuotEvent (object pars)
@@ -142,18 +153,27 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	// Sales
 
-	public Status addSaleOrders (string username, int nOrders)
+	public OrderStatus addSaleOrders (string username, int nOrders)
 	{
-		if (usersLoggedIn.Contains (username)) {
-			ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser (username, nOrders);
-			if (diginotes != null) {
-				SaleOrder order = new SaleOrder (username, nOrders);
-				order.AddDiginotes (diginotes);
-				Database.Instance.AddSaleOrder (order);
-				return Status.Valid;
-			}
+		if (!usersLoggedIn.Contains (username)) {
+			return OrderStatus.Error;
 		}
-		return Status.Invalid;
+
+		ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser (username, nOrders);
+		if (diginotes == null) {
+			return OrderStatus.Error;
+		}
+		SaleOrder order = new SaleOrder (username, nOrders);
+		int id = order.Id;
+		order.AddDiginotes (diginotes);
+		Database.Instance.AddSaleOrder (order);
+
+		DispatchOrders ();
+		if (Database.Instance.IsOrderPending(id)) {
+			return OrderStatus.Pending;
+		} else {
+			return OrderStatus.Dispatched;
+		}
 	}
 
 	public ArrayList GetUserSaleOrders (string username)
@@ -168,15 +188,22 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	// Purchases
 
-	public Status AddPurchaseOrders (string username, int nOrders)
+	public OrderStatus AddPurchaseOrders (string username, int nOrders)
 	{
 		if (usersLoggedIn.Contains (username)) {
-			PurchaseOrder order = new PurchaseOrder (username, nOrders);
-			Database.Instance.AddPurchaseOrder (order);
-			return Status.Valid;
+			return Status.Invalid;
+		}
+		PurchaseOrder order = new PurchaseOrder (username, nOrders);
+		int id = order.Id;
+		Database.Instance.AddPurchaseOrder (order);
+
+		DispatchOrders ();
+		if (Database.Instance.IsOrderPending(id)) {
+			return OrderStatus.Pending;
+		} else {
+			return OrderStatus.Dispatched;
 		}
 
-		return Status.Invalid;
 	}
 
 	public ArrayList GetUserPurchaseOrders (string username)
@@ -194,7 +221,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	{
 		PurchaseOrder currentPurchase;
 		while ((currentPurchase = Database.Instance.GetOldestPurchaseOrder ()) != null
-			&& Database.Instance.GetDiginotesOnSaleCount() > 0) {
+		       && Database.Instance.GetDiginotesOnSaleCount () > 0) {
 
 			int desiredDiginotes = currentPurchase.Amount;
 			ArrayList diginotes = Database.Instance.RemoveFromOldestSale (desiredDiginotes);
@@ -216,7 +243,4 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			Database.Instance.UpdateOldestPurchaseOrder (diginotesDispatched);
 		}
 	}
-
-	// Change quotation
-	// TODO: Can increment? Can decrement? Increment Decrement
 }

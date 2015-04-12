@@ -10,6 +10,14 @@ namespace Common
 	}
 
 	[Serializable]
+	public enum OrderStatus
+	{
+		Dispatched,
+		Pending,
+		Error
+	}
+
+	[Serializable]
 	public abstract class Order
 	{
 		private static int counter = 0;

@@ -248,6 +248,22 @@ public class Database
 		return count;
 	}
 
+	public bool IsOrderPending(int orderId) {
+		for (int i = 0, l = sales.Count; i < l; i++) {
+			if (((SaleOrder)sales [i]).Id == orderId) {
+				return true;
+			}
+		}
+
+		for (int i = 0, l = purchases.Count; i < l; i++) {
+			if (((PurchaseOrder)purchases [i]).Id == orderId) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public ArrayList RemoveFromOldestSale(int amount) {
 		if (amount == 0) {
 			sales.Dequeue ();
