@@ -69,7 +69,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	private void TriggerOrdEvent (object pars)
 	{
-		QuotationNotifier handler = (OrdersNotifier)((object[])pars) [0];
+        OrdersNotifier handler = (OrdersNotifier)((object[])pars)[0];
 		string username = (string)((object[])pars) [1];
 		OrderType type = (OrderType)((object[])pars) [2];
 		int amount = (int)((object[])pars) [3];
@@ -146,7 +146,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Status.Valid;
 	}
 
-	public int GetUserDiginotes (string username)
+	public ArrayList GetUserDiginotes (string username)
 	{
 		return Database.Instance.GetUserDiginotes (username);
 	}
@@ -163,7 +163,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		if (diginotes == null) {
 			return OrderStatus.Error;
 		}
-		SaleOrder order = new SaleOrder (username, nOrders);
+		SaleOrder order = new SaleOrder ((User)usersLoggedIn[username], nOrders);
 		int id = order.Id;
 		order.AddDiginotes (diginotes);
 		Database.Instance.AddSaleOrder (order);
@@ -191,9 +191,9 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public OrderStatus AddPurchaseOrders (string username, int nOrders)
 	{
 		if (usersLoggedIn.Contains (username)) {
-			return Status.Invalid;
+			return OrderStatus.Error;
 		}
-		PurchaseOrder order = new PurchaseOrder (username, nOrders);
+		PurchaseOrder order = new PurchaseOrder ((User)usersLoggedIn[username], nOrders);
 		int id = order.Id;
 		Database.Instance.AddPurchaseOrder (order);
 
