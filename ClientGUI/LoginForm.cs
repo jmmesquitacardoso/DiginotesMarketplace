@@ -34,7 +34,7 @@ namespace ClientGUI
             if (App.Login(username.Text, password.Text) == Status.Valid)
             {
                 this.Hide();
-                Inner.Username = username.Text;
+                Inner.Username = App.Username;
                 Inner.ShowDialog();
             }
             else
@@ -61,7 +61,7 @@ namespace ClientGUI
 
         public void NotifyOrderUpdate(OrderType type, int amount, float quot)
         {
-
+            Inner.notifyOrder(type, amount, quot);
         }
 
         private void registerButton_Click(object sender, EventArgs e)

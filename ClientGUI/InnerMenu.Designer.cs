@@ -38,6 +38,7 @@
             this.ordersSellSpinner = new System.Windows.Forms.NumericUpDown();
             this.warningLabel = new System.Windows.Forms.Label();
             this.purchaseOrdersSpinner = new System.Windows.Forms.NumericUpDown();
+            this.orderNotifierLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).BeginInit();
             this.SuspendLayout();
@@ -130,11 +131,20 @@
             this.purchaseOrdersSpinner.Size = new System.Drawing.Size(171, 20);
             this.purchaseOrdersSpinner.TabIndex = 15;
             // 
+            // orderNotifierLabel
+            // 
+            this.orderNotifierLabel.AutoSize = true;
+            this.orderNotifierLabel.Location = new System.Drawing.Point(376, 358);
+            this.orderNotifierLabel.Name = "orderNotifierLabel";
+            this.orderNotifierLabel.Size = new System.Drawing.Size(0, 13);
+            this.orderNotifierLabel.TabIndex = 16;
+            // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 568);
+            this.Controls.Add(this.orderNotifierLabel);
             this.Controls.Add(this.purchaseOrdersSpinner);
             this.Controls.Add(this.warningLabel);
             this.Controls.Add(this.ordersSellSpinner);
@@ -167,5 +177,6 @@
         private System.Windows.Forms.NumericUpDown ordersSellSpinner;
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.NumericUpDown purchaseOrdersSpinner;
+        private System.Windows.Forms.Label orderNotifierLabel;
     }
 }

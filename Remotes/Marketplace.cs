@@ -191,8 +191,12 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public OrderStatus AddPurchaseOrders (string username, int nOrders)
 	{
 		if (usersLoggedIn.Contains (username)) {
+            Console.WriteLine("Not logged in!");
 			return OrderStatus.Error;
 		}
+
+        Console.WriteLine("Adding purchase orders");
+
 		PurchaseOrder order = new PurchaseOrder (username, nOrders);
 		int id = order.Id;
 		Database.Instance.AddPurchaseOrder (order);

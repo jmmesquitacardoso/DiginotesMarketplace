@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Common;
 
 namespace ClientGUI
 {
@@ -51,6 +52,7 @@ namespace ClientGUI
         {
             int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
             LoginForm.App.MakePurchaseOrder(nOrders);
+            ordersSellSpinner.Maximum = LoginForm.App.GetSaleOrders().Count;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -62,6 +64,8 @@ namespace ClientGUI
         {
             base.OnFormClosing(e);
 
+            this.SetVisibleCore(false);
+            this.Close();
             Application.Exit();
         }
 
@@ -73,6 +77,18 @@ namespace ClientGUI
 
         private void quot_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        public void notifyOrder(OrderType type, int amount, float quot)
+        {
+            if (type == OrderType.Purchase) 
+            {
+                orderNotifierLabel.Text = amount + " diginotes have been sold at a quotation of " + quot;
+            }
+            else
+            {
+                orderNotifierLabel.Text = amount + " diginotes have been bought at a quotation of " + quot;
+            }
         }
     }
 }
