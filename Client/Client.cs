@@ -87,8 +87,8 @@ namespace Client
 			if (status == OrderStatus.Error) {
 				return false;
 			} else if (status == OrderStatus.Pending) {
-				float newQuotation = parent.AskNewQuotation (Quotation, OrderType.Sale);
-				SharedMarketplace.UpdateQuotation (newQuotation);
+				parent.AskNewQuotation (Quotation, OrderType.Sale);
+				//SharedMarketplace.UpdateQuotation (newQuotation);
 			}
 			return true;
 		}
@@ -99,14 +99,18 @@ namespace Client
 			if (status == OrderStatus.Error) {
 				return false;
 			} else if (status == OrderStatus.Pending) {
-				float newQuotation = parent.AskNewQuotation (Quotation, OrderType.Purchase);
-				SharedMarketplace.UpdateQuotation (newQuotation);
+				parent.AskNewQuotation (Quotation, OrderType.Purchase);
+				//SharedMarketplace.UpdateQuotation (newQuotation);
 			}
 			return true;
 		}
 
 		// Reviewing orders
 
+        public void UpdateServerQuotation(float newQuotation) 
+        {
+            SharedMarketplace.UpdateQuotation(newQuotation);
+        }
 		public ArrayList GetPurchaseOrders ()
 		{
 			return SharedMarketplace.GetUserPurchaseOrders (Username);

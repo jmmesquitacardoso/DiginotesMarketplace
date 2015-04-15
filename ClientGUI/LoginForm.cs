@@ -53,9 +53,10 @@ namespace ClientGUI
             Inner.ChangeQuotationValue(quot);
         }
 
-        public float AskNewQuotation(float currentQuot, OrderType type)
+        public void AskNewQuotation(float currentQuot, OrderType type)
         {
-            return -1f;
+            NewQuotationDialog newQuotDialog = new NewQuotationDialog(type, currentQuot);
+            newQuotDialog.ShowDialog();
         }
 
         public void NotifyOrderUpdate(OrderType type, int amount, float quot)

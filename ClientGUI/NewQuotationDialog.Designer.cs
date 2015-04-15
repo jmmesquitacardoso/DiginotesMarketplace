@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.quotationTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.confirmQuotation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // quotationTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(91, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 20);
-            this.textBox1.TabIndex = 0;
+            this.quotationTextBox.Location = new System.Drawing.Point(91, 46);
+            this.quotationTextBox.Name = "quotationTextBox";
+            this.quotationTextBox.Size = new System.Drawing.Size(198, 20);
+            this.quotationTextBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -49,13 +50,24 @@
             this.label1.Text = "New Quotation";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // confirmQuotation
+            // 
+            this.confirmQuotation.Location = new System.Drawing.Point(91, 81);
+            this.confirmQuotation.Name = "confirmQuotation";
+            this.confirmQuotation.Size = new System.Drawing.Size(198, 41);
+            this.confirmQuotation.TabIndex = 2;
+            this.confirmQuotation.Text = "Confirm New Quotation";
+            this.confirmQuotation.UseVisualStyleBackColor = true;
+            this.confirmQuotation.Click += new System.EventHandler(this.confirmQuotation_Click);
+            // 
             // NewQuotationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 356);
+            this.ClientSize = new System.Drawing.Size(372, 195);
+            this.Controls.Add(this.confirmQuotation);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.quotationTextBox);
             this.Name = "NewQuotationDialog";
             this.Text = "NewQuotationDialog";
             this.ResumeLayout(false);
@@ -65,7 +77,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox quotationTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button confirmQuotation;
     }
 }

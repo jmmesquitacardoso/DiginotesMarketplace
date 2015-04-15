@@ -51,6 +51,12 @@
     <Compile Include="InnerMenu.Designer.cs">
       <DependentUpon>InnerMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewQuotationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewQuotationDialog.Designer.cs">
+      <DependentUpon>NewQuotationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="InnerMenu.resx">
       <DependentUpon>InnerMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewQuotationDialog.resx">
+      <DependentUpon>NewQuotationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>

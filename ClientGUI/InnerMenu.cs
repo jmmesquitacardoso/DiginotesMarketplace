@@ -73,8 +73,6 @@ namespace ClientGUI
 
         private void quot_TextChanged(object sender, EventArgs e)
         {
-            float newQuotationValue = float.Parse(quot.Text);
-            LoginForm.App.
         }
     }
 }
