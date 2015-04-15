@@ -53,9 +53,14 @@ namespace ClientGUI
             Inner.ChangeQuotationValue(quot);
         }
 
-        public float AskNewQuotation()
+        public float AskNewQuotation(float currentQuot, OrderType type)
         {
             return -1f;
+        }
+
+        public void NotifyOrderUpdate(OrderType type, int amount, float quot)
+        {
+
         }
 
         private void registerButton_Click(object sender, EventArgs e)

@@ -18,15 +18,15 @@ public interface IMarketplace
 
 	Status Logout (string username);
 
-	int GetUserDiginotes(string username);
+	ArrayList GetUserDiginotes(string username);
 
-	Status addSaleOrders (string username, int nOrders);
+	OrderStatus AddSaleOrders (string username, int nOrders);
 
 	ArrayList GetUserSaleOrders (string username);
 
 	bool UpdateSaleOrder (int id, int amount);
 
-	Status addPurchaseOrders (string username, int nOrders);
+	OrderStatus AddPurchaseOrders (string username, int nOrders);
 
 	ArrayList GetUserPurchaseOrders (string username);
 

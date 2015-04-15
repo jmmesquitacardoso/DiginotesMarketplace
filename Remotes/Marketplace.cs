@@ -17,7 +17,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public void UpdateQuotation (float quot)
 	{
 		if (quot < this.quot) {
-			new Thread ().Start ();
+            new Thread(DelayDispatch).Start();
 		} else {
 			DispatchOrders ();
 		}
@@ -153,7 +153,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	// Sales
 
-	public OrderStatus addSaleOrders (string username, int nOrders)
+	public OrderStatus AddSaleOrders (string username, int nOrders)
 	{
 		if (!usersLoggedIn.Contains (username)) {
 			return OrderStatus.Error;
@@ -163,7 +163,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		if (diginotes == null) {
 			return OrderStatus.Error;
 		}
-		SaleOrder order = new SaleOrder ((User)usersLoggedIn[username], nOrders);
+		SaleOrder order = new SaleOrder (username, nOrders);
 		int id = order.Id;
 		order.AddDiginotes (diginotes);
 		Database.Instance.AddSaleOrder (order);
@@ -193,7 +193,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		if (usersLoggedIn.Contains (username)) {
 			return OrderStatus.Error;
 		}
-		PurchaseOrder order = new PurchaseOrder ((User)usersLoggedIn[username], nOrders);
+		PurchaseOrder order = new PurchaseOrder (username, nOrders);
 		int id = order.Id;
 		Database.Instance.AddPurchaseOrder (order);
 
@@ -227,7 +227,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			ArrayList diginotes = Database.Instance.RemoveFromOldestSale (desiredDiginotes);
 
 			int diginotesDispatched = desiredDiginotes - diginotes.Count;
-			string sellerUsername = ((SaleOrder)diginotes [0]).User;
+			string sellerUsername = ((Diginote)diginotes [0]).Owner;
 			string buyerUsername = currentPurchase.User;
 
 			// Change owner

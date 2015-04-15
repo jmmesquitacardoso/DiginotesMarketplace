@@ -22,11 +22,11 @@ namespace Common
 	{
 		private static int counter = 0;
 
-		public string User { get; }
+        public string User { get; set; }
 
 		public int Amount { get; set; }
 
-		public int Id { get; }
+        public int Id { get; set; }
 
 		public Order (string user, int amount)
 		{
@@ -53,9 +53,6 @@ namespace Common
 			return Id.GetHashCode ();
 		}
 
-		public Order Clone ()
-		{
-		}
 	}
 }
 

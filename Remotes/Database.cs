@@ -148,39 +148,59 @@ public class Database
 	public ArrayList GetUserPurchaseOrders(string username) {
 		ArrayList userPurchases = new ArrayList ();
 
-		for (int i = 0, l = purchases.Count; i < l; i++) {
-			PurchaseOrder order = (PurchaseOrder)purchases[i];
-			if (order.User == username) {
-				userPurchases.Add (order);
-			}
-		}
+        foreach (PurchaseOrder order in purchases) {
+            if (order.User.Equals(username))
+            {
+                userPurchases.Add(order);
+            }
+        }
+
 		return userPurchases;
 	}
 
 	public ArrayList GetUserSaleOrders(string username) {
 		ArrayList userSales = new ArrayList ();
 
-		for (int i = 0, l = purchases.Count; i < l; i++) {
-			SaleOrder order = (PurchaseOrder)purchases[i];
-			if (order.User == username) {
-				userSales.Add (order);
-			}
-		}
+
+        foreach (SaleOrder order in purchases)
+        {
+            if (order.User.Equals(username))
+            {
+                userSales.Add(order);
+            }
+        }
+
 		return userSales;
 	}
 
 	public bool UpdatePurchaseOrder(int id, int amount) {
 		PurchaseOrder purchase = null;
-		for (int i = 0, l = sales.Count; i < l; i++) {
-			if (((PurchaseOrder)purchases [i]).Id == id) {
-				purchase = purchases [i];
-				break;
-			}
-		}
+
+        foreach (PurchaseOrder order in purchases)
+        {
+            if (order.Id == id)
+            {
+                purchase = order;
+
+                if (amount == 0)
+                {
+                   //TODO
+                }
+
+                break;
+            }
+        }
+
+
 		if (purchase == null) {
 			return false;
 		}
 
+
+        if (amount == 0)
+        {
+            
+        }
 		purchase.Amount = amount;
 
 		SaveDatabase ();
@@ -190,12 +210,14 @@ public class Database
 
 	public bool UpdateSaleOrder(int id, int amount) {
 		SaleOrder sale = null;
-		for (int i = 0, l = sales.Count; i < l; i++) {
-			if (((SaleOrder)sales [i]).Id == id) {
-				sale = sales [i];
-				break;
-			}
-		}
+
+        foreach (SaleOrder order in sales)
+        {
+            if (order.Id == id)
+            {
+                sale = order;
+            }
+        }
 
 		if (sale == null) {
 			return false;
@@ -204,7 +226,7 @@ public class Database
 		ArrayList retrievedOrders = sale.RemoveDiginotes (amount);
 		ArrayList userWallet = (ArrayList)wallets [sale.User];
 
-		userWallet.AddRange (userWallet.Count - 1, retrievedOrders);
+		userWallet.InsertRange (userWallet.Count - 1, retrievedOrders);
 
 		SaveDatabase ();
 
@@ -242,34 +264,56 @@ public class Database
 	public int GetDiginotesOnSaleCount() {
 		int count = 0;
 
-		for (int i = 0, l = sales.Count; i < l; i++) {
-			count += ((SaleOrder)sales[i]).Diginotes.Count;
-		}
+        foreach (SaleOrder order in sales)
+        {
+            count += order.Diginotes.Count;
+        }
+
 		return count;
 	}
 
 	public bool IsOrderPending(int orderId) {
-		for (int i = 0, l = sales.Count; i < l; i++) {
-			if (((SaleOrder)sales [i]).Id == orderId) {
-				return true;
-			}
-		}
 
-		for (int i = 0, l = purchases.Count; i < l; i++) {
-			if (((PurchaseOrder)purchases [i]).Id == orderId) {
-				return true;
-			}
-		}
+        foreach (SaleOrder order in sales)
+        {
+            if (order.Id == orderId)
+            {
+                return true;
+            }
+        }
+
+        foreach (PurchaseOrder order in purchases)
+        {
+            if (order.Id == orderId)
+            {
+                return true;
+            }
+        }
 
 		return false;
 	}
 
 	public ArrayList RemoveFromOldestSale(int amount) {
-		if (amount == 0) {
-			sales.Dequeue ();
-		} else {
-			((SaleOrder)sales.Peek ()).Amount -= amount;
-		}
-		SaveDatabase ();
+
+        ArrayList result = new ArrayList();
+
+        SaleOrder order = (SaleOrder) sales.Peek();
+
+        if (order.Amount >= amount)
+        {
+            result.AddRange(order.RemoveDiginotes(amount));
+
+            if (order.Amount == amount)
+            {
+                sales.Dequeue();
+            }
+            else
+            {
+                result.AddRange(order.RemoveDiginotes(order.Amount));
+                sales.Dequeue();
+            }
+        }
+
+        return result;
 	}
 }

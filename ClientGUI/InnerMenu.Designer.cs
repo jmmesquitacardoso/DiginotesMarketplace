@@ -31,7 +31,6 @@
             this.logoutButton = new System.Windows.Forms.Button();
             this.buyOrdersButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.nOrdersBuy = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.sellOrdersButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,9 +38,11 @@
             this.changeQuotationButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.quotation = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.ordersSellSpinner = new System.Windows.Forms.NumericUpDown();
             this.warningLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.purchaseOrdersSpinner = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).BeginInit();
             this.SuspendLayout();
             // 
             // logoutButton
@@ -73,13 +74,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Number of orders to buy";
             // 
-            // nOrdersBuy
-            // 
-            this.nOrdersBuy.Location = new System.Drawing.Point(177, 60);
-            this.nOrdersBuy.Name = "nOrdersBuy";
-            this.nOrdersBuy.Size = new System.Drawing.Size(174, 20);
-            this.nOrdersBuy.TabIndex = 4;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -97,6 +91,7 @@
             this.sellOrdersButton.TabIndex = 7;
             this.sellOrdersButton.Text = "Sell Orders";
             this.sellOrdersButton.UseVisualStyleBackColor = true;
+            this.sellOrdersButton.Click += new System.EventHandler(this.sellOrdersButton_Click);
             // 
             // label3
             // 
@@ -114,6 +109,7 @@
             this.quot.Name = "quot";
             this.quot.Size = new System.Drawing.Size(174, 20);
             this.quot.TabIndex = 9;
+            this.quot.TextChanged += new System.EventHandler(this.quot_TextChanged);
             // 
             // changeQuotationButton
             // 
@@ -141,13 +137,13 @@
             this.quotation.Size = new System.Drawing.Size(0, 13);
             this.quotation.TabIndex = 12;
             // 
-            // numericUpDown1
+            // ordersSellSpinner
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(177, 196);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(174, 20);
-            this.numericUpDown1.TabIndex = 13;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.ordersSellSpinner.Location = new System.Drawing.Point(177, 196);
+            this.ordersSellSpinner.Name = "ordersSellSpinner";
+            this.ordersSellSpinner.Size = new System.Drawing.Size(174, 20);
+            this.ordersSellSpinner.TabIndex = 13;
+            this.ordersSellSpinner.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // warningLabel
             // 
@@ -157,13 +153,21 @@
             this.warningLabel.Size = new System.Drawing.Size(0, 13);
             this.warningLabel.TabIndex = 14;
             // 
+            // purchaseOrdersSpinner
+            // 
+            this.purchaseOrdersSpinner.Location = new System.Drawing.Point(177, 60);
+            this.purchaseOrdersSpinner.Name = "purchaseOrdersSpinner";
+            this.purchaseOrdersSpinner.Size = new System.Drawing.Size(171, 20);
+            this.purchaseOrdersSpinner.TabIndex = 15;
+            // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 568);
+            this.Controls.Add(this.purchaseOrdersSpinner);
             this.Controls.Add(this.warningLabel);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.ordersSellSpinner);
             this.Controls.Add(this.quotation);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.changeQuotationButton);
@@ -171,14 +175,14 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.sellOrdersButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.nOrdersBuy);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buyOrdersButton);
             this.Controls.Add(this.logoutButton);
             this.Name = "InnerMenu";
             this.Text = "Diginotes Marketplace";
             this.Load += new System.EventHandler(this.InnerMenu_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,7 +193,6 @@
         private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Button buyOrdersButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox nOrdersBuy;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button sellOrdersButton;
         private System.Windows.Forms.Label label3;
@@ -197,7 +200,8 @@
         private System.Windows.Forms.Button changeQuotationButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label quotation;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown ordersSellSpinner;
         private System.Windows.Forms.Label warningLabel;
+        private System.Windows.Forms.NumericUpDown purchaseOrdersSpinner;
     }
 }

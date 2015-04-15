@@ -5,7 +5,7 @@ namespace Common
 	[Serializable]
 	public class PurchaseOrder : Order
     {
-		public PurchaseOrder(User user, int amount) : base(user, amount)
+		public PurchaseOrder(string user, int amount) : base(user, amount)
         {
         }
     }

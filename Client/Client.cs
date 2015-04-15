@@ -49,8 +49,8 @@ namespace Client
 				parent.UpdateQuotation (SharedMarketplace.Quotation);
 
 				// Subscribe order's updates
-				OrdInter = new QuotationIntermediate (SharedMarketplace);
-				OrdInter.notifyClients += UpdateQuotation;
+				OrdInter = new OrdersIntermediate (SharedMarketplace);
+                OrdInter.notifyClients += NotifyOrderUpdate;
 			}
 
 			return result;
@@ -62,7 +62,7 @@ namespace Client
 
 			if (result == Status.Valid) {
 				QuotInter.notifyClients -= UpdateQuotation;
-				OrdInter.notifyClients -= UpdateQuotation;
+                OrdInter.notifyClients -= NotifyOrderUpdate;
 			}
 
 			return result;
@@ -74,7 +74,7 @@ namespace Client
 			Quotation = quot;
 		}
 
-		public int GetAvailableDiginotes ()
+		public ArrayList GetAvailableDiginotes ()
 		{
 			return SharedMarketplace.GetUserDiginotes (Username);
 		}
@@ -83,7 +83,7 @@ namespace Client
 
 		public bool MakeSaleOrder (int nOrders)
 		{
-			OrderStatus status = SharedMarketplace.addSaleOrders (Username, nOrders);
+			OrderStatus status = SharedMarketplace.AddSaleOrders (Username, nOrders);
 			if (status == OrderStatus.Error) {
 				return false;
 			} else if (status == OrderStatus.Pending) {
@@ -93,9 +93,9 @@ namespace Client
 			return true;
 		}
 
-		public void MakePurchaseOrder (int nOrders)
+		public bool MakePurchaseOrder (int nOrders)
 		{
-			OrderStatus status = SharedMarketplace.addPurchaseOrders (Username, nOrders);
+			OrderStatus status = SharedMarketplace.AddPurchaseOrders (Username, nOrders);
 			if (status == OrderStatus.Error) {
 				return false;
 			} else if (status == OrderStatus.Pending) {
@@ -109,12 +109,12 @@ namespace Client
 
 		public ArrayList GetPurchaseOrders ()
 		{
-			return SharedMarketplace.GetUserPurchaseOrders (User);
+			return SharedMarketplace.GetUserPurchaseOrders (Username);
 		}
 
 		public ArrayList GetSaleOrders ()
 		{
-			return SharedMarketplace.GetUserSaleOrders (User);
+			return SharedMarketplace.GetUserSaleOrders (Username);
 		}
 
 		//Updating orders

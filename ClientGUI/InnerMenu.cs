@@ -17,6 +17,7 @@ namespace ClientGUI
         public InnerMenu()
         {
             InitializeComponent();
+            ordersSellSpinner.Maximum = LoginForm.App.GetSaleOrders().Count;
         }
 
         private void InnerMenu_Load(object sender, EventArgs e)
@@ -48,7 +49,8 @@ namespace ClientGUI
 
         private void buyOrdersButton_Click(object sender, EventArgs e)
         {
-            float newQuotationValue = float.Parse(quot.Text);
+            int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
+            LoginForm.App.MakePurchaseOrder(nOrders);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -61,6 +63,18 @@ namespace ClientGUI
             base.OnFormClosing(e);
 
             Application.Exit();
+        }
+
+        private void sellOrdersButton_Click(object sender, EventArgs e)
+        {
+            int nOrders = Decimal.ToInt32(ordersSellSpinner.Value);
+            LoginForm.App.MakeSaleOrder(nOrders);
+        }
+
+        private void quot_TextChanged(object sender, EventArgs e)
+        {
+            float newQuotationValue = float.Parse(quot.Text);
+            LoginForm.App.
         }
     }
 }

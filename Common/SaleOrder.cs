@@ -10,16 +10,16 @@ namespace Common
 	[Serializable]
 	public class SaleOrder: Order
 	{
-		public ArrayList Diginotes { get; }
+        public ArrayList Diginotes { get; set;  }
 
-		public SaleOrder (User user, int amount) : base (user, amount)
+		public SaleOrder (string user, int amount) : base (user, amount)
 		{
 			Diginotes = new ArrayList ();
 		}
 
 		public void AddDiginotes (ArrayList diginotes)
 		{
-			Diginotes = diginotes.InsertRange (Diginotes.Count - 1, diginotes);
+			Diginotes.InsertRange (Diginotes.Count - 1, diginotes);
 		}
 
 		public ArrayList RemoveDiginotes (int count)
