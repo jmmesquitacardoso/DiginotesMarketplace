@@ -184,7 +184,7 @@ public class Database
 
                 if (amount == 0)
                 {
-                   //TODO
+                    order.Amount = 0;
                 }
 
                 break;
@@ -196,11 +196,6 @@ public class Database
 			return false;
 		}
 
-
-        if (amount == 0)
-        {
-            
-        }
 		purchase.Amount = amount;
 
 		SaveDatabase ();
@@ -216,6 +211,11 @@ public class Database
             if (order.Id == id)
             {
                 sale = order;
+
+                if (amount == 0)
+                {
+                    order.Amount = 0;
+                }
             }
         }
 
@@ -241,6 +241,11 @@ public class Database
 			return null;
 		}
 
+        while (purchases.Count > 0 && ((PurchaseOrder)purchases.Peek()).Amount == 0)
+        {
+            purchases.Dequeue();
+        }
+
 		return (PurchaseOrder) purchases.Peek ();
 	}
 
@@ -248,6 +253,11 @@ public class Database
 		if (sales.Count == 0) {
 			return null;
 		}
+
+        while (sales.Count > 0 && ((SaleOrder)sales.Peek()).Amount == 0)
+        {
+            sales.Dequeue();
+        }
 
 		return (SaleOrder) sales.Peek ();
 	}

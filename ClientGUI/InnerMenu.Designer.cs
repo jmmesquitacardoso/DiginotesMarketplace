@@ -33,9 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.sellOrdersButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.quot = new System.Windows.Forms.TextBox();
-            this.changeQuotationButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.quotation = new System.Windows.Forms.Label();
             this.ordersSellSpinner = new System.Windows.Forms.NumericUpDown();
@@ -93,33 +90,6 @@
             this.sellOrdersButton.UseVisualStyleBackColor = true;
             this.sellOrdersButton.Click += new System.EventHandler(this.sellOrdersButton_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 321);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(116, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "New diginote quotation";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // quot
-            // 
-            this.quot.Location = new System.Drawing.Point(177, 321);
-            this.quot.Name = "quot";
-            this.quot.Size = new System.Drawing.Size(174, 20);
-            this.quot.TabIndex = 9;
-            this.quot.TextChanged += new System.EventHandler(this.quot_TextChanged);
-            // 
-            // changeQuotationButton
-            // 
-            this.changeQuotationButton.Location = new System.Drawing.Point(177, 362);
-            this.changeQuotationButton.Name = "changeQuotationButton";
-            this.changeQuotationButton.Size = new System.Drawing.Size(174, 28);
-            this.changeQuotationButton.TabIndex = 10;
-            this.changeQuotationButton.Text = "Change Quotation";
-            this.changeQuotationButton.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -170,9 +140,6 @@
             this.Controls.Add(this.ordersSellSpinner);
             this.Controls.Add(this.quotation);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.changeQuotationButton);
-            this.Controls.Add(this.quot);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.sellOrdersButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -195,9 +162,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button sellOrdersButton;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox quot;
-        private System.Windows.Forms.Button changeQuotationButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label quotation;
         private System.Windows.Forms.NumericUpDown ordersSellSpinner;
