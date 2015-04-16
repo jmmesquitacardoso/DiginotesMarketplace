@@ -2,10 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Client/Client.cs">
     <Files>
-      <File FileName="Client/Client.cs" Line="10" Column="10" />
-      <File FileName="Remotes/Marketplace.cs" Line="3" Column="3" />
-      <File FileName="Remotes/Database.cs" Line="41" Column="41" />
-      <File FileName="Common/IMarketplace.cs" Line="11" Column="11" NotebookId="1" />
+      <File FileName="Client/Client.cs" Line="5" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
