@@ -20,6 +20,9 @@ namespace Client
 
 		public float Quotation { get; set; }
 
+		public float DiginotesCount { get; set; }
+		// TODO
+
 		// Statistics oriented
 		public float Balance { get; set; }
 
