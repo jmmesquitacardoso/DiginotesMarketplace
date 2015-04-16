@@ -11,6 +11,7 @@ public class Database
 	private static Database instance;
 	private Hashtable registeredUsers;
 	private Hashtable wallets;
+	private Hashtable balances;
 	private Queue purchases;
 	private Queue sales;
 
@@ -67,6 +68,7 @@ public class Database
 		}
 
 		registeredUsers.Add (user.Username, user);
+		balances.Add (user.Username, 0.0);
 		SaveDatabase ();
 
 		return Status.Valid;
@@ -75,6 +77,15 @@ public class Database
 	public User GetUserByUsername (string username)
 	{
 		return (User)registeredUsers [username];
+	}
+
+	public float GetUserBalance (string username)
+	{
+		return (float)balances [username];
+	}
+
+	public void SetUserBalance (string username, float balance) {
+		balances [username] = balance;
 	}
 
 	// Diginotes
@@ -90,16 +101,15 @@ public class Database
 
 		if (wallets.Contains (username)) {
 			((ArrayList)wallets [username]).AddRange (diginotes);
-        }
-        else
-        {
-            wallets.Add(username, diginotes);
-        }
+		} else {
+			wallets.Add (username, diginotes);
+		}
 		SaveDatabase ();
 		return Status.Valid;
 	}
 
-	public ArrayList RemoveDiginotesFromUser(string username, int count) {
+	public ArrayList RemoveDiginotesFromUser (string username, int count)
+	{
 		// removes up to 'count' diginotes from the user 'username', removing and returning them
 
 		if (!wallets.Contains (username)) {
@@ -114,15 +124,16 @@ public class Database
 			returnDiginotes = new ArrayList (userDiginotes);
 			wallets [username] = new ArrayList ();
 		} else {
-			returnDiginotes = new ArrayList(userDiginotes.GetRange (0, count));
+			returnDiginotes = new ArrayList (userDiginotes.GetRange (0, count));
 		}
 
 		SaveDatabase ();
 		return returnDiginotes;
 	}
 
-	public ArrayList GetUserDiginotes(string username) {
-		if (!wallets.Contains(username)) {
+	public ArrayList GetUserDiginotes (string username)
+	{
+		if (!wallets.Contains (username)) {
 			return null;
 		}
 
@@ -131,65 +142,62 @@ public class Database
 
 	// Orders creation
 
-	public void AddPurchaseOrder(PurchaseOrder order) 
+	public void AddPurchaseOrder (PurchaseOrder order)
 	{
-		purchases.Enqueue(order);
+		purchases.Enqueue (order);
 		SaveDatabase ();
 	}
 
-	public void AddSaleOrder(SaleOrder order)
+	public void AddSaleOrder (SaleOrder order)
 	{
-		sales.Enqueue(order);
+		sales.Enqueue (order);
 		SaveDatabase ();
 	}
 
 	// For editing orders
 
-	public ArrayList GetUserPurchaseOrders(string username) {
+	public ArrayList GetUserPurchaseOrders (string username)
+	{
 		ArrayList userPurchases = new ArrayList ();
 
-        foreach (PurchaseOrder order in purchases) {
-            if (order.User.Equals(username))
-            {
-                userPurchases.Add(order);
-            }
-        }
+		foreach (PurchaseOrder order in purchases) {
+			if (order.User.Equals (username)) {
+				userPurchases.Add (order);
+			}
+		}
 
 		return userPurchases;
 	}
 
-	public ArrayList GetUserSaleOrders(string username) {
+	public ArrayList GetUserSaleOrders (string username)
+	{
 		ArrayList userSales = new ArrayList ();
 
 
-        foreach (SaleOrder order in purchases)
-        {
-            if (order.User.Equals(username))
-            {
-                userSales.Add(order);
-            }
-        }
+		foreach (SaleOrder order in purchases) {
+			if (order.User.Equals (username)) {
+				userSales.Add (order);
+			}
+		}
 
 		return userSales;
 	}
 
-	public bool UpdatePurchaseOrder(int id, int amount) {
+	public bool UpdatePurchaseOrder (int id, int amount)
+	{
 		PurchaseOrder purchase = null;
 
-        foreach (PurchaseOrder order in purchases)
-        {
-            if (order.Id == id)
-            {
-                purchase = order;
+		foreach (PurchaseOrder order in purchases) {
+			if (order.Id == id) {
+				purchase = order;
 
-                if (amount == 0)
-                {
-                    order.Amount = 0;
-                }
+				if (amount == 0) {
+					order.Amount = 0;
+				}
 
-                break;
-            }
-        }
+				break;
+			}
+		}
 
 
 		if (purchase == null) {
@@ -203,21 +211,19 @@ public class Database
 		return true;
 	}
 
-	public bool UpdateSaleOrder(int id, int amount) {
+	public bool UpdateSaleOrder (int id, int amount)
+	{
 		SaleOrder sale = null;
 
-        foreach (SaleOrder order in sales)
-        {
-            if (order.Id == id)
-            {
-                sale = order;
+		foreach (SaleOrder order in sales) {
+			if (order.Id == id) {
+				sale = order;
 
-                if (amount == 0)
-                {
-                    order.Amount = 0;
-                }
-            }
-        }
+				if (amount == 0) {
+					order.Amount = 0;
+				}
+			}
+		}
 
 		if (sale == null) {
 			return false;
@@ -236,33 +242,34 @@ public class Database
 
 	// Order's dispatch
 
-	public PurchaseOrder GetOldestPurchaseOrder() {
+	public PurchaseOrder GetOldestPurchaseOrder ()
+	{
 		if (purchases.Count == 0) {
 			return null;
 		}
 
-        while (purchases.Count > 0 && ((PurchaseOrder)purchases.Peek()).Amount == 0)
-        {
-            purchases.Dequeue();
-        }
+		while (purchases.Count > 0 && ((PurchaseOrder)purchases.Peek ()).Amount == 0) {
+			purchases.Dequeue ();
+		}
 
-		return (PurchaseOrder) purchases.Peek ();
+		return (PurchaseOrder)purchases.Peek ();
 	}
 
-	public SaleOrder GetOldestSaleOrder() {
+	public SaleOrder GetOldestSaleOrder ()
+	{
 		if (sales.Count == 0) {
 			return null;
 		}
 
-        while (sales.Count > 0 && ((SaleOrder)sales.Peek()).Amount == 0)
-        {
-            sales.Dequeue();
-        }
+		while (sales.Count > 0 && ((SaleOrder)sales.Peek ()).Amount == 0) {
+			sales.Dequeue ();
+		}
 
-		return (SaleOrder) sales.Peek ();
+		return (SaleOrder)sales.Peek ();
 	}
 
-	public void UpdateOldestPurchaseOrder(int amount) {
+	public void UpdateOldestPurchaseOrder (int amount)
+	{
 		if (amount == 0) {
 			purchases.Dequeue ();
 		} else {
@@ -271,59 +278,53 @@ public class Database
 		SaveDatabase ();
 	}
 
-	public int GetDiginotesOnSaleCount() {
+	public int GetDiginotesOnSaleCount ()
+	{
 		int count = 0;
 
-        foreach (SaleOrder order in sales)
-        {
-            count += order.Diginotes.Count;
-        }
+		foreach (SaleOrder order in sales) {
+			count += order.Diginotes.Count;
+		}
 
 		return count;
 	}
 
-	public bool IsOrderPending(int orderId) {
+	public bool IsOrderPending (int orderId)
+	{
 
-        foreach (SaleOrder order in sales)
-        {
-            if (order.Id == orderId)
-            {
-                return true;
-            }
-        }
+		foreach (SaleOrder order in sales) {
+			if (order.Id == orderId) {
+				return true;
+			}
+		}
 
-        foreach (PurchaseOrder order in purchases)
-        {
-            if (order.Id == orderId)
-            {
-                return true;
-            }
-        }
+		foreach (PurchaseOrder order in purchases) {
+			if (order.Id == orderId) {
+				return true;
+			}
+		}
 
 		return false;
 	}
 
-	public ArrayList RemoveFromOldestSale(int amount) {
+	public ArrayList RemoveFromOldestSale (int amount)
+	{
 
-        ArrayList result = new ArrayList();
+		ArrayList result = new ArrayList ();
 
-        SaleOrder order = (SaleOrder) sales.Peek();
+		SaleOrder order = (SaleOrder)sales.Peek ();
 
-        if (order.Amount >= amount)
-        {
-            result.AddRange(order.RemoveDiginotes(amount));
+		if (order.Amount >= amount) {
+			result.AddRange (order.RemoveDiginotes (amount));
 
-            if (order.Amount == amount)
-            {
-                sales.Dequeue();
-            }
-            else
-            {
-                result.AddRange(order.RemoveDiginotes(order.Amount));
-                sales.Dequeue();
-            }
-        }
+			if (order.Amount == amount) {
+				sales.Dequeue ();
+			} else {
+				result.AddRange (order.RemoveDiginotes (order.Amount));
+				sales.Dequeue ();
+			}
+		}
 
-        return result;
+		return result;
 	}
 }

@@ -20,6 +20,13 @@ namespace Client
 
 		public float Quotation { get; set; }
 
+		// Statistics oriented
+		public float Balance { get; set; }
+
+		public ArrayList BalanceHistory { get; set; }
+		public ArrayList QuotationHistory { get; set; }
+
+
 		public ClientApp (ClientInterface parent)
 		{
 			RemotingConfiguration.Configure ("Client.exe.config", false);
@@ -42,6 +49,7 @@ namespace Client
 			if (result == Status.Valid) {
 				Username = username;
 				Quotation = SharedMarketplace.Quotation;
+				Balance = SharedMarketplace.GetUserBalance (Username);
 
 				// Subscribe quotation's updates
 				QuotInter = new QuotationIntermediate (SharedMarketplace);
@@ -72,6 +80,9 @@ namespace Client
 		{
 			parent.UpdateQuotation (quot);
 			Quotation = quot;
+
+			QuotationHistory.Add (Quotation);
+			BalanceHistory.Add (Balance);
 		}
 
 		public ArrayList GetAvailableDiginotes ()
@@ -111,6 +122,7 @@ namespace Client
         {
             SharedMarketplace.UpdateQuotation(newQuotation);
         }
+
 		public ArrayList GetPurchaseOrders ()
 		{
 			return SharedMarketplace.GetUserPurchaseOrders (Username);
@@ -137,6 +149,12 @@ namespace Client
 		public void NotifyOrderUpdate (string username, OrderType type, int amount, float quot)
 		{
 			if (Username == username) {
+
+				Balance = SharedMarketplace.GetUserBalance (Username);
+
+				QuotationHistory.Add (Quotation);
+				BalanceHistory.Add (Balance);
+
 				parent.NotifyOrderUpdate (type, amount, quot);
 			}
 		}

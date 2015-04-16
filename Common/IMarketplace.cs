@@ -30,5 +30,7 @@ public interface IMarketplace
 
 	ArrayList GetUserPurchaseOrders (string username);
 
+	float GetUserBalance (string username);
+
 	bool UpdatePurchaseOrder(int id, int amount);
 }

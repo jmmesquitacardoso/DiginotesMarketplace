@@ -221,6 +221,10 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Database.Instance.UpdatePurchaseOrder (id, amount);
 	}
 
+	public float GetUserBalance(string username) {
+		return Database.Instance.GetUserBalance (username);
+	}
+
 	// Dispatch orders
 	private void DispatchOrders ()
 	{
@@ -240,6 +244,16 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 				((Diginote)diginotes [i]).Owner = buyerUsername;
 			}
 			Database.Instance.AddDiginotesToUser (buyerUsername, diginotes);
+
+			// update balances
+			float buyerBalance = Database.Instance.GetUserBalance (buyerUsername);
+			float sellerBalance = Database.Instance.GetUserBalance (sellerUsername);
+
+			buyerBalance -= Quotation * diginotesDispatched;
+			sellerBalance += Quotation * diginotesDispatched;
+
+			Database.Instance.SetUserBalance (buyerBalance, buyerBalance);
+			Database.Instance.SetUserBalance (sellerBalance, sellerBalance);
 
 			// fire events
 			NotifyOrdersDispatch (sellerUsername, OrderType.Sale, diginotesDispatched);
