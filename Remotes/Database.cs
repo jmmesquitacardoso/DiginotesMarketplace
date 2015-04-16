@@ -330,10 +330,10 @@ public class Database
 
 			if (order.Amount == amount) {
 				sales.Dequeue ();
-			} else {
-				result.AddRange (order.RemoveDiginotes (order.Amount));
-				sales.Dequeue ();
 			}
+		} else {
+			result.AddRange (order.RemoveDiginotes (order.Amount));
+			sales.Dequeue ();
 		}
 
 		return result;
@@ -341,11 +341,11 @@ public class Database
 
 	public ArrayList GetPastOrders (string username)
 	{
-		return (ArrayList) ordersHistory [username];
+		return (ArrayList)ordersHistory [username];
 	}
 
 	public void AddOrderRecord (string username, OrderType type, int amount, float quot)
 	{
-		((ArrayList)ordersHistory [username]).Add (new OrderRecord(type, amount, quot));
+		((ArrayList)ordersHistory [username]).Add (new OrderRecord (type, amount, quot));
 	}
 }
