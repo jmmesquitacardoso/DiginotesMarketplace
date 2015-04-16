@@ -20,14 +20,14 @@ namespace Client
 
 		public float Quotation { get; set; }
 
-		public float DiginotesCount { get; set; }
-		// TODO
-
 		// Statistics oriented
 		public float Balance { get; set; }
+		public int DiginotesNr { get; set; }
 
 		public ArrayList BalanceHistory { get; set; }
 		public ArrayList QuotationHistory { get; set; }
+		public ArrayList DiginotesHistory { get; set; }
+		public Stack OrderHistory { get; set; }
 
 
 		public ClientApp (ClientInterface parent)
@@ -37,6 +37,8 @@ namespace Client
 			this.parent = parent;
             BalanceHistory = new ArrayList();
             QuotationHistory = new ArrayList();
+			DiginotesHistory = new ArrayList ();
+			OrderHistory = new Stack ();
 		}
 
 		public void Register (string name, string username, string password, int diginotes)
@@ -55,6 +57,8 @@ namespace Client
 				Username = username;
 				Quotation = SharedMarketplace.Quotation;
 				Balance = SharedMarketplace.GetUserBalance (Username);
+				DiginotesNr = SharedMarketplace.GetUserDiginotes ().Count;
+				OrderHistory = SharedMarketplace.GetPastOrders (Username);
 
 				// Subscribe quotation's updates
 				QuotInter = new QuotationIntermediate (SharedMarketplace);
@@ -91,6 +95,7 @@ namespace Client
 
 			QuotationHistory.Add (Quotation);
 			BalanceHistory.Add (Balance);
+			DiginotesHistory.Add(DiginotesNr);
 		}
 
 		public ArrayList GetAvailableDiginotes ()
@@ -162,6 +167,9 @@ namespace Client
 
 				QuotationHistory.Add (Quotation);
 				BalanceHistory.Add (Balance);
+				DiginotesNr = SharedMarketplace.GetUserDiginotes ().Count;
+				DiginotesHistory.Add(DiginotesNr);
+				OrderHistory.Push(new OrderRecord(type, amount, quot));
 
 				parent.NotifyOrderUpdate (type, amount, quot);
 			}

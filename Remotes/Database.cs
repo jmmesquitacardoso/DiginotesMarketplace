@@ -12,8 +12,11 @@ public class Database
 	private Hashtable registeredUsers;
 	private Hashtable wallets;
 	private Hashtable balances;
+	private Hashtable ordersHistory;
 	private Queue purchases;
 	private Queue sales;
+
+	public float Quotation { get; set; }
 
 	public Hashtable Users {
 		get {
@@ -27,7 +30,8 @@ public class Database
 		wallets = new Hashtable ();
 		purchases = new Queue ();
 		sales = new Queue ();
-        balances = new Hashtable();
+		balances = new Hashtable ();
+		ordersHistory = new Hashtable ();
 	}
 
 	private void SaveDatabase ()
@@ -70,6 +74,7 @@ public class Database
 
 		registeredUsers.Add (user.Username, user);
 		balances.Add (user.Username, ((float)0.0));
+		ordersHistory.Add (user.Username, new Stack ());
 		SaveDatabase ();
 
 		return Status.Valid;
@@ -85,7 +90,8 @@ public class Database
 		return (float)balances [username];
 	}
 
-	public void SetUserBalance (string username, float balance) {
+	public void SetUserBalance (string username, float balance)
+	{
 		balances [username] = balance;
 	}
 
@@ -327,5 +333,15 @@ public class Database
 		}
 
 		return result;
+	}
+
+	public ArrayList GetPastOrders (string username)
+	{
+		return ordersHistory [username];
+	}
+
+	public void AddOrderRecord (string username, OrderType type, int amount, float quot)
+	{
+		((Stack)ordersHistory [username]).Push (new OrderRecord(type, amount, quot));
 	}
 }

@@ -7,7 +7,6 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 {
 	// Members
 	private Hashtable usersLoggedIn;
-	private float quot;
 
 	// Events
 
@@ -16,19 +15,19 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	public void UpdateQuotation (float quot)
 	{
-		if (quot < this.quot) {
+		if (quot < Database.Instance.Quotation) {
 			new Thread (DelayDispatch).Start ();
 		} else {
 			DispatchOrders ();
 		}
 
-		this.quot = quot;
+		Database.Instance.Quotation = quot;
 		if (notifyQuotClients != null) {
 			Delegate[] invkList = notifyQuotClients.GetInvocationList ();
 
 			foreach (QuotationNotifier handler in invkList) {
 				Console.WriteLine ("[Entities]: Event triggered: invoking handler");
-                Console.WriteLine("[Entities]: " + handler.Target.ToString());
+				Console.WriteLine ("[Entities]: " + handler.Target.ToString ());
 				object[] pars = { handler, quot };
 				new Thread (TriggerQuotEvent).Start (pars);
 			}
@@ -44,15 +43,15 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	private void TriggerQuotEvent (object pars)
 	{
 		QuotationNotifier handler = (QuotationNotifier)(((object[])pars) [0]);
-        Console.WriteLine("[TriggerQuotationEvent]: " + handler.Target.ToString());
-        float quot = (float)(((object[])pars)[1]);
-        Console.WriteLine("Quotation Server: {0}", quot);
+		Console.WriteLine ("[TriggerQuotationEvent]: " + handler.Target.ToString ());
+		float quot = (float)(((object[])pars) [1]);
+		Console.WriteLine ("Quotation Server: {0}", quot);
 		try {
 			handler (quot);
 		} catch (Exception ex) {
 			Console.WriteLine ("[TriggerQuotationEvent]: Exception");
-            Console.WriteLine("Exception: {0}", ex.StackTrace);
-            Console.WriteLine("Exception: {0}", ex.ToString());
+			Console.WriteLine ("Exception: {0}", ex.StackTrace);
+			Console.WriteLine ("Exception: {0}", ex.ToString ());
 			notifyQuotClients -= handler;
 		}
 	}
@@ -91,7 +90,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Properties
 	public float Quotation {
 		get {
-			return quot;
+			return Database.Instance.Quotation;
 		}
 	}
         
@@ -266,7 +265,15 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			NotifyOrdersDispatch (sellerUsername, OrderType.Sale, diginotesDispatched);
 			NotifyOrdersDispatch (buyerUsername, OrderType.Purchase, diginotesDispatched);
 
+			Database.Instance.AddOrderRecord (sellerUsername, OrderType.Sale, diginotesDispatched, Quotation);
+
 			Database.Instance.UpdateOldestPurchaseOrder (diginotesDispatched);
 		}
+	}
+
+
+	public ArrayList GetPastOrders (string username)
+	{
+		return Database.Instance.GetPastOrders ();
 	}
 }

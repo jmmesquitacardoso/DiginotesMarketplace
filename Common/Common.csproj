@@ -40,6 +40,7 @@
     <Compile Include="Order.cs" />
     <Compile Include="QuotationIntermediate.cs" />
     <Compile Include="OrdersIntermediate.cs" />
+    <Compile Include="OrderRecord.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

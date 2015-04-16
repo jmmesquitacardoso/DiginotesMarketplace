@@ -33,4 +33,6 @@ public interface IMarketplace
 	float GetUserBalance (string username);
 
 	bool UpdatePurchaseOrder(int id, int amount);
+
+	ArrayList GetPastOrders(string username);
 }
