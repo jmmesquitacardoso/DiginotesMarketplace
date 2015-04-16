@@ -31,7 +31,8 @@ public class Database
 		purchases = new Queue ();
 		sales = new Queue ();
 		balances = new Hashtable ();
-		ordersHistory = new Hashtable ();
+        ordersHistory = new Hashtable();
+        Quotation = 1;
 	}
 
 	private void SaveDatabase ()
@@ -327,6 +328,7 @@ public class Database
 
 		if (order.Amount >= amount) {
 			result.AddRange (order.RemoveDiginotes (amount));
+            Console.WriteLine("Order amount: " + order.Amount);
 
 			if (order.Amount == amount) {
 				sales.Dequeue ();

@@ -3,6 +3,7 @@ using Common;
 
 namespace Common
 {
+    [Serializable]
 	public class OrderRecord
 	{
 		public OrderType Type { get; set; }

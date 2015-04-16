@@ -27,12 +27,14 @@ namespace ClientGUI
                 loginForm.ShowDialog();
             }
             currentBalanceLabel.Text = "" + App.Balance;
-            nDiginotesLabel.Text = "" + App.GetAvailableDiginotes().Count;
+            nDiginotesLabel.Text = "" + App.DiginotesNr;
+            ordersSellSpinner.Minimum = 0;
+            ordersSellSpinner.Maximum = App.DiginotesNr;
+
         }
 
         private void InnerMenu_Load(object sender, EventArgs e)
         {
-            ordersSellSpinner.Maximum = App.GetPurchaseOrders().Count;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -62,9 +64,8 @@ namespace ClientGUI
             int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
             App.MakePurchaseOrder(nOrders);
             purchaseOrdersSpinner.Value = 0;
-            ordersSellSpinner.Minimum = 0;
-            ordersSellSpinner.Maximum = App.GetAvailableDiginotes().Count;
-            nDiginotesLabel.Text = "" + App.GetAvailableDiginotes().Count;
+            ordersSellSpinner.Maximum = App.DiginotesNr;
+            nDiginotesLabel.Text = "" + App.DiginotesNr;
             currentBalanceLabel.Text = "" + App.Balance;
         }
 
@@ -93,15 +94,15 @@ namespace ClientGUI
             if (type == OrderType.Purchase) 
             {
                 orderNotifierLabel.Text = amount + " diginotes have been bought at a quotation of " + quot;
-                ordersSellSpinner.Maximum = App.GetAvailableDiginotes().Count;
-                nDiginotesLabel.Text = "" + App.GetAvailableDiginotes().Count;
+                ordersSellSpinner.Maximum = App.DiginotesNr;
+                nDiginotesLabel.Text = "" + App.DiginotesNr;
 
             }
             else
             {
                 orderNotifierLabel.Text = amount + " diginotes have been sold at a quotation of " + quot;
-                ordersSellSpinner.Maximum = App.GetAvailableDiginotes().Count;
-                nDiginotesLabel.Text = "" + App.GetAvailableDiginotes().Count;
+                ordersSellSpinner.Maximum = App.DiginotesNr;
+                nDiginotesLabel.Text = "" + App.DiginotesNr;
             }
         }
 
