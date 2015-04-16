@@ -32,6 +32,8 @@ namespace Client
 			RemotingConfiguration.Configure ("Client.exe.config", false);
 			SharedMarketplace = (IMarketplace)RemoteNew.New (typeof(IMarketplace));
 			this.parent = parent;
+            BalanceHistory = new ArrayList();
+            QuotationHistory = new ArrayList();
 		}
 
 		public void Register (string name, string username, string password, int diginotes)
@@ -64,13 +66,15 @@ namespace Client
 			return result;
 		}
 
-		public Status Logout (string username)
+		public Status Logout ()
 		{
-			Status result = SharedMarketplace.Logout (username);
+			Status result = SharedMarketplace.Logout (Username);
 
 			if (result == Status.Valid) {
 				QuotInter.notifyClients -= UpdateQuotation;
                 OrdInter.notifyClients -= NotifyOrderUpdate;
+                SharedMarketplace.notifyQuotClients -= QuotInter.FireQuotNotify;
+                SharedMarketplace.notifyOrdClients -= OrdInter.FireOrderNotify;
 			}
 
 			return result;
@@ -78,7 +82,8 @@ namespace Client
 
 		public void UpdateQuotation (float quot)
 		{
-			parent.UpdateQuotation (quot);
+            Console.WriteLine("In handler: " + quot.ToString());
+            parent.UpdateQuotation(quot);
 			Quotation = quot;
 
 			QuotationHistory.Add (Quotation);

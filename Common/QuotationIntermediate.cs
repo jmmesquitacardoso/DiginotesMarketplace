@@ -13,6 +13,7 @@ namespace Common
 		}
 
 		public void FireQuotNotify(float quot) {
+            Console.WriteLine("Quotation: {0}", quot);
 			notifyClients(quot);
 		}
 

@@ -12,21 +12,26 @@ using Client;
 
 namespace ClientGUI
 {
-    public partial class InnerMenu : Form
+    public partial class InnerMenu : Form, ClientInterface
     {
-        public string Username { get; set; }
-
         public ClientApp App { get; set; }
 
-        public InnerMenu(ClientApp app)
+        public InnerMenu()
         {
+            App = new ClientApp(this);
             InitializeComponent();
-            App = app;
+            if (App.Username == null)
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.App = App;
+                loginForm.ShowDialog();
+            }
+            currentBalanceLabel.Text = "" + App.Balance;
         }
 
         private void InnerMenu_Load(object sender, EventArgs e)
         {
-            ordersSellSpinner.Maximum = App.GetSaleOrders().Count;
+            ordersSellSpinner.Maximum = App.GetPurchaseOrders().Count;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -36,7 +41,7 @@ namespace ClientGUI
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
-            App.Logout(Username);
+            App.Logout();
             this.SetVisibleCore(false);
             this.Close();
             Application.Exit();
@@ -55,12 +60,13 @@ namespace ClientGUI
         {
             int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
             App.MakePurchaseOrder(nOrders);
-            ordersSellSpinner.Maximum = App.GetSaleOrders().Count;
+            ordersSellSpinner.Maximum = App.GetAvailableDiginotes().Count;
+            currentBalanceLabel.Text = "" + App.Balance;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-
+            ordersSellSpinner.Maximum = App.GetSaleOrders().Count;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -76,6 +82,7 @@ namespace ClientGUI
         {
             int nOrders = Decimal.ToInt32(ordersSellSpinner.Value);
             App.MakeSaleOrder(nOrders);
+            currentBalanceLabel.Text = "" + App.Balance;
         }
 
         private void quot_TextChanged(object sender, EventArgs e)
@@ -92,6 +99,37 @@ namespace ClientGUI
             {
                 orderNotifierLabel.Text = amount + " diginotes have been bought at a quotation of " + quot;
             }
+        }
+
+        public void UpdateQuotation(float quot)
+        {
+            if (quot < App.Quotation)
+            {
+                DisplayQuotationWarning();
+            }
+            ChangeQuotationValue(quot);
+        }
+
+        public void AskNewQuotation(float currentQuot, OrderType type)
+        {
+            NewQuotationDialog newQuotDialog = new NewQuotationDialog(type, currentQuot);
+            newQuotDialog.App = App;
+            newQuotDialog.ShowDialog();
+        }
+
+        public void NotifyOrderUpdate(OrderType type, int amount, float quot)
+        {
+            notifyOrder(type, amount, quot);
+        }
+
+        private void purchaseOrdersSpinner_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

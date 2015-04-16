@@ -27,6 +27,7 @@ public class Database
 		wallets = new Hashtable ();
 		purchases = new Queue ();
 		sales = new Queue ();
+        balances = new Hashtable();
 	}
 
 	private void SaveDatabase ()
@@ -68,7 +69,7 @@ public class Database
 		}
 
 		registeredUsers.Add (user.Username, user);
-		balances.Add (user.Username, 0.0);
+		balances.Add (user.Username, ((float)0.0));
 		SaveDatabase ();
 
 		return Status.Valid;
@@ -174,7 +175,7 @@ public class Database
 		ArrayList userSales = new ArrayList ();
 
 
-		foreach (SaleOrder order in purchases) {
+		foreach (SaleOrder order in sales) {
 			if (order.User.Equals (username)) {
 				userSales.Add (order);
 			}

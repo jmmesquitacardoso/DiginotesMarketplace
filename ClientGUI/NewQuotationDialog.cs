@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Common;
 using Client;
+using System.Globalization;
 
 namespace ClientGUI
 {
@@ -35,7 +36,8 @@ namespace ClientGUI
 
         private void confirmQuotation_Click(object sender, EventArgs e)
         {
-            float newQuotation = float.Parse(quotationTextBox.Text);
+            CultureInfo info = new CultureInfo("en-US");
+            float newQuotation = float.Parse(quotationTextBox.Text, info);
 
             if (Type == OrderType.Purchase && App.GetPurchaseOrders().Count > 0 &&  newQuotation >= Quotation)
             {
