@@ -31,7 +31,8 @@ public class Database
 		purchases = new Queue ();
 		sales = new Queue ();
 		balances = new Hashtable ();
-		ordersHistory = new Hashtable ();
+        ordersHistory = new Hashtable();
+        Quotation = 1;
 	}
 
 	private void SaveDatabase ()
