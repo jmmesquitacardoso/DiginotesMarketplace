@@ -12,16 +12,13 @@ using Common;
 
 namespace ClientGUI
 {
-    public partial class LoginForm : Form, ClientInterface
+    public partial class LoginForm : Form
     {
         public ClientApp App { get; set; }
-        public InnerMenu Inner { get; set; }
 
         public LoginForm()
         {
-            App = new ClientApp(this);
             InitializeComponent();
-            Inner = new InnerMenu(App);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -34,35 +31,12 @@ namespace ClientGUI
             if (App.Login(username.Text, password.Text) == Status.Valid)
             {
                 this.Hide();
-                Inner.Username = App.Username;
-                Inner.ShowDialog();
             }
             else
             {
                 errorLabel.Text = "Error logging in!";
                 errorLabel.ForeColor = System.Drawing.Color.Red;
             }
-        }
-
-        public void UpdateQuotation(float quot)
-        {
-            if (quot < App.Quotation)
-            {
-                Inner.DisplayQuotationWarning();
-            }
-            Inner.ChangeQuotationValue(quot);
-        }
-
-        public void AskNewQuotation(float currentQuot, OrderType type)
-        {
-            NewQuotationDialog newQuotDialog = new NewQuotationDialog(type, currentQuot);
-            newQuotDialog.App = App;
-            newQuotDialog.ShowDialog();
-        }
-
-        public void NotifyOrderUpdate(OrderType type, int amount, float quot)
-        {
-            Inner.notifyOrder(type, amount, quot);
         }
 
         private void registerButton_Click(object sender, EventArgs e)

@@ -28,6 +28,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 			foreach (QuotationNotifier handler in invkList) {
 				Console.WriteLine ("[Entities]: Event triggered: invoking handler");
+                Console.WriteLine("[Entities]: " + handler.Target.ToString());
 				object[] pars = { handler, quot };
 				new Thread (TriggerQuotEvent).Start (pars);
 			}
@@ -42,12 +43,16 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	private void TriggerQuotEvent (object pars)
 	{
-		QuotationNotifier handler = (QuotationNotifier)((object[])pars) [0];
-		float quot = (float)((object[])pars) [1];
+		QuotationNotifier handler = (QuotationNotifier)(((object[])pars) [0]);
+        Console.WriteLine("[TriggerQuotationEvent]: " + handler.Target.ToString());
+        float quot = (float)(((object[])pars)[1]);
+        Console.WriteLine("Quotation Server: {0}", quot);
 		try {
 			handler (quot);
-		} catch (Exception) {
-			Console.WriteLine ("[TriggerEvent]: Exception");
+		} catch (Exception ex) {
+			Console.WriteLine ("[TriggerQuotationEvent]: Exception");
+            Console.WriteLine("Exception: {0}", ex.StackTrace);
+            Console.WriteLine("Exception: {0}", ex.ToString());
 			notifyQuotClients -= handler;
 		}
 	}
@@ -78,7 +83,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		try {
 			handler (username, type, amount, quot);
 		} catch (Exception) {
-			Console.WriteLine ("[TriggerEvent]: Exception");
+			Console.WriteLine ("[TriggerOrderEvent]: Exception");
 			notifyOrdClients -= handler;
 		}
 	}
@@ -254,8 +259,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			buyerBalance -= Quotation * diginotesDispatched;
 			sellerBalance += Quotation * diginotesDispatched;
 
-			Database.Instance.SetUserBalance (buyerBalance, buyerBalance);
-			Database.Instance.SetUserBalance (sellerBalance, sellerBalance);
+			Database.Instance.SetUserBalance (buyerUsername, buyerBalance);
+			Database.Instance.SetUserBalance (sellerUsername, sellerBalance);
 
 			// fire events
 			NotifyOrdersDispatch (sellerUsername, OrderType.Sale, diginotesDispatched);

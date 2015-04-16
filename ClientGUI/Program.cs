@@ -16,9 +16,7 @@ namespace ClientGUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
-            Application.Run();
+            Application.Run(new InnerMenu());
         }
     }
 }

@@ -39,6 +39,8 @@
             this.warningLabel = new System.Windows.Forms.Label();
             this.purchaseOrdersSpinner = new System.Windows.Forms.NumericUpDown();
             this.orderNotifierLabel = new System.Windows.Forms.Label();
+            this.labelx = new System.Windows.Forms.Label();
+            this.currentBalanceLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).BeginInit();
             this.SuspendLayout();
@@ -130,6 +132,7 @@
             this.purchaseOrdersSpinner.Name = "purchaseOrdersSpinner";
             this.purchaseOrdersSpinner.Size = new System.Drawing.Size(171, 20);
             this.purchaseOrdersSpinner.TabIndex = 15;
+            this.purchaseOrdersSpinner.ValueChanged += new System.EventHandler(this.purchaseOrdersSpinner_ValueChanged);
             // 
             // orderNotifierLabel
             // 
@@ -139,11 +142,31 @@
             this.orderNotifierLabel.Size = new System.Drawing.Size(0, 13);
             this.orderNotifierLabel.TabIndex = 16;
             // 
+            // labelx
+            // 
+            this.labelx.AutoSize = true;
+            this.labelx.Location = new System.Drawing.Point(471, 35);
+            this.labelx.Name = "labelx";
+            this.labelx.Size = new System.Drawing.Size(86, 13);
+            this.labelx.TabIndex = 17;
+            this.labelx.Text = "Current Balance:";
+            // 
+            // currentBalanceLabel
+            // 
+            this.currentBalanceLabel.AutoSize = true;
+            this.currentBalanceLabel.Location = new System.Drawing.Point(564, 35);
+            this.currentBalanceLabel.Name = "currentBalanceLabel";
+            this.currentBalanceLabel.Size = new System.Drawing.Size(0, 13);
+            this.currentBalanceLabel.TabIndex = 18;
+            this.currentBalanceLabel.Click += new System.EventHandler(this.label3_Click_1);
+            // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 568);
+            this.Controls.Add(this.currentBalanceLabel);
+            this.Controls.Add(this.labelx);
             this.Controls.Add(this.orderNotifierLabel);
             this.Controls.Add(this.purchaseOrdersSpinner);
             this.Controls.Add(this.warningLabel);
@@ -178,5 +201,7 @@
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.NumericUpDown purchaseOrdersSpinner;
         private System.Windows.Forms.Label orderNotifierLabel;
+        private System.Windows.Forms.Label labelx;
+        private System.Windows.Forms.Label currentBalanceLabel;
     }
 }
