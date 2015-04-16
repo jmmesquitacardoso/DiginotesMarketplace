@@ -318,6 +318,10 @@ public class Database
 	public ArrayList RemoveFromOldestSale (int amount)
 	{
 
+		while (sales.Count > 0 && ((SaleOrder)sales.Peek ()).Amount == 0) {
+			sales.Dequeue ();
+		}
+
 		ArrayList result = new ArrayList ();
 
 		SaleOrder order = (SaleOrder)sales.Peek ();

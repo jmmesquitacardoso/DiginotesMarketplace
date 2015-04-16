@@ -7,6 +7,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 {
 	// Members
 	private Hashtable usersLoggedIn;
+	private bool isWaiting = false;
 
 	// Events
 
@@ -16,9 +17,12 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public void UpdateQuotation (float quot)
 	{
 		if (quot < Database.Instance.Quotation) {
+			isWaiting = true;
 			new Thread (DelayDispatch).Start ();
 		} else {
-			DispatchOrders ();
+			if (!isWaiting) {
+				DispatchOrders ();
+			}
 		}
 
 		Database.Instance.Quotation = quot;
@@ -38,6 +42,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	{
 		Thread.Sleep (60000);
 		DispatchOrders ();
+		isWaiting = false;
 	}
 
 	private void TriggerQuotEvent (object pars)
@@ -175,7 +180,9 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		order.AddDiginotes (diginotes);
 		Database.Instance.AddSaleOrder (order);
 
-		DispatchOrders ();
+		if (!isWaiting) {
+			DispatchOrders ();
+		}
 		if (Database.Instance.IsOrderPending (id)) {
 			return OrderStatus.Pending;
 		} else {
@@ -208,7 +215,9 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		int id = order.Id;
 		Database.Instance.AddPurchaseOrder (order);
 
-		DispatchOrders ();
+		if (!isWaiting) {
+			DispatchOrders ();
+		}
 		if (Database.Instance.IsOrderPending (id)) {
 			return OrderStatus.Pending;
 		} else {
