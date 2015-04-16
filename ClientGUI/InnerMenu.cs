@@ -35,7 +35,6 @@ namespace ClientGUI
 
         private void InnerMenu_Load(object sender, EventArgs e)
         {
-            ordersSellSpinner.Maximum = App.GetPurchaseOrders().Count;
         }
 
         private void label3_Click(object sender, EventArgs e)

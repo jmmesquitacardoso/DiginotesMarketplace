@@ -328,6 +328,7 @@ public class Database
 
 		if (order.Amount >= amount) {
 			result.AddRange (order.RemoveDiginotes (amount));
+            Console.WriteLine("Order amount: " + order.Amount);
 
 			if (order.Amount == amount) {
 				sales.Dequeue ();

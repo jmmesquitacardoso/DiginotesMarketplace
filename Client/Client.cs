@@ -111,7 +111,8 @@ namespace Client
 			if (status == OrderStatus.Error) {
 				return false;
 			} else if (status == OrderStatus.Pending) {
-				parent.AskNewQuotation (Quotation, OrderType.Sale);
+                parent.AskNewQuotation(Quotation, OrderType.Sale);
+                DiginotesNr = SharedMarketplace.GetUserDiginotes(Username).Count;
 				//SharedMarketplace.UpdateQuotation (newQuotation);
 			}
 			return true;

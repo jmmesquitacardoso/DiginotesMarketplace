@@ -72,7 +72,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			foreach (OrdersNotifier handler in invkList) {
 				Console.WriteLine ("[Entities]: Event triggered: invoking handler");
 				object[] pars = { handler, username, type, amount, Database.Instance.Quotation };
-				new Thread (TriggerQuotEvent).Start (pars);
+				new Thread (TriggerOrdEvent).Start (pars);
 			}
 		}
 	}
@@ -249,16 +249,18 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		       && Database.Instance.GetDiginotesOnSaleCount () > 0) {
 
 			int desiredDiginotes = currentPurchase.Amount;
+            Console.WriteLine("Diginotes Dispatched: " + desiredDiginotes);
 			ArrayList diginotes = Database.Instance.RemoveFromOldestSale (desiredDiginotes);
 
 			int diginotesDispatched = desiredDiginotes - diginotes.Count;
-			string sellerUsername = ((Diginote)diginotes [0]).Owner;
+			string sellerUsername = ((Diginote)diginotes[0]).Owner;
 			string buyerUsername = currentPurchase.User;
 
 			// Change owner
 			for (int i = 0, l = diginotes.Count; i < l; i++) {
 				((Diginote)diginotes [i]).Owner = buyerUsername;
 			}
+
 			Database.Instance.AddDiginotesToUser (buyerUsername, diginotes);
 
 			// update balances
@@ -270,6 +272,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 			Database.Instance.SetUserBalance (buyerUsername, buyerBalance);
 			Database.Instance.SetUserBalance (sellerUsername, sellerBalance);
+
+            Console.WriteLine("Diginotes Dispatched: " + diginotesDispatched);
 
 			// fire events
 			NotifyOrdersDispatch (sellerUsername, OrderType.Sale, diginotesDispatched);
