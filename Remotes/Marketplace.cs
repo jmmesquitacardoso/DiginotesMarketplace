@@ -17,7 +17,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public void UpdateQuotation (float quot)
 	{
 		if (quot < this.quot) {
-            new Thread(DelayDispatch).Start();
+			new Thread (DelayDispatch).Start ();
 		} else {
 			DispatchOrders ();
 		}
@@ -34,7 +34,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		}
 	}
 
-	private void DelayDispatch() {
+	private void DelayDispatch ()
+	{
 		Thread.Sleep (60000);
 		DispatchOrders ();
 	}
@@ -69,7 +70,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	private void TriggerOrdEvent (object pars)
 	{
-        OrdersNotifier handler = (OrdersNotifier)((object[])pars)[0];
+		OrdersNotifier handler = (OrdersNotifier)((object[])pars) [0];
 		string username = (string)((object[])pars) [1];
 		OrderType type = (OrderType)((object[])pars) [2];
 		int amount = (int)((object[])pars) [3];
@@ -123,7 +124,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	public Status Login (string username, string password)
 	{
 		Console.WriteLine ("Login Server side: " + username);
-		if (!Database.Instance.Users.Contains (username) || !String.Equals (Database.Instance.GetUserByUsername (username).Password, password)) {
+		if (!Database.Instance.Users.Contains (username) || !String.Equals (Database.Instance.GetUserByUsername (username).Password, password)
+		    || usersLoggedIn.Contains (username)) {
 			Console.WriteLine ("\tLogin invalid");
 			return Status.Invalid;
 		}
@@ -169,7 +171,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		Database.Instance.AddSaleOrder (order);
 
 		DispatchOrders ();
-		if (Database.Instance.IsOrderPending(id)) {
+		if (Database.Instance.IsOrderPending (id)) {
 			return OrderStatus.Pending;
 		} else {
 			return OrderStatus.Dispatched;
@@ -190,19 +192,19 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	public OrderStatus AddPurchaseOrders (string username, int nOrders)
 	{
-		if (usersLoggedIn.Contains (username)) {
-            Console.WriteLine("Not logged in!");
+		if (!usersLoggedIn.Contains (username)) {
+			Console.WriteLine ("Not logged in!");
 			return OrderStatus.Error;
 		}
 
-        Console.WriteLine("Adding purchase orders");
+		Console.WriteLine ("Adding purchase orders");
 
 		PurchaseOrder order = new PurchaseOrder (username, nOrders);
 		int id = order.Id;
 		Database.Instance.AddPurchaseOrder (order);
 
 		DispatchOrders ();
-		if (Database.Instance.IsOrderPending(id)) {
+		if (Database.Instance.IsOrderPending (id)) {
 			return OrderStatus.Pending;
 		} else {
 			return OrderStatus.Dispatched;
@@ -220,7 +222,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		return Database.Instance.UpdatePurchaseOrder (id, amount);
 	}
 
-	public float GetUserBalance(string username) {
+	public float GetUserBalance (string username)
+	{
 		return Database.Instance.GetUserBalance (username);
 	}
 
