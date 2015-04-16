@@ -19,7 +19,7 @@ namespace Common
 
 		public void AddDiginotes (ArrayList diginotes)
 		{
-			Diginotes.InsertRange (Diginotes.Count - 1, diginotes);
+			Diginotes.AddRange(diginotes);
 		}
 
 		public ArrayList RemoveDiginotes (int count)

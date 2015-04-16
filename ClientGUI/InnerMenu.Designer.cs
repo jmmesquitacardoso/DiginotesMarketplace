@@ -41,6 +41,8 @@
             this.orderNotifierLabel = new System.Windows.Forms.Label();
             this.labelx = new System.Windows.Forms.Label();
             this.currentBalanceLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nDiginotesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).BeginInit();
             this.SuspendLayout();
@@ -96,7 +98,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(471, 58);
+            this.label4.Location = new System.Drawing.Point(513, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 11;
@@ -105,7 +107,7 @@
             // quotation
             // 
             this.quotation.AutoSize = true;
-            this.quotation.Location = new System.Drawing.Point(585, 58);
+            this.quotation.Location = new System.Drawing.Point(627, 109);
             this.quotation.Name = "quotation";
             this.quotation.Size = new System.Drawing.Size(0, 13);
             this.quotation.TabIndex = 12;
@@ -116,12 +118,11 @@
             this.ordersSellSpinner.Name = "ordersSellSpinner";
             this.ordersSellSpinner.Size = new System.Drawing.Size(174, 20);
             this.ordersSellSpinner.TabIndex = 13;
-            this.ordersSellSpinner.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // warningLabel
             // 
             this.warningLabel.AutoSize = true;
-            this.warningLabel.Location = new System.Drawing.Point(475, 101);
+            this.warningLabel.Location = new System.Drawing.Point(517, 152);
             this.warningLabel.Name = "warningLabel";
             this.warningLabel.Size = new System.Drawing.Size(0, 13);
             this.warningLabel.TabIndex = 14;
@@ -145,7 +146,7 @@
             // labelx
             // 
             this.labelx.AutoSize = true;
-            this.labelx.Location = new System.Drawing.Point(471, 35);
+            this.labelx.Location = new System.Drawing.Point(513, 86);
             this.labelx.Name = "labelx";
             this.labelx.Size = new System.Drawing.Size(86, 13);
             this.labelx.TabIndex = 17;
@@ -154,17 +155,36 @@
             // currentBalanceLabel
             // 
             this.currentBalanceLabel.AutoSize = true;
-            this.currentBalanceLabel.Location = new System.Drawing.Point(564, 35);
+            this.currentBalanceLabel.Location = new System.Drawing.Point(606, 86);
             this.currentBalanceLabel.Name = "currentBalanceLabel";
             this.currentBalanceLabel.Size = new System.Drawing.Size(0, 13);
             this.currentBalanceLabel.TabIndex = 18;
             this.currentBalanceLabel.Click += new System.EventHandler(this.label3_Click_1);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(513, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Diginites in Hand:";
+            // 
+            // nDiginotesLabel
+            // 
+            this.nDiginotesLabel.AutoSize = true;
+            this.nDiginotesLabel.Location = new System.Drawing.Point(609, 60);
+            this.nDiginotesLabel.Name = "nDiginotesLabel";
+            this.nDiginotesLabel.Size = new System.Drawing.Size(0, 13);
+            this.nDiginotesLabel.TabIndex = 20;
             // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 568);
+            this.Controls.Add(this.nDiginotesLabel);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.currentBalanceLabel);
             this.Controls.Add(this.labelx);
             this.Controls.Add(this.orderNotifierLabel);
@@ -203,5 +223,7 @@
         private System.Windows.Forms.Label orderNotifierLabel;
         private System.Windows.Forms.Label labelx;
         private System.Windows.Forms.Label currentBalanceLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label nDiginotesLabel;
     }
 }

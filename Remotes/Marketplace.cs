@@ -67,7 +67,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			foreach (OrdersNotifier handler in invkList) {
 				Console.WriteLine ("[Entities]: Event triggered: invoking handler");
 				object[] pars = { handler, username, type, amount, quot };
-				new Thread (TriggerQuotEvent).Start (pars);
+				new Thread (TriggerOrdEvent).Start (pars);
 			}
 		}
 	}
