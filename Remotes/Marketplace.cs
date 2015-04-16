@@ -189,7 +189,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	// Purchases
 
 	public OrderStatus AddPurchaseOrders (string username, int nOrders)
-	{
+    {
+        Console.WriteLine("Username: {0}",username);
 		if (usersLoggedIn.Contains (username)) {
             Console.WriteLine("Not logged in!");
 			return OrderStatus.Error;

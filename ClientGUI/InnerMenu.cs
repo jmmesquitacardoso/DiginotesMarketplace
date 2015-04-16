@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Common;
+using Client;
 
 namespace ClientGUI
 {
@@ -15,15 +16,17 @@ namespace ClientGUI
     {
         public string Username { get; set; }
 
-        public InnerMenu()
+        public ClientApp App { get; set; }
+
+        public InnerMenu(ClientApp app)
         {
             InitializeComponent();
-            ordersSellSpinner.Maximum = LoginForm.App.GetSaleOrders().Count;
+            App = app;
         }
 
         private void InnerMenu_Load(object sender, EventArgs e)
         {
-
+            ordersSellSpinner.Maximum = App.GetSaleOrders().Count;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -33,7 +36,7 @@ namespace ClientGUI
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
-            LoginForm.App.Logout(Username);
+            App.Logout(Username);
             this.SetVisibleCore(false);
             this.Close();
             Application.Exit();
@@ -51,8 +54,8 @@ namespace ClientGUI
         private void buyOrdersButton_Click(object sender, EventArgs e)
         {
             int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
-            LoginForm.App.MakePurchaseOrder(nOrders);
-            ordersSellSpinner.Maximum = LoginForm.App.GetSaleOrders().Count;
+            App.MakePurchaseOrder(nOrders);
+            ordersSellSpinner.Maximum = App.GetSaleOrders().Count;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -72,7 +75,7 @@ namespace ClientGUI
         private void sellOrdersButton_Click(object sender, EventArgs e)
         {
             int nOrders = Decimal.ToInt32(ordersSellSpinner.Value);
-            LoginForm.App.MakeSaleOrder(nOrders);
+            App.MakeSaleOrder(nOrders);
         }
 
         private void quot_TextChanged(object sender, EventArgs e)
