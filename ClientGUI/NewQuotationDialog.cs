@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Common;
+using Client;
 
 namespace ClientGUI
 {
@@ -17,6 +18,8 @@ namespace ClientGUI
         OrderType Type { get; set; }
 
         float Quotation { get; set; }
+
+        public ClientApp App { get; set; }
         
         public NewQuotationDialog(OrderType type, float currentQuot)
         {
@@ -34,13 +37,13 @@ namespace ClientGUI
         {
             float newQuotation = float.Parse(quotationTextBox.Text);
 
-            if (Type == OrderType.Purchase && LoginForm.App.GetPurchaseOrders().Count > 0 &&  newQuotation >= Quotation)
+            if (Type == OrderType.Purchase && App.GetPurchaseOrders().Count > 0 &&  newQuotation >= Quotation)
             {
-                LoginForm.App.UpdateServerQuotation(newQuotation);
+                App.UpdateServerQuotation(newQuotation);
             }
-            else if (Type == OrderType.Purchase && LoginForm.App.GetSaleOrders().Count > 0 && float.Parse(quotationTextBox.Text) <= Quotation)
+            else if (Type == OrderType.Purchase && App.GetSaleOrders().Count > 0 && float.Parse(quotationTextBox.Text) <= Quotation)
             {
-                LoginForm.App.UpdateServerQuotation(newQuotation);
+                App.UpdateServerQuotation(newQuotation);
             }
 
             this.Close();

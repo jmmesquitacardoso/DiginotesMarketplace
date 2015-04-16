@@ -14,14 +14,14 @@ namespace ClientGUI
 {
     public partial class LoginForm : Form, ClientInterface
     {
-        public static ClientApp App { get; set; }
+        public ClientApp App { get; set; }
         public InnerMenu Inner { get; set; }
 
         public LoginForm()
         {
             App = new ClientApp(this);
             InitializeComponent();
-            Inner = new InnerMenu();
+            Inner = new InnerMenu(App);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -56,6 +56,7 @@ namespace ClientGUI
         public void AskNewQuotation(float currentQuot, OrderType type)
         {
             NewQuotationDialog newQuotDialog = new NewQuotationDialog(type, currentQuot);
+            newQuotDialog.App = App;
             newQuotDialog.ShowDialog();
         }
 
@@ -67,6 +68,7 @@ namespace ClientGUI
         private void registerButton_Click(object sender, EventArgs e)
         {
             RegisterForm registerForm = new RegisterForm();
+            registerForm.App = App;
             registerForm.ShowDialog();
         }
 
