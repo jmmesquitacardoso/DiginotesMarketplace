@@ -66,8 +66,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 			foreach (OrdersNotifier handler in invkList) {
 				Console.WriteLine ("[Entities]: Event triggered: invoking handler");
-				object[] pars = { handler, username, type, amount, quot };
-				new Thread (TriggerOrdEvent).Start (pars);
+				object[] pars = { handler, username, type, amount, Database.Instance.Quotation };
+				new Thread (TriggerQuotEvent).Start (pars);
 			}
 		}
 	}
@@ -274,6 +274,6 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	public ArrayList GetPastOrders (string username)
 	{
-		return Database.Instance.GetPastOrders ();
+		return Database.Instance.GetPastOrders (username);
 	}
 }

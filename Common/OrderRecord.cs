@@ -5,9 +5,9 @@ namespace Common
 {
 	public class OrderRecord
 	{
-		public OrderType Type { get; }
-		public int Amount { get; }
-		public float Quotation { get; }
+		public OrderType Type { get; set; }
+		public int Amount { get; set; }
+		public float Quotation { get; set; }
 
 		public OrderRecord(OrderType type, int amount, float quot) {
 			Type = type;

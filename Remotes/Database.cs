@@ -74,7 +74,7 @@ public class Database
 
 		registeredUsers.Add (user.Username, user);
 		balances.Add (user.Username, ((float)0.0));
-		ordersHistory.Add (user.Username, new Stack ());
+		ordersHistory.Add (user.Username, new ArrayList ());
 		SaveDatabase ();
 
 		return Status.Valid;
@@ -337,11 +337,11 @@ public class Database
 
 	public ArrayList GetPastOrders (string username)
 	{
-		return ordersHistory [username];
+		return (ArrayList) ordersHistory [username];
 	}
 
 	public void AddOrderRecord (string username, OrderType type, int amount, float quot)
 	{
-		((Stack)ordersHistory [username]).Push (new OrderRecord(type, amount, quot));
+		((ArrayList)ordersHistory [username]).Add (new OrderRecord(type, amount, quot));
 	}
 }
