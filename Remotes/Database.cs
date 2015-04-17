@@ -130,7 +130,7 @@ public class Database
 
 		Diginote[] returnDiginotes = new Diginote[count];
 
-		userDiginotes.CopyTo (0, returnDiginotes, 0, count);
+		userDiginotes.CopyTo (returnDiginotes, count);
 
 		userDiginotes.RemoveRange (0, count);
 
@@ -330,16 +330,11 @@ public class Database
 			return new ArrayList ();
 		}
 
-		ArrayList result = new ArrayList ();
-
 		SaleOrder order = (SaleOrder)sales.Peek ();
 
         Console.WriteLine("Order amount: " + order.Amount);
 
-        ArrayList cenas = order.RemoveDiginotes(amount);
-
-        Console.WriteLine("Cenas size: " + cenas.Count);
-		result.AddRange (cenas);
+        ArrayList result = order.RemoveDiginotes(amount);
 
         Console.WriteLine("Order amount after add range: " + order.Amount);
 
