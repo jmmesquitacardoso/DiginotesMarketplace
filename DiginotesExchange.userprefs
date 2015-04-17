@@ -1,9 +1,8 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupItem="Server/Server.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Remotes/Marketplace.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Client/Client.cs">
     <Files>
-      <File FileName="ClientGUI/InnerMenu.cs" Line="25" Column="25" />
-      <File FileName="Remotes/Marketplace.cs" Line="33" Column="33" />
+      <File FileName="Client/Client.cs" Line="36" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

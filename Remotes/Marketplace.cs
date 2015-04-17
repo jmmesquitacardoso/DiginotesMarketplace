@@ -266,12 +266,11 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 			// update balances
 			float buyerBalance = Database.Instance.GetUserBalance (buyerUsername);
-			float sellerBalance = Database.Instance.GetUserBalance (sellerUsername);
-
 			buyerBalance -= Quotation * diginotesDispatched;
-			sellerBalance += Quotation * diginotesDispatched;
-
 			Database.Instance.SetUserBalance (buyerUsername, buyerBalance);
+
+			float sellerBalance = Database.Instance.GetUserBalance (sellerUsername);
+			sellerBalance += Quotation * diginotesDispatched;
 			Database.Instance.SetUserBalance (sellerUsername, sellerBalance);
 
             Console.WriteLine("Diginotes Dispatched: " + diginotesDispatched);

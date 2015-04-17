@@ -126,17 +126,16 @@ public class Database
 
 		ArrayList userDiginotes = (ArrayList)wallets [username];
 
-		ArrayList returnDiginotes;
+		count = Math.Min (count, userDiginotes.Count);
 
-		if (userDiginotes.Count <= count) {
-			returnDiginotes = new ArrayList (userDiginotes);
-			wallets [username] = new ArrayList ();
-		} else {
-			returnDiginotes = new ArrayList (userDiginotes.GetRange (0, count));
-		}
+		Diginote[] returnDiginotes = new Diginote[count];
+
+		userDiginotes.CopyTo (returnDiginotes, count);
+
+		userDiginotes.RemoveRange (0, count);
 
 		SaveDatabase ();
-		return returnDiginotes;
+		return new ArrayList(returnDiginotes);
 	}
 
 	public ArrayList GetUserDiginotes (string username)
