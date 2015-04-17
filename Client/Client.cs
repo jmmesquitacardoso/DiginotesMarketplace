@@ -114,8 +114,6 @@ namespace Client
 			} else if (status == OrderStatus.Pending) {
                 parent.AskNewQuotation(Quotation, OrderType.Sale);
 			}
-			DiginotesNr = SharedMarketplace.GetUserDiginotes(Username).Count;
-			parent.UpdateDiginotesCount (DiginotesNr);
 			return true;
 		}
 
@@ -167,9 +165,7 @@ namespace Client
 		public void NotifyOrderUpdate (string username, OrderType type, int amount, float quot)
 		{
 			if (Username == username) {
-
 				Balance = SharedMarketplace.GetUserBalance (Username);
-
 				QuotationHistory.Add (Quotation);
 				BalanceHistory.Add (Balance);
 				DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;

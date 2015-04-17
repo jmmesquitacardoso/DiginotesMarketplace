@@ -289,7 +289,6 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		}
 	}
 
-
 	public ArrayList GetPastOrders (string username)
 	{
 		return Database.Instance.GetPastOrders (username);
