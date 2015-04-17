@@ -331,7 +331,9 @@ public class Database
             Console.WriteLine("Order amount: " + order.Amount);
 
 			if (order.Amount == amount) {
-				sales.Dequeue ();
+				while (((SaleOrder)sales.Peek ()).Amount == 0) {
+					sales.Dequeue ();
+				}
 			}
 		} else {
 			result.AddRange (order.RemoveDiginotes (order.Amount));
