@@ -185,6 +185,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		if (!isWaiting) {
 			DispatchOrders ();
 		}
+
 		if (Database.Instance.IsOrderPending (id)) {
 			return OrderStatus.Pending;
 		} else {
