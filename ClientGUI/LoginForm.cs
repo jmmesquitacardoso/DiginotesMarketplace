@@ -26,6 +26,13 @@ namespace ClientGUI
 
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            Application.Exit();
+        }
+
         private void Login_Click(object sender, EventArgs e)
         {
             if (App.Login(username.Text, password.Text) == Status.Valid)
