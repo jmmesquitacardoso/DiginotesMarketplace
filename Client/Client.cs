@@ -90,13 +90,13 @@ namespace Client
 		}
 
 		public void UpdateQuotation (float quot)
-		{
+        {
+            QuotationHistory.Add(Quotation);
+            BalanceHistory.Add(Balance);
+            DiginotesHistory.Add(DiginotesNr);
+
             parent.UpdateQuotation(quot);
 			Quotation = quot;
-
-			QuotationHistory.Add (Quotation);
-			BalanceHistory.Add (Balance);
-			DiginotesHistory.Add(DiginotesNr);
 		}
 
 		public ArrayList GetAvailableDiginotes ()
@@ -179,5 +179,19 @@ namespace Client
 				parent.UpdateDiginotesCount (DiginotesNr);
 			}
 		}
+
+        public ArrayList GetTenLastQuotations()
+        {
+            ArrayList result = new ArrayList();
+            ArrayList history = new ArrayList();
+
+            int count = Math.Min(QuotationHistory.Count, 10);
+
+            QuotationHistory.Reverse();
+            result = QuotationHistory.GetRange(0, count);
+            QuotationHistory = history;
+
+            return result;
+        }
 	}
 }
