@@ -24,9 +24,11 @@ namespace Common
 
 		public ArrayList RemoveDiginotes (int count)
 		{
-			if (count > Diginotes.Count || count < 0) {
+			if (count < 0) {
 				return null;
 			}
+
+			count = Math.Min (count, Amount);
 
 			Amount -= count;
 
