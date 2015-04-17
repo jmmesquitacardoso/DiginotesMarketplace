@@ -60,6 +60,7 @@ namespace Client
 			if (result == Status.Valid) {
 				Username = username;
 				Quotation = SharedMarketplace.Quotation;
+				QuotationHistory.Add (Quotation);
 				Balance = SharedMarketplace.GetUserBalance (Username);
 				DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
 				OrderHistory = SharedMarketplace.GetPastOrders (Username);
@@ -95,12 +96,12 @@ namespace Client
 
 		public void UpdateQuotation (float quot)
 		{
+			Quotation = quot;
 			QuotationHistory.Add (Quotation);
 			BalanceHistory.Add (Balance);
 			DiginotesHistory.Add (DiginotesNr);
 
 			parent.UpdateQuotation (quot);
-			Quotation = quot;
 		}
 
 		public ArrayList GetAvailableDiginotes ()
@@ -190,15 +191,14 @@ namespace Client
 
 			int count = Math.Min (QuotationHistory.Count, 10);
 
-			QuotationHistory.Reverse ();
-			result = QuotationHistory.GetRange (0, count);
-			QuotationHistory.Reverse ();
+			result = QuotationHistory.GetRange (QuotationHistory.Count - count, count);
 
-			float lastElem = (float)result [(result.Count - 1)];
+			float lastElem = (float)result [result.Count - 1];
+
 			for (int i = result.Count; i <= 10; i++) {
 				result.Add (lastElem);
 			}
-			result.Reverse ();
+
 			return result;
 		}
 	}
