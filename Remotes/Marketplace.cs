@@ -171,10 +171,12 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 		}
 
 		ArrayList diginotes = Database.Instance.RemoveDiginotesFromUser (username, nOrders);
-        Console.WriteLine("Diginotes length: " + diginotes.Count);
+        Console.WriteLine("Diginotes removed from user: " + diginotes.Count);
+
 		if (diginotes == null) {
 			return OrderStatus.Error;
 		}
+
 		SaleOrder order = new SaleOrder (username, nOrders);
 		int id = order.Id;
 		order.AddDiginotes (diginotes);

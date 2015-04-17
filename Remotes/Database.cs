@@ -305,13 +305,13 @@ public class Database
 	{
 
 		foreach (SaleOrder order in sales) {
-			if (order.Id == orderId) {
+			if (order.Id == orderId && order.Amount > 0) {
 				return true;
 			}
 		}
 
 		foreach (PurchaseOrder order in purchases) {
-			if (order.Id == orderId) {
+			if (order.Id == orderId && order.Amount > 0) {
 				return true;
 			}
 		}

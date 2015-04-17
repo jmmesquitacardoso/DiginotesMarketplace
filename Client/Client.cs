@@ -113,9 +113,9 @@ namespace Client
 				return false;
 			} else if (status == OrderStatus.Pending) {
                 parent.AskNewQuotation(Quotation, OrderType.Sale);
-                DiginotesNr = SharedMarketplace.GetUserDiginotes(Username).Count;
-				parent.UpdateDiginotesCount (DiginotesNr);
 			}
+			DiginotesNr = SharedMarketplace.GetUserDiginotes(Username).Count;
+			parent.UpdateDiginotesCount (DiginotesNr);
 			return true;
 		}
 
