@@ -165,6 +165,7 @@ namespace Client
 		public void NotifyOrderUpdate (string username, OrderType type, int amount, float quot)
 		{
 			if (Username == username) {
+                Console.WriteLine("Before: " + Balance);
 				Balance = SharedMarketplace.GetUserBalance (Username);
 				QuotationHistory.Add (Quotation);
 				BalanceHistory.Add (Balance);
@@ -172,6 +173,7 @@ namespace Client
 				DiginotesHistory.Add(DiginotesNr);
 				OrderHistory.Add(new OrderRecord(type, amount, quot));
 
+                Console.WriteLine("After: " + Balance);
 				parent.NotifyOrderUpdate (type, amount, quot);
 				parent.UpdateBalance (Balance);
 				parent.UpdateDiginotesCount (DiginotesNr);

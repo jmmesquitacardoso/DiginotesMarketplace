@@ -29,8 +29,10 @@ namespace ClientGUI
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-
-            Application.Exit();
+             if (e.CloseReason == CloseReason.UserClosing)
+             {
+                 Application.Exit();
+             }
         }
 
         private void Login_Click(object sender, EventArgs e)
