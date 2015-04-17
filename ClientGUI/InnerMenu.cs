@@ -26,20 +26,13 @@ namespace ClientGUI
                 loginForm.App = App;
                 loginForm.ShowDialog();
             }
-            currentBalanceLabel.Text = "" + App.Balance;
-            nDiginotesLabel.Text = "" + App.DiginotesNr;
             ordersSellSpinner.Minimum = 0;
-            ordersSellSpinner.Maximum = App.DiginotesNr;
+            purchaseOrdersSpinner.Minimum = 0;
 
         }
 
         private void InnerMenu_Load(object sender, EventArgs e)
         {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void logoutButton_Click(object sender, EventArgs e)
@@ -64,9 +57,6 @@ namespace ClientGUI
             int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
             App.MakePurchaseOrder(nOrders);
             purchaseOrdersSpinner.Value = 0;
-            ordersSellSpinner.Maximum = App.DiginotesNr;
-            nDiginotesLabel.Text = "" + App.DiginotesNr;
-            currentBalanceLabel.Text = "" + App.Balance;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -82,11 +72,7 @@ namespace ClientGUI
         {
             int nOrders = Decimal.ToInt32(ordersSellSpinner.Value);
             App.MakeSaleOrder(nOrders);
-            currentBalanceLabel.Text = "" + App.Balance;
-        }
-
-        private void quot_TextChanged(object sender, EventArgs e)
-        {
+            ordersSellSpinner.Value = 0;
         }
 
         public void notifyOrder(OrderType type, int amount, float quot)
@@ -94,15 +80,11 @@ namespace ClientGUI
             if (type == OrderType.Purchase) 
             {
                 orderNotifierLabel.Text = amount + " diginotes have been bought at a quotation of " + quot;
-                ordersSellSpinner.Maximum = App.DiginotesNr;
-                nDiginotesLabel.Text = "" + App.DiginotesNr;
 
             }
             else
             {
                 orderNotifierLabel.Text = amount + " diginotes have been sold at a quotation of " + quot;
-                ordersSellSpinner.Maximum = App.DiginotesNr;
-                nDiginotesLabel.Text = "" + App.DiginotesNr;
             }
         }
 
@@ -127,14 +109,14 @@ namespace ClientGUI
             notifyOrder(type, amount, quot);
         }
 
-        private void purchaseOrdersSpinner_ValueChanged(object sender, EventArgs e)
+        public void UpdateBalance(float balance)
         {
-
+            currentBalanceLabel.Text = "" + balance;
         }
-
-        private void label3_Click_1(object sender, EventArgs e)
+        public void UpdateDiginotesCount(int count)
         {
-
+            ordersSellSpinner.Maximum = App.DiginotesNr;
+            nDiginotesLabel.Text = "" + App.DiginotesNr;
         }
     }
 }

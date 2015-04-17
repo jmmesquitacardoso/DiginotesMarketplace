@@ -133,7 +133,6 @@
             this.purchaseOrdersSpinner.Name = "purchaseOrdersSpinner";
             this.purchaseOrdersSpinner.Size = new System.Drawing.Size(171, 20);
             this.purchaseOrdersSpinner.TabIndex = 15;
-            this.purchaseOrdersSpinner.ValueChanged += new System.EventHandler(this.purchaseOrdersSpinner_ValueChanged);
             // 
             // orderNotifierLabel
             // 
@@ -159,7 +158,6 @@
             this.currentBalanceLabel.Name = "currentBalanceLabel";
             this.currentBalanceLabel.Size = new System.Drawing.Size(0, 13);
             this.currentBalanceLabel.TabIndex = 18;
-            this.currentBalanceLabel.Click += new System.EventHandler(this.label3_Click_1);
             // 
             // label3
             // 
