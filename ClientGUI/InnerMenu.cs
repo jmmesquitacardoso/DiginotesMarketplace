@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Common;
 using Client;
+using System.Threading;
+using OxyPlot;
+using OxyPlot.Series;
+using OxyPlot.WindowsForms;
 
 namespace ClientGUI
 {
@@ -16,19 +20,45 @@ namespace ClientGUI
     {
         public ClientApp App { get; set; }
 
+        LineSeries QuotationLine { get; set; }
+
+        Plot QuotationPlot { get; set; }
+
+        LineSeries BalanceLine { get; set; }
+
+        Plot  BalancePlot { get; set; }
+
+        int Counter { get; set; }
+
+        const string TrackerFormatString = "{0} : {4:0.0}€"; 
+
         public InnerMenu()
         {
-            App = new ClientApp(this);
             InitializeComponent();
+            QuotationPlot = new OxyPlot.WindowsForms.Plot();
+            QuotationPlot.Model = new PlotModel { Title = "Quotation Evolution" };
+            QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
+            QuotationPlot.Model.Series.Add(QuotationLine);
+            quotationGraphContainer.Controls.Add(QuotationPlot);
+
+            BalancePlot = new OxyPlot.WindowsForms.Plot();
+            BalancePlot.Model = new PlotModel { Title = "Balance Evolution" };
+            BalanceLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
+            BalancePlot.Model.Series.Add(BalanceLine);
+            balanceGraphPanel.Controls.Add(BalancePlot);
+
+            App = new ClientApp(this);
+
             if (App.Username == null)
             {
                 LoginForm loginForm = new LoginForm();
                 loginForm.App = App;
                 loginForm.ShowDialog();
             }
+
             ordersSellSpinner.Minimum = 0;
             purchaseOrdersSpinner.Minimum = 0;
-
+            Counter = 0;
         }
 
         private void InnerMenu_Load(object sender, EventArgs e)
@@ -46,6 +76,12 @@ namespace ClientGUI
         public void ChangeQuotationValue(float quot) 
         {
             quotation.Text = "" + quot;
+        }
+
+        public void RemoveQuotationWarning()
+        {
+            Thread.Sleep(60000);
+            warningLabel.Text = "";
         }
 
         public void DisplayQuotationWarning () {
@@ -96,7 +132,14 @@ namespace ClientGUI
                 {
                     DisplayQuotationWarning();
                 }
+                else
+                {
+                    new Thread(RemoveQuotationWarning).Start();
+                }
             }
+            QuotationLine.Points.Add(new DataPoint((double)Counter, (double)quot));
+            BalanceLine.Points.Add(new DataPoint(Counter, App.Balance));
+            Counter++;
             ChangeQuotationValue(quot);
         }
 
@@ -115,6 +158,9 @@ namespace ClientGUI
         public void UpdateBalance(float balance)
         {
             currentBalanceLabel.Text = "" + balance;
+            QuotationLine.Points.Add(new DataPoint(Counter, App.Quotation));
+            BalanceLine.Points.Add(new DataPoint(Counter, balance));
+
         }
         public void UpdateDiginotesCount(int count)
         {

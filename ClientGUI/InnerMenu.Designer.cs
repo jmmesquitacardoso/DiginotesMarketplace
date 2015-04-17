@@ -43,6 +43,8 @@
             this.currentBalanceLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.nDiginotesLabel = new System.Windows.Forms.Label();
+            this.balanceGraphPanel = new System.Windows.Forms.Panel();
+            this.quotationGraphContainer = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).BeginInit();
             this.SuspendLayout();
@@ -137,7 +139,7 @@
             // orderNotifierLabel
             // 
             this.orderNotifierLabel.AutoSize = true;
-            this.orderNotifierLabel.Location = new System.Drawing.Point(376, 358);
+            this.orderNotifierLabel.Location = new System.Drawing.Point(174, 279);
             this.orderNotifierLabel.Name = "orderNotifierLabel";
             this.orderNotifierLabel.Size = new System.Drawing.Size(0, 13);
             this.orderNotifierLabel.TabIndex = 16;
@@ -176,11 +178,27 @@
             this.nDiginotesLabel.Size = new System.Drawing.Size(0, 13);
             this.nDiginotesLabel.TabIndex = 20;
             // 
+            // balanceGraphPanel
+            // 
+            this.balanceGraphPanel.Location = new System.Drawing.Point(935, 30);
+            this.balanceGraphPanel.Name = "balanceGraphPanel";
+            this.balanceGraphPanel.Size = new System.Drawing.Size(495, 236);
+            this.balanceGraphPanel.TabIndex = 21;
+            // 
+            // quotationGraphContainer
+            // 
+            this.quotationGraphContainer.Location = new System.Drawing.Point(935, 376);
+            this.quotationGraphContainer.Name = "quotationGraphContainer";
+            this.quotationGraphContainer.Size = new System.Drawing.Size(495, 236);
+            this.quotationGraphContainer.TabIndex = 22;
+            // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1053, 568);
+            this.ClientSize = new System.Drawing.Size(1477, 636);
+            this.Controls.Add(this.quotationGraphContainer);
+            this.Controls.Add(this.balanceGraphPanel);
             this.Controls.Add(this.nDiginotesLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.currentBalanceLabel);
@@ -223,5 +241,7 @@
         private System.Windows.Forms.Label currentBalanceLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label nDiginotesLabel;
+        private System.Windows.Forms.Panel balanceGraphPanel;
+        private System.Windows.Forms.Panel quotationGraphContainer;
     }
 }
