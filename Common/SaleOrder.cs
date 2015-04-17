@@ -30,7 +30,9 @@ namespace Common
 
 			Amount -= count;
 
-			return Diginotes.GetRange (0, count);
+			ArrayList result = Diginotes.GetRange (0, count);
+			Diginotes.RemoveRange (0, count);
+			return result;
 		}
 	}
 }

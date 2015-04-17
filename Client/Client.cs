@@ -64,6 +64,8 @@ namespace Client
 				QuotInter = new QuotationIntermediate (SharedMarketplace);
 				QuotInter.notifyClients += UpdateQuotation;
 				parent.UpdateQuotation (SharedMarketplace.Quotation);
+				parent.UpdateBalance (Balance);
+				parent.UpdateDiginotesCount (DiginotesNr);
 
 				// Subscribe order's updates
 				OrdInter = new OrdersIntermediate (SharedMarketplace);
@@ -112,7 +114,7 @@ namespace Client
 			} else if (status == OrderStatus.Pending) {
                 parent.AskNewQuotation(Quotation, OrderType.Sale);
                 DiginotesNr = SharedMarketplace.GetUserDiginotes(Username).Count;
-				//SharedMarketplace.UpdateQuotation (newQuotation);
+				parent.UpdateDiginotesCount (DiginotesNr);
 			}
 			return true;
 		}
@@ -124,7 +126,6 @@ namespace Client
 				return false;
 			} else if (status == OrderStatus.Pending) {
 				parent.AskNewQuotation (Quotation, OrderType.Purchase);
-				//SharedMarketplace.UpdateQuotation (newQuotation);
 			}
 			return true;
 		}
@@ -155,7 +156,9 @@ namespace Client
 
 		public bool UpdateSaleOrder (int id, int amount)
 		{
-			return SharedMarketplace.UpdateSaleOrder (id, amount);
+			bool result = SharedMarketplace.UpdateSaleOrder (id, amount);
+			DiginotesNr = SharedMarketplace.GetUserDiginotes ().Count;
+			parent.UpdateDiginotesCount (DiginotesNr);
 		}
 
 		// Process order's updates
@@ -172,6 +175,8 @@ namespace Client
 				OrderHistory.Add(new OrderRecord(type, amount, quot));
 
 				parent.NotifyOrderUpdate (type, amount, quot);
+				parent.UpdateBalance (Balance);
+				parent.UpdateDiginotesCount (DiginotesNr);
 			}
 		}
 	}
