@@ -128,9 +128,9 @@ public class Database
 
 		count = Math.Min (count, userDiginotes.Count);
 
-		Diginote[] returnDiginotes = new Diginote[count];
+		ArrayList returnDiginotes = new ArrayList();
 
-		userDiginotes.CopyTo (returnDiginotes, count);
+        returnDiginotes.AddRange(userDiginotes.GetRange(0, count));
 
 		userDiginotes.RemoveRange (0, count);
 

@@ -92,7 +92,10 @@ namespace ClientGUI
         {
             if (quot < App.Quotation)
             {
-                DisplayQuotationWarning();
+                if (App.GetSaleOrders().Count > 0)
+                {
+                    DisplayQuotationWarning();
+                }
             }
             ChangeQuotationValue(quot);
         }
