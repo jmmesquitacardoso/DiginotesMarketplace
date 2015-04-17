@@ -89,7 +89,6 @@ namespace Client
 
 		public void UpdateQuotation (float quot)
 		{
-            Console.WriteLine("In handler: " + quot.ToString());
             parent.UpdateQuotation(quot);
 			Quotation = quot;
 
