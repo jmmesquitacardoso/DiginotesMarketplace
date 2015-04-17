@@ -250,7 +250,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 			int desiredDiginotes = currentPurchase.Amount;
             Console.WriteLine("Diginotes on sale count: " + Database.Instance.GetDiginotesOnSaleCount());
-            Console.WriteLine("Diginotes Dispatched: " + desiredDiginotes);
+            Console.WriteLine("Desired Diginotes: " + desiredDiginotes);
 			ArrayList diginotes = Database.Instance.RemoveFromOldestSale (desiredDiginotes);
 
 			int diginotesDispatched = Math.Min(desiredDiginotes,diginotes.Count);
