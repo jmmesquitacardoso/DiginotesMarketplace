@@ -252,12 +252,13 @@ public class Database
 
 	public PurchaseOrder GetOldestPurchaseOrder ()
 	{
-		if (purchases.Count == 0) {
-			return null;
-		}
-
 		while (purchases.Count > 0 && ((PurchaseOrder)purchases.Peek ()).Amount == 0) {
 			purchases.Dequeue ();
+		}
+
+
+		if (purchases.Count == 0) {
+			return null;
 		}
 
 		return (PurchaseOrder)purchases.Peek ();
@@ -278,10 +279,10 @@ public class Database
 
 	public void UpdateOldestPurchaseOrder (int amount)
 	{
-		if (amount == 0) {
+		if (amount == ((PurchaseOrder)purchases.Peek()).Amount) {
 			purchases.Dequeue ();
 		} else {
-			((PurchaseOrder)purchases.Peek ()).Amount = amount;
+			((PurchaseOrder)purchases.Peek ()).Amount -= amount;
 		}
 		SaveDatabase ();
 	}
@@ -339,6 +340,7 @@ public class Database
 			result.AddRange (order.RemoveDiginotes (order.Amount));
 			sales.Dequeue ();
 		}
+		SaveDatabase ();
 
 		return result;
 	}
@@ -351,5 +353,6 @@ public class Database
 	public void AddOrderRecord (string username, OrderType type, int amount, float quot)
 	{
 		((ArrayList)ordersHistory [username]).Add (new OrderRecord (type, amount, quot));
+		SaveDatabase ();
 	}
 }

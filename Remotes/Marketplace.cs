@@ -280,6 +280,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 			NotifyOrdersDispatch (buyerUsername, OrderType.Purchase, diginotesDispatched);
 
 			Database.Instance.AddOrderRecord (sellerUsername, OrderType.Sale, diginotesDispatched, Quotation);
+			Database.Instance.AddOrderRecord (buyerUsername, OrderType.Purchase, diginotesDispatched, Quotation);
 
 			Database.Instance.UpdateOldestPurchaseOrder (diginotesDispatched);
 		}

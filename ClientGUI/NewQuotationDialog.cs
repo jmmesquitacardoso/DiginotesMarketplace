@@ -39,16 +39,17 @@ namespace ClientGUI
             CultureInfo info = new CultureInfo("en-US");
             float newQuotation = float.Parse(quotationTextBox.Text, info);
 
-            if (Type == OrderType.Purchase && App.GetPurchaseOrders().Count > 0 &&  newQuotation >= Quotation)
+            if (Type == OrderType.Purchase &&  newQuotation >= Quotation)
             {
-                App.UpdateServerQuotation(newQuotation);
+				App.UpdateServerQuotation(newQuotation);
+				this.Close();
             }
-            else if (Type == OrderType.Purchase && App.GetSaleOrders().Count > 0 && float.Parse(quotationTextBox.Text) <= Quotation)
+            else if (Type == OrderType.Purchase && float.Parse(quotationTextBox.Text) <= Quotation)
             {
-                App.UpdateServerQuotation(newQuotation);
+				App.UpdateServerQuotation(newQuotation);
+				this.Close();
             }
 
-            this.Close();
         }
     }
 }
