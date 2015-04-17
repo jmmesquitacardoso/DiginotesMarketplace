@@ -245,14 +245,15 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	private void DispatchOrders ()
 	{
 		PurchaseOrder currentPurchase;
-		while ((currentPurchase = Database.Instance.GetOldestPurchaseOrder ()) != null
-		       && Database.Instance.GetDiginotesOnSaleCount () > 0) {
+		while ((currentPurchase = Database.Instance.GetOldestPurchaseOrder()) != null
+		       && Database.Instance.GetDiginotesOnSaleCount() > 0) {
 
 			int desiredDiginotes = currentPurchase.Amount;
+            Console.WriteLine("Diginotes on sale count: " + Database.Instance.GetDiginotesOnSaleCount());
             Console.WriteLine("Diginotes Dispatched: " + desiredDiginotes);
 			ArrayList diginotes = Database.Instance.RemoveFromOldestSale (desiredDiginotes);
 
-			int diginotesDispatched = desiredDiginotes - diginotes.Count;
+			int diginotesDispatched = Math.Min(desiredDiginotes,diginotes.Count);
 			string sellerUsername = ((Diginote)diginotes[0]).Owner;
 			string buyerUsername = currentPurchase.User;
 

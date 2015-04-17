@@ -254,7 +254,12 @@ public class Database
 	{
 		while (purchases.Count > 0 && ((PurchaseOrder)purchases.Peek ()).Amount == 0) {
 			purchases.Dequeue ();
-		}
+        }
+
+        if (purchases.Count == 0)
+        {
+            return null;
+        }
 
 
 		if (purchases.Count == 0) {
@@ -322,6 +327,11 @@ public class Database
 		while (sales.Count > 0 && ((SaleOrder)sales.Peek ()).Amount == 0) {
 			sales.Dequeue ();
 		}
+
+        if (sales.Count == 0)
+        {
+            return new ArrayList();
+        }
 
 		ArrayList result = new ArrayList ();
 
