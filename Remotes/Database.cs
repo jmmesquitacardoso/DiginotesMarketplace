@@ -335,9 +335,14 @@ public class Database
 
 		SaleOrder order = (SaleOrder)sales.Peek ();
 
+        Console.WriteLine("Order amount: " + order.Amount);
 
-		result.AddRange (order.RemoveDiginotes (amount));
-		Console.WriteLine ("Order amount: " + order.Amount);
+        ArrayList cenas = order.RemoveDiginotes(amount);
+
+        Console.WriteLine("Cenas size: " + cenas.Count);
+		result.AddRange (cenas);
+
+        Console.WriteLine("Order amount after add range: " + order.Amount);
 
 		if (order.Amount >= amount) {
 			while (sales.Count > 0 && ((SaleOrder)sales.Peek ()).Amount == 0) {

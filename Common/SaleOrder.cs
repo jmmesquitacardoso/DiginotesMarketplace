@@ -32,13 +32,13 @@ namespace Common
 
 			Amount -= count;
 
-			ArrayList result;
+			Diginote[] result = new Diginote[count];
 
-			Diginotes.CopyTo (result, 0, count);
+			Diginotes.CopyTo (result, Diginotes.Count - count);
 
 			Diginotes.RemoveRange (0, count);
 
-			return result;
+			return new ArrayList(result);
 		}
 	}
 }
