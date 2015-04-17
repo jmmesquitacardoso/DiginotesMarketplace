@@ -27,11 +27,11 @@ namespace ClientGUI
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-             if (e.CloseReason == CloseReason.UserClosing)
+		{
+			base.OnFormClosing(e);
+			if (e.CloseReason == CloseReason.UserClosing)
              {
-                 Application.Exit();
+				Application.Exit ();
              }
         }
 
@@ -39,7 +39,7 @@ namespace ClientGUI
         {
             if (App.Login(username.Text, password.Text) == Status.Valid)
             {
-                this.Hide();
+				this.Hide();
             }
             else
             {
