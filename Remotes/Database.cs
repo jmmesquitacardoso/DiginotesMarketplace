@@ -31,8 +31,8 @@ public class Database
 		purchases = new Queue ();
 		sales = new Queue ();
 		balances = new Hashtable ();
-        ordersHistory = new Hashtable();
-        Quotation = 1;
+		ordersHistory = new Hashtable ();
+		Quotation = 1;
 	}
 
 	private void SaveDatabase ()
@@ -254,12 +254,11 @@ public class Database
 	{
 		while (purchases.Count > 0 && ((PurchaseOrder)purchases.Peek ()).Amount == 0) {
 			purchases.Dequeue ();
-        }
+		}
 
-        if (purchases.Count == 0)
-        {
-            return null;
-        }
+		if (purchases.Count == 0) {
+			return null;
+		}
 
 
 		if (purchases.Count == 0) {
@@ -284,7 +283,7 @@ public class Database
 
 	public void UpdateOldestPurchaseOrder (int amount)
 	{
-		if (amount == ((PurchaseOrder)purchases.Peek()).Amount) {
+		if (amount == ((PurchaseOrder)purchases.Peek ()).Amount) {
 			purchases.Dequeue ();
 		} else {
 			((PurchaseOrder)purchases.Peek ()).Amount -= amount;
@@ -328,28 +327,24 @@ public class Database
 			sales.Dequeue ();
 		}
 
-        if (sales.Count == 0)
-        {
-            return new ArrayList();
-        }
+		if (sales.Count == 0) {
+			return new ArrayList ();
+		}
 
 		ArrayList result = new ArrayList ();
 
 		SaleOrder order = (SaleOrder)sales.Peek ();
 
-		if (order.Amount >= amount) {
-			result.AddRange (order.RemoveDiginotes (amount));
-            Console.WriteLine("Order amount: " + order.Amount);
 
-			if (order.Amount == amount) {
-				while (((SaleOrder)sales.Peek ()).Amount == 0) {
-					sales.Dequeue ();
-				}
+		result.AddRange (order.RemoveDiginotes (amount));
+		Console.WriteLine ("Order amount: " + order.Amount);
+
+		if (order.Amount >= amount) {
+			while (sales.Count > 0 && ((SaleOrder)sales.Peek ()).Amount == 0) {
+				sales.Dequeue ();
 			}
-		} else {
-			result.AddRange (order.RemoveDiginotes (order.Amount));
-			sales.Dequeue ();
 		}
+
 		SaveDatabase ();
 
 		return result;
