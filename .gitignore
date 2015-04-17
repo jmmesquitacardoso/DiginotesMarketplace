@@ -1,2 +1,5 @@
 */obj
 Server/bin/Debug/diginotes_database.bin
+*.dll
+*.mdb
+*.exe

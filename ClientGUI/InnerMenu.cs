@@ -22,11 +22,11 @@ namespace ClientGUI
 
         LineSeries QuotationLine { get; set; }
 
-        Plot QuotationPlot { get; set; }
+		PlotView QuotationPlot { get; set; }
 
         LineSeries BalanceLine { get; set; }
 
-        Plot  BalancePlot { get; set; }
+		PlotView  BalancePlot { get; set; }
 
         int Counter { get; set; }
 
@@ -35,13 +35,23 @@ namespace ClientGUI
         public InnerMenu()
         {
             InitializeComponent();
-            QuotationPlot = new OxyPlot.WindowsForms.Plot();
+            QuotationPlot = new OxyPlot.WindowsForms.PlotView();
+			QuotationPlot.Dock = System.Windows.Forms.DockStyle.Fill;
+			QuotationPlot.Location = new System.Drawing.Point(0, 0);
+			QuotationPlot.Name = "plot1";
+			QuotationPlot.PanCursor = System.Windows.Forms.Cursors.Hand;
+			QuotationPlot.Size = new System.Drawing.Size(484, 312);
+			QuotationPlot.TabIndex = 0;
+			QuotationPlot.Text = "plot1";
+			QuotationPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+			QuotationPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+			QuotationPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             QuotationPlot.Model = new PlotModel { Title = "Quotation Evolution" };
             QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
             QuotationPlot.Model.Series.Add(QuotationLine);
             quotationGraphContainer.Controls.Add(QuotationPlot);
 
-            BalancePlot = new OxyPlot.WindowsForms.Plot();
+			BalancePlot = new OxyPlot.WindowsForms.PlotView();
             BalancePlot.Model = new PlotModel { Title = "Balance Evolution" };
             BalanceLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
             BalancePlot.Model.Series.Add(BalanceLine);
