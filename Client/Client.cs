@@ -157,8 +157,10 @@ namespace Client
 		public bool UpdateSaleOrder (int id, int amount)
 		{
 			bool result = SharedMarketplace.UpdateSaleOrder (id, amount);
-			DiginotesNr = SharedMarketplace.GetUserDiginotes ().Count;
+			DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
 			parent.UpdateDiginotesCount (DiginotesNr);
+
+			return result;
 		}
 
 		// Process order's updates
