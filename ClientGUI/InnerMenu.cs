@@ -13,6 +13,8 @@ using System.Threading;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.WindowsForms;
+using System.Collections;
+using OxyPlot.Axes;
 
 namespace ClientGUI
 {
@@ -46,10 +48,29 @@ namespace ClientGUI
 			QuotationPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
 			QuotationPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
 			QuotationPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
-            QuotationPlot.Model = new PlotModel { Title = "Quotation Evolution" };
-            QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
-            QuotationPlot.Model.Series.Add(QuotationLine);
+            var model = new PlotModel { Title = "Quotation Evolution" };
+            //QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
+            //QuotationPlot.Model.Series.Add(QuotationLine);
+
+            model.Axes.Add(new LinearAxis
+            {
+                Key = "xAxis",
+                Position = AxisPosition.Bottom,
+                Title = "X Axis"
+            });
+
+            model.Axes.Add(new LinearAxis
+            {
+                Key = "yAxis",
+                Position = AxisPosition.Left,
+                Title = "Y Axis"
+            });
+
+            QuotationPlot.Model = model;
+
             quotationGraphContainer.Controls.Add(QuotationPlot);
+
+
 
 			BalancePlot = new OxyPlot.WindowsForms.PlotView();
             BalancePlot.Model = new PlotModel { Title = "Balance Evolution" };
@@ -147,8 +168,18 @@ namespace ClientGUI
                     new Thread(RemoveQuotationWarning).Start();
                 }
             }
-            QuotationLine.Points.Add(new DataPoint((double)Counter, (double)quot));
+            QuotationLine = new LineSeries();
+            ArrayList history = App.GetTenLastQuotations();
+
+            for (int i = 0, l = history.Count; i < l; i++)
+            {
+                QuotationLine.Points.Add(new DataPoint((double)Counter, (double)((float)history[i])));
+            }
+            QuotationPlot.Model.Series.Clear();
+            QuotationPlot.Model.Series.Add(QuotationLine);
+
             BalanceLine.Points.Add(new DataPoint(Counter, App.Balance));
+            this.Refresh();
             Counter++;
             ChangeQuotationValue(quot);
         }
