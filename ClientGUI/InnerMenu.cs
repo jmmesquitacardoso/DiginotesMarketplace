@@ -18,195 +18,190 @@ using OxyPlot.Axes;
 
 namespace ClientGUI
 {
-    public partial class InnerMenu : Form, ClientInterface
-    {
-        public ClientApp App { get; set; }
+	public partial class InnerMenu : Form, ClientInterface
+	{
+		public ClientApp App { get; set; }
 
-        LineSeries QuotationLine { get; set; }
+		LineSeries QuotationLine { get; set; }
 
 		PlotView QuotationPlot { get; set; }
 
-        LineSeries BalanceLine { get; set; }
+		LineSeries BalanceLine { get; set; }
 
 		PlotView  BalancePlot { get; set; }
 
-        int Counter { get; set; }
+		int Counter { get; set; }
 
-        const string TrackerFormatString = "{0} : {4:0.0}€"; 
+		const string TrackerFormatString = "{0} : {4:0.0}€";
 
-        public InnerMenu()
-        {
-            InitializeComponent();
-            QuotationPlot = new OxyPlot.WindowsForms.PlotView();
+		public InnerMenu ()
+		{
+			InitializeComponent ();
+			QuotationPlot = new OxyPlot.WindowsForms.PlotView ();
 			QuotationPlot.Dock = System.Windows.Forms.DockStyle.Fill;
-			QuotationPlot.Location = new System.Drawing.Point(0, 0);
+			QuotationPlot.Location = new System.Drawing.Point (0, 0);
 			QuotationPlot.Name = "plot1";
 			QuotationPlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-			QuotationPlot.Size = new System.Drawing.Size(484, 312);
+			QuotationPlot.Size = new System.Drawing.Size (484, 312);
 			QuotationPlot.TabIndex = 0;
 			QuotationPlot.Text = "plot1";
 			QuotationPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
 			QuotationPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
 			QuotationPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
-            var model = new PlotModel { Title = "Quotation Evolution" };
-            //QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
-            //QuotationPlot.Model.Series.Add(QuotationLine);
+			var model = new PlotModel { Title = "Quotation Evolution" };
+			//QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
+			//QuotationPlot.Model.Series.Add(QuotationLine);
 
-            model.Axes.Add(new LinearAxis
-            {
-                Key = "xAxis",
-                Position = AxisPosition.Bottom,
-                Title = "X Axis"
-            });
+			model.Axes.Add (new LinearAxis {
+				Key = "xAxis",
+				Position = AxisPosition.Bottom,
+				Maximum = 10,
+				Title = "X Axis"
+			});
 
-            model.Axes.Add(new LinearAxis
-            {
-                Key = "yAxis",
-                Position = AxisPosition.Left,
-                Title = "Y Axis"
-            });
+			model.Axes.Add (new LinearAxis {
+				Key = "yAxis",
+				Position = AxisPosition.Left,
+				Title = "Y Axis"
+			});
 
-            QuotationPlot.Model = model;
+			QuotationPlot.Model = model;
 
-            quotationGraphContainer.Controls.Add(QuotationPlot);
-
+			quotationGraphContainer.Controls.Add (QuotationPlot);
 
 
-			BalancePlot = new OxyPlot.WindowsForms.PlotView();
-            BalancePlot.Model = new PlotModel { Title = "Balance Evolution" };
-            BalanceLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
-            BalancePlot.Model.Series.Add(BalanceLine);
-            balanceGraphPanel.Controls.Add(BalancePlot);
 
-            App = new ClientApp(this);
+			BalancePlot = new OxyPlot.WindowsForms.PlotView ();
+			BalancePlot.Model = new PlotModel { Title = "Balance Evolution" };
+			BalanceLine = new LineSeries {
+				Title = "Quotation",
+				LineLegendPosition = LineLegendPosition.End,
+				TrackerFormatString = TrackerFormatString
+			};
+			BalancePlot.Model.Series.Add (BalanceLine);
+			balanceGraphPanel.Controls.Add (BalancePlot);
 
-            if (App.Username == null)
-            {
-                LoginForm loginForm = new LoginForm();
-                loginForm.App = App;
-                loginForm.ShowDialog();
-            }
+			App = new ClientApp (this);
 
-            ordersSellSpinner.Minimum = 0;
-            purchaseOrdersSpinner.Minimum = 0;
-            Counter = 0;
-        }
+			if (App.Username == null) {
+				LoginForm loginForm = new LoginForm ();
+				loginForm.App = App;
+				loginForm.ShowDialog ();
+			}
 
-        private void InnerMenu_Load(object sender, EventArgs e)
-        {
-        }
+			ordersSellSpinner.Minimum = 0;
+			purchaseOrdersSpinner.Minimum = 0;
+			Counter = 0;
+		}
 
-        private void logoutButton_Click(object sender, EventArgs e)
-        {
-            App.Logout();
-            this.SetVisibleCore(false);
-            this.Close();
-            Application.Exit();
-        }
+		private void InnerMenu_Load (object sender, EventArgs e)
+		{
+		}
 
-        public void ChangeQuotationValue(float quot) 
-        {
-            quotation.Text = "" + quot;
-        }
+		private void logoutButton_Click (object sender, EventArgs e)
+		{
+			App.Logout ();
+			this.SetVisibleCore (false);
+			this.Close ();
+			Application.Exit ();
+		}
 
-        public void RemoveQuotationWarning()
-        {
-            Thread.Sleep(60000);
-            warningLabel.Text = "";
-        }
+		public void ChangeQuotationValue (float quot)
+		{
+			quotation.Text = "" + quot;
+		}
 
-        public void DisplayQuotationWarning () {
-            warningLabel.Text = "New quotation is lower!";
-        }
+		public void RemoveQuotationWarning ()
+		{
+			Thread.Sleep (60000);
+			warningLabel.Text = "";
+		}
 
-        private void buyOrdersButton_Click(object sender, EventArgs e)
-        {
-            int nOrders = Decimal.ToInt32(purchaseOrdersSpinner.Value);
-            App.MakePurchaseOrder(nOrders);
-            purchaseOrdersSpinner.Value = 0;
-        }
+		public void DisplayQuotationWarning ()
+		{
+			warningLabel.Text = "New quotation is lower!";
+		}
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
+		private void buyOrdersButton_Click (object sender, EventArgs e)
+		{
+			int nOrders = Decimal.ToInt32 (purchaseOrdersSpinner.Value);
+			App.MakePurchaseOrder (nOrders);
+			purchaseOrdersSpinner.Value = 0;
+		}
 
-            this.SetVisibleCore(false);
-            this.Close();
-            Application.Exit();
-        }
+		protected override void OnFormClosing (FormClosingEventArgs e)
+		{
+			base.OnFormClosing (e);
 
-        private void sellOrdersButton_Click(object sender, EventArgs e)
-        {
-            int nOrders = Decimal.ToInt32(ordersSellSpinner.Value);
-            App.MakeSaleOrder(nOrders);
-            ordersSellSpinner.Value = 0;
-        }
+			this.SetVisibleCore (false);
+			this.Close ();
+			Application.Exit ();
+		}
 
-        public void notifyOrder(OrderType type, int amount, float quot)
-        {
-            if (type == OrderType.Purchase) 
-            {
-                orderNotifierLabel.Text = amount + " diginotes have been bought at a quotation of " + quot;
+		private void sellOrdersButton_Click (object sender, EventArgs e)
+		{
+			int nOrders = Decimal.ToInt32 (ordersSellSpinner.Value);
+			App.MakeSaleOrder (nOrders);
+			ordersSellSpinner.Value = 0;
+		}
 
-            }
-            else
-            {
-                orderNotifierLabel.Text = amount + " diginotes have been sold at a quotation of " + quot;
-            }
-        }
+		public void notifyOrder (OrderType type, int amount, float quot)
+		{
+			if (type == OrderType.Purchase) {
+				orderNotifierLabel.Text = amount + " diginotes have been bought at a quotation of " + quot;
 
-        public void UpdateQuotation(float quot)
-        {
-            if (quot < App.Quotation)
-            {
-                if (App.GetSaleOrders().Count > 0)
-                {
-                    DisplayQuotationWarning();
-                }
-                else
-                {
-                    new Thread(RemoveQuotationWarning).Start();
-                }
-            }
-            QuotationLine = new LineSeries();
-            ArrayList history = App.GetTenLastQuotations();
+			} else {
+				orderNotifierLabel.Text = amount + " diginotes have been sold at a quotation of " + quot;
+			}
+		}
 
-            for (int i = 0, l = history.Count; i < l; i++)
-            {
-                QuotationLine.Points.Add(new DataPoint((double)Counter, (double)((float)history[i])));
-            }
-            QuotationPlot.Model.Series.Clear();
-            QuotationPlot.Model.Series.Add(QuotationLine);
+		public void UpdateQuotation (float quot)
+		{
+			if (quot < App.Quotation) {
+				if (App.GetSaleOrders ().Count > 0) {
+					DisplayQuotationWarning ();
+				} else {
+					new Thread (RemoveQuotationWarning).Start ();
+				}
+			}
+			QuotationLine = new LineSeries ();
+			ArrayList history = App.GetTenLastQuotations ();
 
-            BalanceLine.Points.Add(new DataPoint(Counter, App.Balance));
-            this.Refresh();
-            Counter++;
-            ChangeQuotationValue(quot);
-        }
+			for (int i = 0, l = history.Count; i < l; i++) {
+				QuotationLine.Points.Add (new DataPoint ((double)Counter, (double)((float)history [i])));
+			}
+			QuotationPlot.Model.Series.Clear ();
+			QuotationPlot.Model.Series.Add (QuotationLine);
 
-        public void AskNewQuotation(float currentQuot, OrderType type)
-        {
-            NewQuotationDialog newQuotDialog = new NewQuotationDialog(type, currentQuot);
-            newQuotDialog.App = App;
-            newQuotDialog.ShowDialog();
-        }
+			BalanceLine.Points.Add (new DataPoint (Counter, App.Balance));
+			this.Refresh ();
+			Counter++;
+			ChangeQuotationValue (quot);
+		}
 
-        public void NotifyOrderUpdate(OrderType type, int amount, float quot)
-        {
-            notifyOrder(type, amount, quot);
-        }
+		public void AskNewQuotation (float currentQuot, OrderType type)
+		{
+			NewQuotationDialog newQuotDialog = new NewQuotationDialog (type, currentQuot);
+			newQuotDialog.App = App;
+			newQuotDialog.ShowDialog ();
+		}
 
-        public void UpdateBalance(float balance)
-        {
-            currentBalanceLabel.Text = "" + balance;
-            QuotationLine.Points.Add(new DataPoint(Counter, App.Quotation));
-            BalanceLine.Points.Add(new DataPoint(Counter, balance));
+		public void NotifyOrderUpdate (OrderType type, int amount, float quot)
+		{
+			notifyOrder (type, amount, quot);
+		}
 
-        }
-        public void UpdateDiginotesCount(int count)
-        {
-            ordersSellSpinner.Maximum = App.DiginotesNr;
-            nDiginotesLabel.Text = "" + App.DiginotesNr;
-        }
-    }
+		public void UpdateBalance (float balance)
+		{
+			currentBalanceLabel.Text = "" + balance;
+			// BalanceLine.Points.Add (new DataPoint (Counter, balance));
+
+		}
+
+		public void UpdateDiginotesCount (int count)
+		{
+			ordersSellSpinner.Maximum = App.DiginotesNr;
+			nDiginotesLabel.Text = "" + App.DiginotesNr;
+		}
+	}
 }

@@ -22,11 +22,15 @@ namespace Client
 
 		// Statistics oriented
 		public float Balance { get; set; }
+
 		public int DiginotesNr { get; set; }
 
 		public ArrayList BalanceHistory { get; set; }
+
 		public ArrayList QuotationHistory { get; set; }
+
 		public ArrayList DiginotesHistory { get; set; }
+
 		public ArrayList OrderHistory { get; set; }
 
 
@@ -35,8 +39,8 @@ namespace Client
 			RemotingConfiguration.Configure ("Client.exe.config", false);
 			SharedMarketplace = (IMarketplace)RemoteNew.New (typeof(IMarketplace));
 			this.parent = parent;
-            BalanceHistory = new ArrayList();
-            QuotationHistory = new ArrayList();
+			BalanceHistory = new ArrayList ();
+			QuotationHistory = new ArrayList ();
 			DiginotesHistory = new ArrayList ();
 			OrderHistory = new ArrayList ();
 		}
@@ -69,7 +73,7 @@ namespace Client
 
 				// Subscribe order's updates
 				OrdInter = new OrdersIntermediate (SharedMarketplace);
-                OrdInter.notifyClients += NotifyOrderUpdate;
+				OrdInter.notifyClients += NotifyOrderUpdate;
 			}
 
 			return result;
@@ -81,21 +85,21 @@ namespace Client
 
 			if (result == Status.Valid) {
 				QuotInter.notifyClients -= UpdateQuotation;
-                OrdInter.notifyClients -= NotifyOrderUpdate;
-                SharedMarketplace.notifyQuotClients -= QuotInter.FireQuotNotify;
-                SharedMarketplace.notifyOrdClients -= OrdInter.FireOrderNotify;
+				OrdInter.notifyClients -= NotifyOrderUpdate;
+				SharedMarketplace.notifyQuotClients -= QuotInter.FireQuotNotify;
+				SharedMarketplace.notifyOrdClients -= OrdInter.FireOrderNotify;
 			}
 
 			return result;
 		}
 
 		public void UpdateQuotation (float quot)
-        {
-            QuotationHistory.Add(Quotation);
-            BalanceHistory.Add(Balance);
-            DiginotesHistory.Add(DiginotesNr);
+		{
+			QuotationHistory.Add (Quotation);
+			BalanceHistory.Add (Balance);
+			DiginotesHistory.Add (DiginotesNr);
 
-            parent.UpdateQuotation(quot);
+			parent.UpdateQuotation (quot);
 			Quotation = quot;
 		}
 
@@ -112,7 +116,7 @@ namespace Client
 			if (status == OrderStatus.Error) {
 				return false;
 			} else if (status == OrderStatus.Pending) {
-                parent.AskNewQuotation(Quotation, OrderType.Sale);
+				parent.AskNewQuotation (Quotation, OrderType.Sale);
 			}
 			return true;
 		}
@@ -130,10 +134,10 @@ namespace Client
 
 		// Reviewing orders
 
-        public void UpdateServerQuotation(float newQuotation) 
-        {
-            SharedMarketplace.UpdateQuotation(newQuotation);
-        }
+		public void UpdateServerQuotation (float newQuotation)
+		{
+			SharedMarketplace.UpdateQuotation (newQuotation);
+		}
 
 		public ArrayList GetPurchaseOrders ()
 		{
@@ -165,33 +169,37 @@ namespace Client
 		public void NotifyOrderUpdate (string username, OrderType type, int amount, float quot)
 		{
 			if (Username == username) {
-                Console.WriteLine("Before: " + Balance);
+				Console.WriteLine ("Before: " + Balance);
 				Balance = SharedMarketplace.GetUserBalance (Username);
 				QuotationHistory.Add (Quotation);
 				BalanceHistory.Add (Balance);
 				DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
-				DiginotesHistory.Add(DiginotesNr);
-				OrderHistory.Add(new OrderRecord(type, amount, quot));
+				DiginotesHistory.Add (DiginotesNr);
+				OrderHistory.Add (new OrderRecord (type, amount, quot));
 
-                Console.WriteLine("After: " + Balance);
+				Console.WriteLine ("After: " + Balance);
 				parent.NotifyOrderUpdate (type, amount, quot);
 				parent.UpdateBalance (Balance);
 				parent.UpdateDiginotesCount (DiginotesNr);
 			}
 		}
 
-        public ArrayList GetTenLastQuotations()
-        {
-            ArrayList result = new ArrayList();
-            ArrayList history = new ArrayList();
+		public ArrayList GetTenLastQuotations ()
+		{
+			ArrayList result = new ArrayList ();
 
-            int count = Math.Min(QuotationHistory.Count, 10);
+			int count = Math.Min (QuotationHistory.Count, 10);
 
-            QuotationHistory.Reverse();
-            result = QuotationHistory.GetRange(0, count);
-            QuotationHistory = history;
+			QuotationHistory.Reverse ();
+			result = QuotationHistory.GetRange (0, count);
+			QuotationHistory.Reverse ();
 
-            return result;
-        }
+			float lastElem = (float)result [(result.Count - 1)];
+			for (int i = result.Count; i <= 10; i++) {
+				result.Add (lastElem);
+			}
+			result.Reverse ();
+			return result;
+		}
 	}
 }
