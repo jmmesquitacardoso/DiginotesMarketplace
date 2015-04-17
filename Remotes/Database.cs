@@ -130,7 +130,7 @@ public class Database
 
 		Diginote[] returnDiginotes = new Diginote[count];
 
-		userDiginotes.CopyTo (returnDiginotes, count);
+		userDiginotes.CopyTo (0, returnDiginotes, 0, count);
 
 		userDiginotes.RemoveRange (0, count);
 

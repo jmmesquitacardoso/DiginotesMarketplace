@@ -34,7 +34,7 @@ namespace Common
 
 			Diginote[] result = new Diginote[count];
 
-			Diginotes.CopyTo (result, Diginotes.Count - count);
+			Diginotes.CopyTo (0, result, 0, Diginotes.Count - count);
 
 			Diginotes.RemoveRange (0, count);
 
