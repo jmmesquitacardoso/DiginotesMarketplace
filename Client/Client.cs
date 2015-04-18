@@ -96,7 +96,7 @@ namespace Client
 
 		public void UpdateQuotation (float quot)
 		{
-			Quotation = quot;
+			Quotation = quot;	
 			QuotationHistory.Add (Quotation);
 			BalanceHistory.Add (Balance);
 			DiginotesHistory.Add (DiginotesNr);
