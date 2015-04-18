@@ -192,26 +192,12 @@ public class Database
 
 	public bool UpdatePurchaseOrder (int id, int amount)
 	{
-		PurchaseOrder purchase = null;
-
 		foreach (PurchaseOrder order in purchases) {
 			if (order.Id == id) {
-				purchase = order;
-
-				if (amount == 0) {
-					order.Amount = 0;
-				}
-
+				order.Amount = amount;
 				break;
 			}
 		}
-
-
-		if (purchase == null) {
-			return false;
-		}
-
-		purchase.Amount = amount;
 
 		SaveDatabase ();
 
@@ -220,26 +206,31 @@ public class Database
 
 	public bool UpdateSaleOrder (int id, int amount)
 	{
-		SaleOrder sale = null;
 
-		foreach (SaleOrder order in sales) {
+		foreach (SaleOrder order in purchases) {
 			if (order.Id == id) {
-				sale = order;
+				if (amount > order.Amount) {
+					amount = amount - order.Amount;
+					string username = order.User;
 
-				if (amount == 0) {
-					order.Amount = 0;
+					for (int j = 0; j < amount; j++) {
+						((ArrayList)wallets [username]).Add (new Diginote(username));
+					}
+
+					balances [order.User] = (float) balances[order.User] - amount * Quotation;
+				} else {
+					amount = order.Amount - amount;
+
+					ArrayList retrievedOrders = order.RemoveDiginotes (amount);
+					ArrayList userWallet = (ArrayList)wallets [order.User];
+					userWallet.AddRange (retrievedOrders);
+
+					balances [order.User] = (float) balances[order.User] + amount * Quotation;
 				}
+
+				break;
 			}
 		}
-
-		if (sale == null) {
-			return false;
-		}
-
-		ArrayList retrievedOrders = sale.RemoveDiginotes (amount);
-		ArrayList userWallet = (ArrayList)wallets [sale.User];
-
-		userWallet.InsertRange (userWallet.Count - 1, retrievedOrders);
 
 		SaveDatabase ();
 
