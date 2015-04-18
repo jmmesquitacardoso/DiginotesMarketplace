@@ -180,14 +180,14 @@
             // 
             // balanceGraphPanel
             // 
-            this.balanceGraphPanel.Location = new System.Drawing.Point(935, 30);
+            this.balanceGraphPanel.Location = new System.Drawing.Point(790, 30);
             this.balanceGraphPanel.Name = "balanceGraphPanel";
             this.balanceGraphPanel.Size = new System.Drawing.Size(495, 236);
             this.balanceGraphPanel.TabIndex = 21;
             // 
             // quotationGraphContainer
             // 
-            this.quotationGraphContainer.Location = new System.Drawing.Point(935, 376);
+            this.quotationGraphContainer.Location = new System.Drawing.Point(790, 376);
             this.quotationGraphContainer.Name = "quotationGraphContainer";
             this.quotationGraphContainer.Size = new System.Drawing.Size(495, 236);
             this.quotationGraphContainer.TabIndex = 22;
@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1477, 636);
+            this.ClientSize = new System.Drawing.Size(1302, 620);
             this.Controls.Add(this.quotationGraphContainer);
             this.Controls.Add(this.balanceGraphPanel);
             this.Controls.Add(this.nDiginotesLabel);

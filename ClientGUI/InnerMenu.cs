@@ -30,8 +30,6 @@ namespace ClientGUI
 
 		PlotView  BalancePlot { get; set; }
 
-		int Counter { get; set; }
-
 		const string TrackerFormatString = "{0} : {4:0.0}€";
 
 		public InnerMenu ()
@@ -49,7 +47,6 @@ namespace ClientGUI
 
 			ordersSellSpinner.Minimum = 0;
 			purchaseOrdersSpinner.Minimum = 0;
-			Counter = 0;
 		}
 
 		private void initPlots() {
@@ -210,7 +207,7 @@ namespace ClientGUI
 			BalancePlot.Model.InvalidatePlot (true);
 
 			BalanceLine = new LineSeries {YAxisKey = "yAxis"};
-			ArrayList balHistory = App.GetTenLastQuotations ();
+            ArrayList balHistory = App.GetTenLastBalances();
 
 			for (int i = 0, l = balHistory.Count; i < l; i++) {
 				BalanceLine.Points.Add (new DataPoint (i, (double)((float)balHistory [i])));
@@ -224,7 +221,6 @@ namespace ClientGUI
 			BalancePlot.Refresh ();
 
 			this.Refresh ();
-			Counter++;
 		}
 
 		public void AskNewQuotation (float currentQuot, OrderType type)
@@ -242,7 +238,40 @@ namespace ClientGUI
 		public void UpdateBalance (float balance)
 		{
 			currentBalanceLabel.Text = "" + balance;
-			// BalanceLine.Points.Add (new DataPoint (Counter, balance));
+            QuotationLine = new LineSeries { YAxisKey = "yAxis" };
+            ArrayList history = App.GetTenLastQuotations();
+
+            for (int i = 0, l = history.Count; i < l; i++)
+            {
+                QuotationLine.Points.Add(new DataPoint(i, (double)((float)history[i])));
+            }
+
+            QuotationPlot.Model.Series.Clear();
+            QuotationPlot.Model.Series.Add(QuotationLine);
+
+            QuotationPlot.Model.InvalidatePlot(false);
+            QuotationPlot.Update();
+            QuotationPlot.Refresh();
+
+            // Balance
+            BalancePlot.Model.InvalidatePlot(true);
+
+            BalanceLine = new LineSeries { YAxisKey = "yAxis" };
+            ArrayList balHistory = App.GetTenLastBalances();
+
+            for (int i = 0, l = balHistory.Count; i < l; i++)
+            {
+                BalanceLine.Points.Add(new DataPoint(i, (double)((float)balHistory[i])));
+            }
+
+            BalancePlot.Model.Series.Clear();
+            BalancePlot.Model.Series.Add(BalanceLine);
+
+            BalancePlot.Model.InvalidatePlot(false);
+            BalancePlot.Update();
+            BalancePlot.Refresh();
+
+            this.Refresh();
 
 		}
 

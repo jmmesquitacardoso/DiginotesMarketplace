@@ -2,6 +2,7 @@
 using System.Collections;
 using Common;
 using System.Threading;
+using System.IO;
 
 public class Marketplace : MarshalByRefObject, IMarketplace
 {
@@ -278,7 +279,15 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
             Console.WriteLine("Diginotes Dispatched: " + diginotesDispatched);
 
-			// fire events
+            // Log occurrences
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"log.txt", true))
+            {
+                file.WriteLine("" + diginotesDispatched + " diginotes were sold by user " + sellerUsername + " at a quotation of " + Database.Instance.Quotation);
+                file.WriteLine("" + diginotesDispatched + " diginotes were bought by user " + buyerUsername + " at a quotation of " + Database.Instance.Quotation);
+            }
+
+            // fire events
+
 			NotifyOrdersDispatch (sellerUsername, OrderType.Sale, diginotesDispatched);
 			NotifyOrdersDispatch (buyerUsername, OrderType.Purchase, diginotesDispatched);
 

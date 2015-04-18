@@ -62,6 +62,7 @@ namespace Client
 				Quotation = SharedMarketplace.Quotation;
 				QuotationHistory.Add (Quotation);
 				Balance = SharedMarketplace.GetUserBalance (Username);
+                BalanceHistory.Add (Balance);
 				DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
 				OrderHistory = SharedMarketplace.GetPastOrders (Username);
 
