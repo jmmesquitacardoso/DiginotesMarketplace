@@ -37,49 +37,7 @@ namespace ClientGUI
 		public InnerMenu ()
 		{
 			InitializeComponent ();
-			QuotationPlot = new OxyPlot.WindowsForms.PlotView ();
-			QuotationPlot.Dock = System.Windows.Forms.DockStyle.Fill;
-			QuotationPlot.Location = new System.Drawing.Point (0, 0);
-			QuotationPlot.Name = "plot1";
-			QuotationPlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-			QuotationPlot.Size = new System.Drawing.Size (484, 312);
-			QuotationPlot.TabIndex = 0;
-			QuotationPlot.Text = "plot1";
-			QuotationPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-			QuotationPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-			QuotationPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
-			var model = new PlotModel { Title = "Quotation Evolution" };
-			//QuotationLine = new LineSeries { Title = "Quotation", LineLegendPosition = LineLegendPosition.End, TrackerFormatString = TrackerFormatString };
-			//QuotationPlot.Model.Series.Add(QuotationLine);
-
-			model.Axes.Add (new LinearAxis {
-				Key = "xAxis",
-				Position = AxisPosition.Bottom,
-				Maximum = 10,
-				Title = "X Axis"
-			});
-
-			model.Axes.Add (new LinearAxis {
-				Key = "yAxis",
-				Position = AxisPosition.Left,
-				Title = "Y Axis"
-			});
-
-			QuotationPlot.Model = model;
-
-			quotationGraphContainer.Controls.Add (QuotationPlot);
-
-
-
-			BalancePlot = new OxyPlot.WindowsForms.PlotView ();
-			BalancePlot.Model = new PlotModel { Title = "Balance Evolution" };
-			BalanceLine = new LineSeries {
-				Title = "Quotation",
-				LineLegendPosition = LineLegendPosition.End,
-				TrackerFormatString = TrackerFormatString
-			};
-			BalancePlot.Model.Series.Add (BalanceLine);
-			balanceGraphPanel.Controls.Add (BalancePlot);
+			initPlots ();
 
 			App = new ClientApp (this);
 
@@ -92,6 +50,71 @@ namespace ClientGUI
 			ordersSellSpinner.Minimum = 0;
 			purchaseOrdersSpinner.Minimum = 0;
 			Counter = 0;
+		}
+
+		private void initPlots() {
+
+			QuotationPlot = new OxyPlot.WindowsForms.PlotView ();
+			QuotationPlot.Dock = System.Windows.Forms.DockStyle.Fill;
+			QuotationPlot.Location = new System.Drawing.Point (0, 0);
+			QuotationPlot.Name = "plot1";
+			QuotationPlot.PanCursor = System.Windows.Forms.Cursors.Hand;
+			QuotationPlot.Size = new System.Drawing.Size (484, 312);
+			QuotationPlot.TabIndex = 0;
+			QuotationPlot.Text = "plot1";
+			QuotationPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+			QuotationPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+			QuotationPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+			var quotModel = new PlotModel { Title = "Quotation Evolution" };
+
+			quotModel.Axes.Add (new LinearAxis {
+				Key = "xAxis",
+				Position = AxisPosition.Bottom,
+				Maximum = 10,
+				Title = "Actions"
+			});
+
+			quotModel.Axes.Add (new LinearAxis {
+				Key = "yAxis",
+				Position = AxisPosition.Left,
+				Title = "Quotation"
+			});
+
+			QuotationPlot.Model = quotModel;
+
+			quotationGraphContainer.Controls.Add (QuotationPlot);
+
+
+
+			BalancePlot = new OxyPlot.WindowsForms.PlotView ();
+			BalancePlot.Dock = System.Windows.Forms.DockStyle.Fill;
+			BalancePlot.Location = new System.Drawing.Point (0, 0);
+			BalancePlot.Name = "plot2";
+			BalancePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
+			BalancePlot.Size = new System.Drawing.Size (484, 312);
+			BalancePlot.TabIndex = 0;
+			BalancePlot.Text = "plot2";
+			BalancePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+			BalancePlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+			BalancePlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+			var balanceModel = new PlotModel { Title = "Balance Evolution" };
+
+			balanceModel.Axes.Add (new LinearAxis {
+				Key = "xAxis",
+				Position = AxisPosition.Bottom,
+				Maximum = 10,
+				Title = "Actions"
+			});
+
+			balanceModel.Axes.Add (new LinearAxis {
+				Key = "yAxis",
+				Position = AxisPosition.Left,
+				Title = "Balance"
+			});
+
+			BalancePlot.Model = balanceModel;
+
+			balanceGraphPanel.Controls.Add (BalancePlot);
 		}
 
 		private void InnerMenu_Load (object sender, EventArgs e)
@@ -164,6 +187,9 @@ namespace ClientGUI
 					new Thread (RemoveQuotationWarning).Start ();
 				}	
 			}
+
+			// Quotation
+			ChangeQuotationValue (quot);
 			QuotationPlot.Model.InvalidatePlot (true);
 
 			QuotationLine = new LineSeries {YAxisKey = "yAxis"};
@@ -176,13 +202,29 @@ namespace ClientGUI
 			QuotationPlot.Model.Series.Clear ();
 			QuotationPlot.Model.Series.Add (QuotationLine);
 
-			//BalanceLine.Points.Add (new DataPoint (Counter, App.Balance));
 			QuotationPlot.Model.InvalidatePlot (false);
 			QuotationPlot.Update ();
 			QuotationPlot.Refresh ();
+
+			// Balance
+			BalancePlot.Model.InvalidatePlot (true);
+
+			BalanceLine = new LineSeries {YAxisKey = "yAxis"};
+			ArrayList balHistory = App.GetTenLastQuotations ();
+
+			for (int i = 0, l = balHistory.Count; i < l; i++) {
+				BalanceLine.Points.Add (new DataPoint (i, (double)((float)balHistory [i])));
+			}
+
+			BalancePlot.Model.Series.Clear ();
+			BalancePlot.Model.Series.Add (BalanceLine);
+
+			BalancePlot.Model.InvalidatePlot (false);
+			BalancePlot.Update ();
+			BalancePlot.Refresh ();
+
 			this.Refresh ();
 			Counter++;
-			ChangeQuotationValue (quot);
 		}
 
 		public void AskNewQuotation (float currentQuot, OrderType type)

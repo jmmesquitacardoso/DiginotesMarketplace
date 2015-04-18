@@ -201,5 +201,22 @@ namespace Client
 
 			return result;
 		}
+
+		public ArrayList GetTenLastBalances ()
+		{
+			ArrayList result = new ArrayList ();
+
+			int count = Math.Min (BalanceHistory.Count, 10);
+
+			result = BalanceHistory.GetRange (BalanceHistory.Count - count, count);
+
+			float lastElem = (float)result [result.Count - 1];
+
+			for (int i = result.Count; i <= 10; i++) {
+				result.Add (lastElem);
+			}
+
+			return result;
+		}
 	}
 }
