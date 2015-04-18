@@ -280,5 +280,23 @@ namespace ClientGUI
 			ordersSellSpinner.Maximum = App.DiginotesNr;
 			nDiginotesLabel.Text = "" + App.DiginotesNr;
 		}
+
+        private void updatePurchaseOrdersButton_Click(object sender, EventArgs e)
+        {
+            UpdatePurchaseOrders newUpdatePurchaseOrdersDialog = new UpdatePurchaseOrders();
+            newUpdatePurchaseOrdersDialog.App = App;
+            newUpdatePurchaseOrdersDialog.PurchaseOrders = App.GetPurchaseOrders();
+            newUpdatePurchaseOrdersDialog.InitializeComboBoxValues();
+            newUpdatePurchaseOrdersDialog.ShowDialog();
+        }
+
+        private void updateSaleOrders_Click(object sender, EventArgs e)
+        {
+            UpdateSaleOrders newUpdateSaleOrdersDialog = new UpdateSaleOrders();
+            newUpdateSaleOrdersDialog.App = App;
+            newUpdateSaleOrdersDialog.SaleOrders = App.GetSaleOrders();
+            newUpdateSaleOrdersDialog.InitializeComboBoxValues();
+            newUpdateSaleOrdersDialog.ShowDialog();
+        }
 	}
 }

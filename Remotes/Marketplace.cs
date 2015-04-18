@@ -200,7 +200,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 	}
 
 	public bool UpdateSaleOrder (int id, int amount)
-	{
+    {
+        Console.WriteLine("ID = " + id + " Amount = " + amount);
 		return Database.Instance.UpdateSaleOrder (id, amount);
 	}
 
@@ -237,6 +238,7 @@ public class Marketplace : MarshalByRefObject, IMarketplace
 
 	public bool UpdatePurchaseOrder (int id, int amount)
 	{
+        Console.WriteLine("ID = " + id + " Amount = " + amount);
 		return Database.Instance.UpdatePurchaseOrder (id, amount);
 	}
 

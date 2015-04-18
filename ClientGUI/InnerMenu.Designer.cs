@@ -45,6 +45,8 @@
             this.nDiginotesLabel = new System.Windows.Forms.Label();
             this.balanceGraphPanel = new System.Windows.Forms.Panel();
             this.quotationGraphContainer = new System.Windows.Forms.Panel();
+            this.updatePurchaseOrdersButton = new System.Windows.Forms.Button();
+            this.updateSaleOrders = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ordersSellSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.purchaseOrdersSpinner)).BeginInit();
             this.SuspendLayout();
@@ -180,23 +182,45 @@
             // 
             // balanceGraphPanel
             // 
-            this.balanceGraphPanel.Location = new System.Drawing.Point(790, 30);
+            this.balanceGraphPanel.Location = new System.Drawing.Point(777, 30);
             this.balanceGraphPanel.Name = "balanceGraphPanel";
             this.balanceGraphPanel.Size = new System.Drawing.Size(495, 236);
             this.balanceGraphPanel.TabIndex = 21;
             // 
             // quotationGraphContainer
             // 
-            this.quotationGraphContainer.Location = new System.Drawing.Point(790, 376);
+            this.quotationGraphContainer.Location = new System.Drawing.Point(777, 376);
             this.quotationGraphContainer.Name = "quotationGraphContainer";
             this.quotationGraphContainer.Size = new System.Drawing.Size(495, 236);
             this.quotationGraphContainer.TabIndex = 22;
+            // 
+            // updatePurchaseOrdersButton
+            // 
+            this.updatePurchaseOrdersButton.Location = new System.Drawing.Point(44, 455);
+            this.updatePurchaseOrdersButton.Name = "updatePurchaseOrdersButton";
+            this.updatePurchaseOrdersButton.Size = new System.Drawing.Size(158, 62);
+            this.updatePurchaseOrdersButton.TabIndex = 23;
+            this.updatePurchaseOrdersButton.Text = "Update Purchase Orders";
+            this.updatePurchaseOrdersButton.UseVisualStyleBackColor = true;
+            this.updatePurchaseOrdersButton.Click += new System.EventHandler(this.updatePurchaseOrdersButton_Click);
+            // 
+            // updateSaleOrders
+            // 
+            this.updateSaleOrders.Location = new System.Drawing.Point(359, 455);
+            this.updateSaleOrders.Name = "updateSaleOrders";
+            this.updateSaleOrders.Size = new System.Drawing.Size(158, 62);
+            this.updateSaleOrders.TabIndex = 24;
+            this.updateSaleOrders.Text = "Update Sale Orders";
+            this.updateSaleOrders.UseVisualStyleBackColor = true;
+            this.updateSaleOrders.Click += new System.EventHandler(this.updateSaleOrders_Click);
             // 
             // InnerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1302, 620);
+            this.Controls.Add(this.updateSaleOrders);
+            this.Controls.Add(this.updatePurchaseOrdersButton);
             this.Controls.Add(this.quotationGraphContainer);
             this.Controls.Add(this.balanceGraphPanel);
             this.Controls.Add(this.nDiginotesLabel);
@@ -243,5 +267,7 @@
         private System.Windows.Forms.Label nDiginotesLabel;
         private System.Windows.Forms.Panel balanceGraphPanel;
         private System.Windows.Forms.Panel quotationGraphContainer;
+        private System.Windows.Forms.Button updatePurchaseOrdersButton;
+        private System.Windows.Forms.Button updateSaleOrders;
     }
 }
