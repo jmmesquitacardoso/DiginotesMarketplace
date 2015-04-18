@@ -282,8 +282,8 @@ public class Marketplace : MarshalByRefObject, IMarketplace
             // Log occurrences
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"log.txt", true))
             {
-                file.WriteLine("" + diginotesDispatched + " diginotes were sold by user " + sellerUsername + " at a quotation of " + Database.Instance.Quotation);
-                file.WriteLine("" + diginotesDispatched + " diginotes were bought by user " + buyerUsername + " at a quotation of " + Database.Instance.Quotation);
+				file.WriteLine(DateTime.Now + "-->" + diginotesDispatched + " diginotes were sold by user " + sellerUsername + " at a quotation of " + Database.Instance.Quotation);
+				file.WriteLine(DateTime.Now + "-->" + diginotesDispatched + " diginotes were bought by user " + buyerUsername + " at a quotation of " + Database.Instance.Quotation);
             }
 
             // fire events
