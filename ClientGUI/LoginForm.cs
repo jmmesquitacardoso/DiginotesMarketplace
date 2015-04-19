@@ -31,7 +31,7 @@ namespace ClientGUI
 			base.OnFormClosing(e);
 			if (e.CloseReason == CloseReason.UserClosing)
              {
-				// Application.Exit ();
+				Application.Exit ();
              }
         }
 

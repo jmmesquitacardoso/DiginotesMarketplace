@@ -128,14 +128,14 @@ public class Database
 
 		count = Math.Min (count, userDiginotes.Count);
 
-		ArrayList returnDiginotes = new ArrayList();
+		ArrayList returnDiginotes = new ArrayList ();
 
-        returnDiginotes.AddRange(userDiginotes.GetRange(0, count));
+		returnDiginotes.AddRange (userDiginotes.GetRange (0, count));
 
 		userDiginotes.RemoveRange (0, count);
 
 		SaveDatabase ();
-		return new ArrayList(returnDiginotes);
+		return new ArrayList (returnDiginotes);
 	}
 
 	public ArrayList GetUserDiginotes (string username)
@@ -207,17 +207,19 @@ public class Database
 	public bool UpdateSaleOrder (int id, int amount)
 	{
 
-		foreach (SaleOrder order in purchases) {
+		foreach (SaleOrder order in sales) {
 			if (order.Id == id) {
 				if (amount > order.Amount) {
 					amount = amount - order.Amount;
 					string username = order.User;
 
-					for (int j = 0; j < amount; j++) {
-						((ArrayList)wallets [username]).Add (new Diginote(username));
-					}
+					ArrayList newDiginotes = RemoveDiginotesFromUser (username, amount);
+					amount = newDiginotes.Count;
+					Console.WriteLine (amount);
 
-					balances [order.User] = (float) balances[order.User] - amount * Quotation;
+					order.AddDiginotes (newDiginotes);
+
+					balances [username] = (float)balances [username] - amount * Quotation;
 				} else {
 					amount = order.Amount - amount;
 
@@ -225,7 +227,7 @@ public class Database
 					ArrayList userWallet = (ArrayList)wallets [order.User];
 					userWallet.AddRange (retrievedOrders);
 
-					balances [order.User] = (float) balances[order.User] + amount * Quotation;
+					balances [order.User] = (float)balances [order.User] + amount * Quotation;
 				}
 
 				break;
@@ -323,11 +325,11 @@ public class Database
 
 		SaleOrder order = (SaleOrder)sales.Peek ();
 
-        Console.WriteLine("Order amount: " + order.Amount);
+		Console.WriteLine ("Order amount: " + order.Amount);
 
-        ArrayList result = order.RemoveDiginotes(amount);
+		ArrayList result = order.RemoveDiginotes (amount);
 
-        Console.WriteLine("Order amount after add range: " + order.Amount);
+		Console.WriteLine ("Order amount after add range: " + order.Amount);
 
 		if (order.Amount >= amount) {
 			while (sales.Count > 0 && ((SaleOrder)sales.Peek ()).Amount == 0) {

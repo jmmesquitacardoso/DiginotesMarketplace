@@ -64,6 +64,7 @@ namespace Client
 				Balance = SharedMarketplace.GetUserBalance (Username);
                 BalanceHistory.Add (Balance);
 				DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
+				DiginotesHistory.Add (DiginotesNr);
 				OrderHistory = SharedMarketplace.GetPastOrders (Username);
 
 				// Subscribe quotation's updates
@@ -120,6 +121,11 @@ namespace Client
 			} else if (status == OrderStatus.Pending) {
 				parent.AskNewQuotation (Quotation, OrderType.Sale);
 			}
+
+			DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
+			DiginotesHistory.Add (DiginotesNr);
+			parent.UpdateDiginotesCount (DiginotesNr);
+
 			return true;
 		}
 
@@ -139,6 +145,9 @@ namespace Client
 		public void UpdateServerQuotation (float newQuotation)
 		{
 			SharedMarketplace.UpdateQuotation (newQuotation);
+
+			Quotation = SharedMarketplace.Quotation;
+			parent.UpdateQuotation (Quotation);
 		}
 
 		public ArrayList GetPurchaseOrders ()
@@ -165,6 +174,7 @@ namespace Client
 			BalanceHistory.Add (Balance);
 			parent.UpdateBalance (Balance);
 			DiginotesNr = SharedMarketplace.GetUserDiginotes (Username).Count;
+			DiginotesHistory.Add (DiginotesNr);
 			parent.UpdateDiginotesCount (DiginotesNr);
 
 			return result;
